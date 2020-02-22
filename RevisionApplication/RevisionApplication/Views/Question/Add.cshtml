@@ -2,25 +2,55 @@
 
 @using (Html.BeginForm("Add", "Question", FormMethod.Post))
 {
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th colspan="2" align="center">Person Details</th>
-        </tr>
-        <tr>
-            <td>Content: </td>
-            <td>
-                @Html.TextBoxFor(m => m.Content)
-            </td>
-        </tr>
-        <tr>
-            <td>Reference: </td>
-            <td>
-                @Html.TextBoxFor(m => m.Reference)
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Submit" /></td>
-        </tr>
-    </table>
+<table cellpadding="0" cellspacing="0">
+    <tr>
+        <th colspan="2" align="center">Person Details</th>
+    </tr>
+    <tr>
+        <td>Question: </td>
+        <td>
+            @Html.TextBoxFor(m => m.Content)
+        </td>
+    </tr>
+    <tr>
+        <td>Answer 1: </td>
+        <td>
+            @Html.TextBoxFor(m => m.Answer1)
+        </td>
+    </tr>
+    <tr>
+        <td>Answer 2: </td>
+        <td>
+            @Html.TextBoxFor(m => m.Answer2)
+        </td>
+    </tr>
+    <tr>
+        <td>Answer 3: </td>
+        <td>
+            @Html.TextBoxFor(m => m.Answer3)
+        </td>
+    </tr>
+    <tr>
+        <td>Answer 4: </td>
+        <td>
+            @Html.TextBoxFor(m => m.Answer4)
+        </td>
+    </tr>
+    <tr>
+        <td>Correct answer: </td>
+        <td>
+            @Html.TextBoxFor(m => m.CorrectAnswer)
+        </td>
+    </tr>
+    <tr>
+        <td>Reference: </td>
+        <td>
+            @Html.TextBoxFor(m => m.Reference)
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="submit" value="Submit" /></td>
+    </tr>
+</table>
 }

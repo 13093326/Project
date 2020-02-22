@@ -2,9 +2,11 @@
 
 <h2>@Model.Title</h2>
 
-@foreach (var question in Model.Questions)
-{
-    <div>
-        <h2>@question.Content</h2>
-    </div>
-}
+<table>
+    @foreach (var question in Model.Questions)
+    {
+        <tr>
+            <td>@question.Content</td><td>@question.Answer1</td><td>@question.Answer2</td><td>@question.Answer3</td><td>@question.Answer4</td><td>@question.CorrectAnswer</td><td>@question.Reference</td>
+        </tr>
+    }
+</table>

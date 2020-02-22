@@ -29,7 +29,15 @@ namespace RevisionApplication.Models
         {
             _appDbContext.Add
                    (
-                       new Question { Content = question.Content }
+                       new Question {
+                           Content = question.Content,
+                           Answer1 = question.Answer1,
+                           Answer2 = question.Answer2,
+                           Answer3 = question.Answer3,
+                           Answer4 = question.Answer4,
+                           CorrectAnswer = question.CorrectAnswer, 
+                           Reference = question.Reference
+                       }
                    );
 
             _appDbContext.SaveChanges();
