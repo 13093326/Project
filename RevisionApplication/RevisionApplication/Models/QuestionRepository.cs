@@ -24,5 +24,17 @@ namespace RevisionApplication.Models
         {
             return _appDbContext.Questions.FirstOrDefault(q => q.Id == questionId);
         }
+
+        public bool AddQuestion(Question question)
+        {
+            _appDbContext.Add
+                   (
+                       new Question { Content = question.Content }
+                   );
+
+            _appDbContext.SaveChanges();
+
+            return true;
+        }
     }
 }

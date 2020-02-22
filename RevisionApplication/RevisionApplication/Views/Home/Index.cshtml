@@ -1,13 +1,14 @@
-﻿@model RevisionApplication.ViewModels.HomeViewModel
+﻿@model HomeViewModel
 
 <h2>@Model.Title</h2>
 
-@using (Html.BeginForm("Index", "Question"))
-{
+<button type="button" onclick="location.href='@Url.Action("Index","Question")'">All questions</button>
 
-    <input type="submit" value="Add question" />
+<br />
 
-}
+<button type="button" onclick="location.href='@Url.Action("Add","Question")'">Add question</button>
+
+
 
 
 

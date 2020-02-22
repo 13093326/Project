@@ -33,5 +33,19 @@ namespace RevisionApplication.Contollers
 
             return View(homeViewModel);
         }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(Question question)
+        {
+            _questionRepository.AddQuestion(question);
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
