@@ -1,0 +1,12 @@
+﻿@model RevisionApplication.ViewModels.HomeViewModel
+
+<h2>@Model.Title</h2>
+
+@foreach (var question in Model.Questions)
+{
+    <div>
+        <h2>@question.Content</h2>
+    </div>
+}
+
+
