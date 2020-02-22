@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace RevisionApplication.ViewModels
 {
-    public class HomeViewModel
+    public class QuestionViewModel
     {
         public string Title { get; set; }
+        public List<Question> Questions { get; set; }
     }
 }

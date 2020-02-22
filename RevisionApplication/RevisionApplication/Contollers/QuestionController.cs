@@ -10,15 +10,25 @@ using RevisionApplication.ViewModels;
 
 namespace RevisionApplication.Contollers
 {
-    public class HomeController : Controller
+    public class QuestionController : Controller
     {
+        private readonly IQuestionRepository _questionRepository;
+
+        public QuestionController(IQuestionRepository questionRepository)
+        {
+            _questionRepository = questionRepository;
+        }
 
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var homeViewModel = new HomeViewModel()
+
+            var questions = _questionRepository.GetAllQuestions().OrderBy(p => p.Id).ToList();
+
+            var homeViewModel = new QuestionViewModel()
             {
-                Title = "Main menu",
+                Title = "Questions",
+                Questions = questions
             };
 
             return View(homeViewModel);
