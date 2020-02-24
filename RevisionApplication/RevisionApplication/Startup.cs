@@ -41,6 +41,7 @@ namespace RevisionApplication
 
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 // Default route 

@@ -8,9 +8,11 @@
 <body>
     <div>
         <a asp-controller="Home" asp-action="Index">Menu</a>
+        <partial name="_LoginPartial" />
     </div>
     <div>
         @RenderBody()
     </div>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
