@@ -1,7 +1,7 @@
 ﻿@model RevisionViewModel
 
 <h1>@Model.Title</h1>
-
+<h4>@ViewBag.Message</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -33,5 +33,5 @@
     </div>
 </div>
 
-<button type="button" onclick="location.href='@Url.Action("Index","FlashCard", new { record = Model.Question.Id })'">Next question</button>
+<button type="button" onclick="location.href='@Url.Action("Index","MultipleChoice", new { record = Model.Question.Id })'">Next question</button>
 

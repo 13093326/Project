@@ -10,5 +10,6 @@ namespace RevisionApplication.ViewModels
     {
         public string Title { get; set; }
         public List<Question> Questions { get; set; }
+        public int chosenAnswer { get; set; }
     }
 }

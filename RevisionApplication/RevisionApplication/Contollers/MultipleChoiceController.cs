@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace RevisionApplication.Contollers
 {
-    public class FlashCardController : Controller
+    public class MultipleChoiceController : Controller
     {
         private readonly IQuestionRepository _questionRepository;
 
-        public FlashCardController(IQuestionRepository questionRepository)
+        public MultipleChoiceController(IQuestionRepository questionRepository)
         {
             _questionRepository = questionRepository;
         }
@@ -21,12 +21,12 @@ namespace RevisionApplication.Contollers
 
             if (question is null)
             {
-                return RedirectToAction("Index", "FlashCard", new { record = 0 });
+                return RedirectToAction("Index", "MultipleChoice", new { record = 0 });
             }
 
             var revisionViewModel = new RevisionViewModel()
             {
-                Title = "Flash card question",
+                Title = "Multiple choice question",
                 Question = question,
                 currentRecord = record
             };
@@ -37,8 +37,17 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Index(RevisionViewModel model)
         {
-            model.Title = "Flash card answer"; 
-            return View("Answer", model);
+            if (model.ChosenAnswer.Equals(model.Question.CorrectAnswer.ToString()))
+            {
+                ViewBag.Message = "Correct."; 
+                model.Title = "Multiple choice answer";
+                return View("Answer", model);
+            }
+            else
+            {
+                ViewBag.Message = $"Answer { model.ChosenAnswer } is incorrect.";
+                return View("Index", model);
+            }
         }
 
     }

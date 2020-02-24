@@ -1,0 +1,55 @@
+﻿@model RevisionViewModel
+
+<h1>@Model.Title</h1>
+<h4>@ViewBag.Message</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                Question: <br />
+                @Html.Display("Question.Content")
+            </div>
+            <div class="form-group">
+                Answer 1: <br />
+                @Html.RadioButtonFor(m => m.ChosenAnswer, 1)
+                @Html.Display("Question.Answer1")
+            </div>
+            <div class="form-group">
+                Answer 2: <br />
+                @Html.RadioButtonFor(m => m.ChosenAnswer, 2)
+                @Html.Display("Question.Answer2")
+            </div>
+            <div class="form-group">
+                Answer 3: <br />
+                @Html.RadioButtonFor(m => m.ChosenAnswer, 3)
+                @Html.Display("Question.Answer3")
+            </div>
+            <div class="form-group">
+                Answer 4: <br />
+                @Html.RadioButtonFor(m => m.ChosenAnswer, 4)
+                @Html.Display("Question.Answer4")
+            </div>
+            <br />
+            @Html.Hidden("Question.Id")
+            @Html.Hidden("Title")
+            @Html.Hidden("Question.Content")
+            @Html.Hidden("Question.Answer1")
+            @Html.Hidden("Question.Answer2")
+            @Html.Hidden("Question.Answer3")
+            @Html.Hidden("Question.Answer4")
+            @Html.Hidden("Question.CorrectAnswer")
+            @Html.Hidden("Question.Reference")
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
