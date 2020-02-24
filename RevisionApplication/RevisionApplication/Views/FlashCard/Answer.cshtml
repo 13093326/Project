@@ -1,0 +1,37 @@
+﻿@model RevisionViewModel
+
+<h1>@Model.Title</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                Answer: <br />
+                @switch (Model.Question.CorrectAnswer)
+                {
+                    case 1:
+                        @Html.Display("Question.Answer1")
+                        break;
+                    case 2:
+                        @Html.Display("Question.Answer2")
+                        break;
+                    case 3:
+                        @Html.Display("Question.Answer3")
+                        break;
+                    case 4:
+                        @Html.Display("Question.Answer4")
+                        break;
+                }
+                <br />
+                Reference: <br />
+                @Html.Display("Question.Reference")
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+
+<button type="button" onclick="location.href='@Url.Action("Index","FlashCard", new { record = Model.Question.Id })'">Add question</button>
+

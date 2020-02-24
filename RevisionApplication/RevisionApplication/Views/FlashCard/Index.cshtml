@@ -1,0 +1,33 @@
+﻿@model RevisionViewModel
+
+<h1>@Model.Title</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                Question: <br />
+                @Html.Display("Question.Content")
+            </div>
+            <br />
+            @Html.Hidden("Question.Id")
+            @Html.Hidden("Question.Answer1")
+            @Html.Hidden("Question.Answer2")
+            @Html.Hidden("Question.Answer3")
+            @Html.Hidden("Question.Answer4")
+            @Html.Hidden("Question.CorrectAnswer")
+            @Html.Hidden("Question.Reference")
+            <div class="form-group">
+                <input type="submit" value="Show" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
