@@ -1,0 +1,27 @@
+﻿@model SettingsViewModel
+
+<h2>@Model.Title</h2>
+
+@using (Html.BeginForm("Index", "Settings", FormMethod.Post))
+{
+
+<fieldset>
+
+    <legend>Select unit</legend>
+
+    <div class="editor-field">
+
+        @Html.ListBoxFor(model => model.SelectedUnitIds, Model.GetUnitsAsSelectListItems())
+
+    </div>
+    @Html.Hidden("Title")
+    @Html.Hidden("Units")
+    <p>
+
+        <input type="submit" value="Save" />
+
+    </p>
+
+</fieldset>
+
+}

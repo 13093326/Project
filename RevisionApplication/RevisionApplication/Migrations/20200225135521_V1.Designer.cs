@@ -10,7 +10,7 @@ using RevisionApplication.Models;
 namespace RevisionApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200225104435_V1")]
+    [Migration("20200225135521_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -276,7 +276,7 @@ namespace RevisionApplication.Migrations
             modelBuilder.Entity("RevisionApplication.Models.Question", b =>
                 {
                     b.HasOne("RevisionApplication.Models.Unit", "Unit")
-                        .WithMany("Question")
+                        .WithMany()
                         .HasForeignKey("UnitId");
                 });
 #pragma warning restore 612, 618

@@ -34,6 +34,11 @@ namespace RevisionApplication.Models
 
             return true;
         }
+
+        public string GetAllUnitIds()
+        {
+            return string.Join(",", GetAllUnits().Select(item => item.Id));
+        }
     }
 }
 

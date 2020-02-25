@@ -13,8 +13,8 @@ namespace RevisionApplication.Models
             {
                 var Unit1 = new Unit { Name = "Unit 1" };
                 var Unit2 = new Unit { Name = "Unit 2" };
-                var Unit3 = new Unit { Name = "Unit 1" };
-                var Unit4 = new Unit { Name = "Unit 2" };
+                var Unit3 = new Unit { Name = "Unit 3" };
+                var Unit4 = new Unit { Name = "Unit 4" };
 
                 context.AddRange
                     (

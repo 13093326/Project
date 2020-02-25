@@ -2,6 +2,14 @@
 
 <h2>@Model.Title</h2>
 
+Units: <br />
+@Html.Display("SelectedUnits") 
+<br />
+
+<button type="button" onclick="location.href='@Url.Action("Index","Settings")'">Settings</button>
+
+<br />
+
 <button type="button" onclick="location.href='@Url.Action("Index","Question")'">All questions</button>
 
 <br />
