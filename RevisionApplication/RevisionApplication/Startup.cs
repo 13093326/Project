@@ -28,6 +28,17 @@ namespace RevisionApplication
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IQuestionRepository, QuestionRepository>();
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddMvc();
         }
 
@@ -41,6 +52,7 @@ namespace RevisionApplication
 
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseAuthentication();
             app.UseMvc(routes =>
             {
