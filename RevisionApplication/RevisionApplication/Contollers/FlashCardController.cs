@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Models;
 using RevisionApplication.ViewModels;
 using System.Linq;
@@ -8,16 +9,23 @@ namespace RevisionApplication.Contollers
     public class FlashCardController : Controller
     {
         private readonly IQuestionRepository _questionRepository;
+        private readonly IUnitRepository _unitRepository;
+        public const string SessionKeyName = "_Unit";
 
-        public FlashCardController(IQuestionRepository questionRepository)
+        public FlashCardController(IQuestionRepository questionRepository, IUnitRepository unitRepository)
         {
             _questionRepository = questionRepository;
+            _unitRepository = unitRepository;
         }
 
         [HttpGet]
         public IActionResult Index(int record)
         {
-            var question = _questionRepository.GetAllQuestions().Where(p => p.Id > record).OrderBy(p => p.Id).FirstOrDefault();
+            var selectedUnits = HttpContext.Session.GetString(SessionKeyName).Split(',').Select(int.Parse).ToList();
+
+            var units = _unitRepository.GetAllUnits().Where(p => selectedUnits.Contains(p.Id));
+
+            var question = _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit)).Where(p => p.Id > record).OrderBy(p => p.Id).FirstOrDefault();
 
             if (question is null)
             {
