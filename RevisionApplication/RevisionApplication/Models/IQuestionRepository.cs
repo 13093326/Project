@@ -9,6 +9,6 @@ namespace RevisionApplication.Models
     {
         IEnumerable<Question> GetAllQuestions();
         Question GetQuestionById(int questionId);
-        bool AddQuestion(Question question);
+        bool AddQuestion(Question question, Unit unit);
     }
 }

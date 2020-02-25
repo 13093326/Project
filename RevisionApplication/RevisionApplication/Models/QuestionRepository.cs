@@ -25,7 +25,7 @@ namespace RevisionApplication.Models
             return _appDbContext.Questions.FirstOrDefault(q => q.Id == questionId);
         }
 
-        public bool AddQuestion(Question question)
+        public bool AddQuestion(Question question, Unit unit)
         {
             _appDbContext.Add
                    (
@@ -36,7 +36,8 @@ namespace RevisionApplication.Models
                            Answer3 = question.Answer3,
                            Answer4 = question.Answer4,
                            CorrectAnswer = question.CorrectAnswer, 
-                           Reference = question.Reference
+                           Reference = question.Reference,
+                           Unit = unit
                        }
                    );
 

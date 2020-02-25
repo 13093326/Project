@@ -136,9 +136,11 @@ namespace RevisionApplication.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -169,9 +171,11 @@ namespace RevisionApplication.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value");
 
@@ -200,9 +204,26 @@ namespace RevisionApplication.Migrations
 
                     b.Property<string>("Reference");
 
+                    b.Property<int?>("UnitId");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UnitId");
+
                     b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("RevisionApplication.Models.Unit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Units");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -248,6 +269,13 @@ namespace RevisionApplication.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RevisionApplication.Models.Question", b =>
+                {
+                    b.HasOne("RevisionApplication.Models.Unit", "Unit")
+                        .WithMany("Question")
+                        .HasForeignKey("UnitId");
                 });
 #pragma warning restore 612, 618
         }

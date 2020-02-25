@@ -15,5 +15,7 @@ namespace RevisionApplication.Models
         public string Answer4 { get; set; }
         public int CorrectAnswer { get; set; }
         public string Reference { get; set; }
+
+        public virtual Unit Unit { get; set; }
     }
 }

@@ -12,5 +12,6 @@ namespace RevisionApplication.Models
         }
 
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Unit> Units { get; set; }
     }
 }

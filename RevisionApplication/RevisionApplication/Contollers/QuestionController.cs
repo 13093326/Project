@@ -35,9 +35,9 @@ namespace RevisionApplication.Contollers
         }
 
         [HttpPost]
-        public IActionResult Add(Question question)
+        public IActionResult Add(Question question, Unit unit)
         {
-            _questionRepository.AddQuestion(question);
+            _questionRepository.AddQuestion(question, unit);
 
             return RedirectToAction("Index", "Home");
         }
