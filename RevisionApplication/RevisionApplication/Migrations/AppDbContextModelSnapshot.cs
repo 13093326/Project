@@ -221,7 +221,7 @@ namespace RevisionApplication.Migrations
 
                     b.Property<int?>("QuestionId");
 
-                    b.Property<bool>("Result");
+                    b.Property<string>("Result");
 
                     b.Property<int?>("TestSetId");
 

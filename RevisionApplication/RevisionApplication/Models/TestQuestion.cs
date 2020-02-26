@@ -8,7 +8,8 @@ namespace RevisionApplication.Models
     public class TestQuestion
     {
         public int Id { get; set; }
-        public bool Result { get; set; }
+        public string Result { get; set; }
+        public int QuestionId { get; set; }
 
         public virtual Question Question { get; set; }
         public virtual TestSet TestSet { get; set; }

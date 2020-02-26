@@ -48,6 +48,20 @@ namespace RevisionApplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TestSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    user = table.Column<string>(nullable: true),
+                    complete = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestSet", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Units",
                 columns: table => new
                 {
@@ -192,6 +206,33 @@ namespace RevisionApplication.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TestQuestions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Result = table.Column<string>(nullable: true),
+                    QuestionId = table.Column<int>(nullable: true),
+                    TestSetId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestQuestions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TestQuestions_Questions_QuestionId",
+                        column: x => x.QuestionId,
+                        principalTable: "Questions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TestQuestions_TestSet_TestSetId",
+                        column: x => x.TestSetId,
+                        principalTable: "TestSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -235,6 +276,16 @@ namespace RevisionApplication.Migrations
                 name: "IX_Questions_UnitId",
                 table: "Questions",
                 column: "UnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestQuestions_QuestionId",
+                table: "TestQuestions",
+                column: "QuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestQuestions_TestSetId",
+                table: "TestQuestions",
+                column: "TestSetId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -255,13 +306,19 @@ namespace RevisionApplication.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Questions");
+                name: "TestQuestions");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Questions");
+
+            migrationBuilder.DropTable(
+                name: "TestSet");
 
             migrationBuilder.DropTable(
                 name: "Units");

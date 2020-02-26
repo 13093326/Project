@@ -18,5 +18,21 @@ namespace RevisionApplication.Models
         {
             return _appDbContext.TestSet;
         }
+
+        public TestSet AddTestSet(TestSet testSet)
+        {
+            _appDbContext.Add(testSet);
+            _appDbContext.SaveChanges();
+
+            return testSet;
+        }
+
+        public bool UpdateTestSet(TestSet testSet)
+        {
+            _appDbContext.TestSet.Update(testSet);
+            _appDbContext.SaveChanges();
+
+            return true;
+        }
     }
 }

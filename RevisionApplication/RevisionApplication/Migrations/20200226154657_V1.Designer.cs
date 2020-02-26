@@ -10,7 +10,7 @@ using RevisionApplication.Models;
 namespace RevisionApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200225135521_V1")]
+    [Migration("20200226154657_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,6 +215,42 @@ namespace RevisionApplication.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("RevisionApplication.Models.TestQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("QuestionId");
+
+                    b.Property<string>("Result");
+
+                    b.Property<int?>("TestSetId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("TestSetId");
+
+                    b.ToTable("TestQuestions");
+                });
+
+            modelBuilder.Entity("RevisionApplication.Models.TestSet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("complete");
+
+                    b.Property<string>("user");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TestSet");
+                });
+
             modelBuilder.Entity("RevisionApplication.Models.Unit", b =>
                 {
                     b.Property<int>("Id")
@@ -276,8 +312,19 @@ namespace RevisionApplication.Migrations
             modelBuilder.Entity("RevisionApplication.Models.Question", b =>
                 {
                     b.HasOne("RevisionApplication.Models.Unit", "Unit")
-                        .WithMany()
+                        .WithMany("Question")
                         .HasForeignKey("UnitId");
+                });
+
+            modelBuilder.Entity("RevisionApplication.Models.TestQuestion", b =>
+                {
+                    b.HasOne("RevisionApplication.Models.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId");
+
+                    b.HasOne("RevisionApplication.Models.TestSet", "TestSet")
+                        .WithMany()
+                        .HasForeignKey("TestSetId");
                 });
 #pragma warning restore 612, 618
         }
