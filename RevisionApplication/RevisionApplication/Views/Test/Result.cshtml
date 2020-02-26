@@ -1,2 +1,3 @@
-﻿
-This is the test result page. 
+﻿@model ResultViewModel
+
+Score: @Html.Display("CorrectCount") / @Html.Display("TotalCount")

@@ -34,7 +34,7 @@ namespace RevisionApplication.Contollers
             var currentUser = User.Identity.Name;
 
             // Find if there is a current test set 
-            var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.user.Equals(currentUser)).OrderBy(p => p.Id).FirstOrDefault();
+            var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.user.Equals(currentUser)).Where(p => p.complete == false).OrderBy(p => p.Id).FirstOrDefault();
 
             if (currentTestSet is null)
             {
@@ -77,7 +77,7 @@ namespace RevisionApplication.Contollers
                 currentTestSet.complete = true;
                 _testSetRepository.UpdateTestSet(currentTestSet);
 
-                return RedirectToAction("Result", "Test");
+                return RedirectToAction("Result", "Test", new { Id = currentTestSet.Id } );
             }
         }
 
@@ -98,16 +98,34 @@ namespace RevisionApplication.Contollers
             var nextTestQuestion = _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None")).OrderBy(p => p.Id).FirstOrDefault();
 
             // No questions dispaly result page 
-            return RedirectToAction("Index", "Test");
+            return RedirectToAction("Index", "Test" );
         }
 
         [HttpGet]
-        public IActionResult Result()
+        public IActionResult Result(int Id)
         {
+            // Get test results 
+            var results = _testQuestionRepository.GetAllTestQuestions().Where(p => p.TestSetId == Id);
 
-            // Display test results 
+            int totalCount = 0;
+            int correctCount = 0;
 
-            return View();
+            foreach (var result in results)
+            {
+                totalCount++; 
+                if (result.Result.Equals("True"))
+                {
+                    correctCount++;
+                }
+            }
+
+            var resultViewModel = new ResultViewModel
+            {
+                TotalCount = totalCount, 
+                CorrectCount = correctCount
+            };
+
+            return View(resultViewModel);
         }
     }
 }
