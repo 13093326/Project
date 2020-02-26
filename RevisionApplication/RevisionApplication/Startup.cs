@@ -27,6 +27,8 @@ namespace RevisionApplication
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IQuestionRepository, QuestionRepository>();
+            services.AddTransient<ITestQuestionRepository, TestQuestionRepository>();
+            services.AddTransient<ITestSetRepository, TestSetRepository>();
             services.AddTransient<IUnitRepository, UnitRepository>();
 
             services.AddDistributedMemoryCache();
