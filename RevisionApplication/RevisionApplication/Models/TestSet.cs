@@ -13,5 +13,7 @@ namespace RevisionApplication.Models
         public bool Complete { get; set; }
         [Column(TypeName = "decimal(3, 2)")]
         public decimal Score { get; set; }
+
+        public ICollection<TestQuestion> TestQuestions { get; set; }
     }
 }

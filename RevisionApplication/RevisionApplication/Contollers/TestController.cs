@@ -49,7 +49,7 @@ namespace RevisionApplication.Contollers
                 // Insert questions in to test questions 
                 foreach (var question in questions)
                 {
-                    _testQuestionRepository.AddTestQuestion(new TestQuestion { TestSet = testSet, Question = question, Result = "None" });
+                    _testQuestionRepository.AddTestQuestion(new TestQuestion { TestSet = testSet, QuestionId = question.Id, Result = "None" });
                 }
 
                 currentTestSet = testSet;

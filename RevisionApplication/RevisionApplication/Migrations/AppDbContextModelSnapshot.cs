@@ -204,7 +204,7 @@ namespace RevisionApplication.Migrations
 
                     b.Property<string>("Reference");
 
-                    b.Property<int?>("UnitId");
+                    b.Property<int>("UnitId");
 
                     b.HasKey("Id");
 
@@ -313,19 +313,20 @@ namespace RevisionApplication.Migrations
             modelBuilder.Entity("RevisionApplication.Models.Question", b =>
                 {
                     b.HasOne("RevisionApplication.Models.Unit", "Unit")
-                        .WithMany("Question")
-                        .HasForeignKey("UnitId");
+                        .WithMany("Questions")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("RevisionApplication.Models.TestQuestion", b =>
                 {
-                    b.HasOne("RevisionApplication.Models.Question", "Question")
+                    b.HasOne("RevisionApplication.Models.Question", "Questions")
                         .WithMany()
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RevisionApplication.Models.TestSet", "TestSet")
-                        .WithMany()
+                        .WithMany("TestQuestions")
                         .HasForeignKey("TestSetId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

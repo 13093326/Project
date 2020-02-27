@@ -11,8 +11,7 @@ namespace RevisionApplication.Models
         public string Result { get; set; }
         public int QuestionId { get; set; }
         public int TestSetId { get; set; }
-
-        public virtual Question Question { get; set; }
-        public virtual TestSet TestSet { get; set; }
+        public TestSet TestSet { get; set; }
+        public Question Questions { get; set; }
     }
 }

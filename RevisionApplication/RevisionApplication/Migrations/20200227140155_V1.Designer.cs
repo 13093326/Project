@@ -10,7 +10,7 @@ using RevisionApplication.Models;
 namespace RevisionApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200227115613_V1")]
+    [Migration("20200227140155_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -206,7 +206,7 @@ namespace RevisionApplication.Migrations
 
                     b.Property<string>("Reference");
 
-                    b.Property<int?>("UnitId");
+                    b.Property<int>("UnitId");
 
                     b.HasKey("Id");
 
@@ -315,19 +315,20 @@ namespace RevisionApplication.Migrations
             modelBuilder.Entity("RevisionApplication.Models.Question", b =>
                 {
                     b.HasOne("RevisionApplication.Models.Unit", "Unit")
-                        .WithMany("Question")
-                        .HasForeignKey("UnitId");
+                        .WithMany("Questions")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("RevisionApplication.Models.TestQuestion", b =>
                 {
-                    b.HasOne("RevisionApplication.Models.Question", "Question")
+                    b.HasOne("RevisionApplication.Models.Question", "Questions")
                         .WithMany()
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RevisionApplication.Models.TestSet", "TestSet")
-                        .WithMany()
+                        .WithMany("TestQuestions")
                         .HasForeignKey("TestSetId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

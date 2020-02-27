@@ -194,7 +194,7 @@ namespace RevisionApplication.Migrations
                     Answer4 = table.Column<string>(nullable: true),
                     CorrectAnswer = table.Column<int>(nullable: false),
                     Reference = table.Column<string>(nullable: true),
-                    UnitId = table.Column<int>(nullable: true)
+                    UnitId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,7 +204,7 @@ namespace RevisionApplication.Migrations
                         column: x => x.UnitId,
                         principalTable: "Units",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
