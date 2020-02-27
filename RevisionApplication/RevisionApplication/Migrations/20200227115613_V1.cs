@@ -53,8 +53,9 @@ namespace RevisionApplication.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    user = table.Column<string>(nullable: true),
-                    complete = table.Column<bool>(nullable: false)
+                    User = table.Column<string>(nullable: true),
+                    Complete = table.Column<bool>(nullable: false),
+                    Score = table.Column<decimal>(type: "decimal(3, 2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -213,8 +214,8 @@ namespace RevisionApplication.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Result = table.Column<string>(nullable: true),
-                    QuestionId = table.Column<int>(nullable: true),
-                    TestSetId = table.Column<int>(nullable: true)
+                    QuestionId = table.Column<int>(nullable: false),
+                    TestSetId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -224,13 +225,13 @@ namespace RevisionApplication.Migrations
                         column: x => x.QuestionId,
                         principalTable: "Questions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TestQuestions_TestSet_TestSetId",
                         column: x => x.TestSetId,
                         principalTable: "TestSet",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

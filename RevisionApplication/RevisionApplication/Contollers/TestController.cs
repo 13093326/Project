@@ -34,12 +34,12 @@ namespace RevisionApplication.Contollers
             var currentUser = User.Identity.Name;
 
             // Find if there is a current test set 
-            var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.user.Equals(currentUser)).Where(p => p.complete == false).OrderBy(p => p.Id).FirstOrDefault();
+            var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.User.Equals(currentUser)).Where(p => p.Complete == false).OrderBy(p => p.Id).FirstOrDefault();
 
             if (currentTestSet is null)
             {
                 // No test set then create one 
-                var testSet = _testSetRepository.AddTestSet( new TestSet { user = currentUser, complete = false });
+                var testSet = _testSetRepository.AddTestSet( new TestSet { User = currentUser, Complete = false });
 
                 // Get questions for the selected unit 
                 var selectedUnits = HttpContext.Session.GetString(SessionKeyName).Split(',').Select(int.Parse).ToList();
@@ -74,10 +74,10 @@ namespace RevisionApplication.Contollers
             else
             {
                 // Close test set 
-                currentTestSet.complete = true;
+                currentTestSet.Complete = true;
                 _testSetRepository.UpdateTestSet(currentTestSet);
 
-                return RedirectToAction("Result", "Test", new { Id = currentTestSet.Id } );
+                return RedirectToAction("Result", "Test", new { currentTestSet.Id } );
             }
         }
 
@@ -94,10 +94,10 @@ namespace RevisionApplication.Contollers
 
             // Check for next question 
             var currentUser = User.Identity.Name;
-            var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.user.Equals(currentUser)).OrderBy(p => p.Id).FirstOrDefault();
+            var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.User.Equals(currentUser)).OrderBy(p => p.Id).FirstOrDefault();
             var nextTestQuestion = _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None")).OrderBy(p => p.Id).FirstOrDefault();
 
-            // No questions dispaly result page 
+            // Display next question 
             return RedirectToAction("Index", "Test" );
         }
 
@@ -124,6 +124,12 @@ namespace RevisionApplication.Contollers
                 TotalCount = totalCount, 
                 CorrectCount = correctCount
             };
+
+            // Record score 
+            var percentage = Math.Round((decimal)correctCount / (decimal)totalCount, 2);
+            var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.Id == Id).OrderBy(p => p.Id).FirstOrDefault();
+            currentTestSet.Score = percentage;
+            _testSetRepository.UpdateTestSet(currentTestSet);
 
             return View(resultViewModel);
         }

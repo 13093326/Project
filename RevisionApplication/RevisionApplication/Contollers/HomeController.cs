@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using RevisionApplication.ViewModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Models;
-using System.Linq;
+using RevisionApplication.ViewModels;
 
 namespace RevisionApplication.Contollers
 {
@@ -21,7 +20,6 @@ namespace RevisionApplication.Contollers
         [Authorize]
         public IActionResult Index()
         {
-
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
             {
                 var allUnitsIds = _unitRepository.GetAllUnitIds();

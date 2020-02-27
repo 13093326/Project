@@ -219,11 +219,11 @@ namespace RevisionApplication.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("QuestionId");
+                    b.Property<int>("QuestionId");
 
                     b.Property<string>("Result");
 
-                    b.Property<int?>("TestSetId");
+                    b.Property<int>("TestSetId");
 
                     b.HasKey("Id");
 
@@ -240,9 +240,12 @@ namespace RevisionApplication.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("complete");
+                    b.Property<bool>("Complete");
 
-                    b.Property<string>("user");
+                    b.Property<decimal>("Score")
+                        .HasColumnType("decimal(3, 2)");
+
+                    b.Property<string>("User");
 
                     b.HasKey("Id");
 
@@ -318,11 +321,13 @@ namespace RevisionApplication.Migrations
                 {
                     b.HasOne("RevisionApplication.Models.Question", "Question")
                         .WithMany()
-                        .HasForeignKey("QuestionId");
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RevisionApplication.Models.TestSet", "TestSet")
                         .WithMany()
-                        .HasForeignKey("TestSetId");
+                        .HasForeignKey("TestSetId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

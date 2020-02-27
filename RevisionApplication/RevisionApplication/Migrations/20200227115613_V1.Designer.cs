@@ -10,7 +10,7 @@ using RevisionApplication.Models;
 namespace RevisionApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200226154657_V1")]
+    [Migration("20200227115613_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,11 +221,11 @@ namespace RevisionApplication.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("QuestionId");
+                    b.Property<int>("QuestionId");
 
                     b.Property<string>("Result");
 
-                    b.Property<int?>("TestSetId");
+                    b.Property<int>("TestSetId");
 
                     b.HasKey("Id");
 
@@ -242,9 +242,12 @@ namespace RevisionApplication.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("complete");
+                    b.Property<bool>("Complete");
 
-                    b.Property<string>("user");
+                    b.Property<decimal>("Score")
+                        .HasColumnType("decimal(3, 2)");
+
+                    b.Property<string>("User");
 
                     b.HasKey("Id");
 
@@ -320,11 +323,13 @@ namespace RevisionApplication.Migrations
                 {
                     b.HasOne("RevisionApplication.Models.Question", "Question")
                         .WithMany()
-                        .HasForeignKey("QuestionId");
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RevisionApplication.Models.TestSet", "TestSet")
                         .WithMany()
-                        .HasForeignKey("TestSetId");
+                        .HasForeignKey("TestSetId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
