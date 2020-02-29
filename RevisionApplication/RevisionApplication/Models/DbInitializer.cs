@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +11,38 @@ namespace RevisionApplication.Models
     {
         public static void Seed(AppDbContext context)
         {
+
+            if (!context.Roles.Any(r => r.Name == "Admin"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Admin";
+
+                context.Roles.Add(role);
+                context.SaveChanges();
+            }
+
+            if (!context.Users.Any(u => u.UserName == "admin@admin.com"))
+            {
+                var user = new IdentityUser();
+                user.UserName = "admin@admin.com"; 
+                user.NormalizedEmail = "admin@admin.com";
+                user.NormalizedUserName = "admin@admin.com";
+                user.LockoutEnabled = false;
+                user.SecurityStamp = "fewjiojfew";
+                user.Email = "admin@admin.com";
+                var hasher = new PasswordHasher<IdentityUser>();
+                user.PasswordHash = hasher.HashPassword(user, "Aa111!");
+
+                context.Users.Add(user);
+
+                var userRole = new IdentityUserRole<string>();
+                userRole.UserId = user.Id;
+                userRole.RoleId = context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).FirstOrDefault();
+
+                context.UserRoles.Add(userRole);
+                context.SaveChanges();
+            }
+
             if (!context.Questions.Any())
             {
                 var Unit1 = new Unit { Name = "Unit 1" };
