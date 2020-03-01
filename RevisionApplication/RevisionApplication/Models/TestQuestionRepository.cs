@@ -27,6 +27,14 @@ namespace RevisionApplication.Models
             return true;
         }
 
+        public bool AddTestQuestions(List<TestQuestion> testQuestions)
+        {
+            _appDbContext.AddRange(testQuestions);
+            _appDbContext.SaveChanges();
+
+            return true;
+        }
+
         public TestQuestion GetTestQuestionById(int testQuestionId)
         {
             return _appDbContext.TestQuestions.FirstOrDefault(q => q.Id == testQuestionId);

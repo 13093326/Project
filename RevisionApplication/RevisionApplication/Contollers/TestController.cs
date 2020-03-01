@@ -41,17 +41,52 @@ namespace RevisionApplication.Contollers
                 // No test set then create one 
                 var testSet = _testSetRepository.AddTestSet( new TestSet { User = currentUser, Complete = false });
 
-                // Get questions for the selected unit 
+                // Get question ids for the selected units 
                 var selectedUnits = HttpContext.Session.GetString(SessionKeyName).Split(',').Select(int.Parse).ToList();
                 var units = _unitRepository.GetAllUnits().Where(p => selectedUnits.Contains(p.Id));
-                var questions = _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit)).OrderBy(p => p.Id).Take(50);
+                var allValidQuestionIds = _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit)).Select(p => p.Id);
 
-                // Insert questions in to test questions 
-                foreach (var question in questions)
+                // Default to using all the questions in the test 
+                var testQuestionIds = allValidQuestionIds;
+
+                // Check there is enough questions to make a random selection 
+                if (allValidQuestionIds.Count() > 50)
                 {
-                    _testQuestionRepository.AddTestQuestion(new TestQuestion { TestSet = testSet, QuestionId = question.Id, Result = "None" });
+                    // Set up for question selection 
+                    Random random = new Random();
+                    HashSet<int> numbersHash = new HashSet<int>(allValidQuestionIds.OrderBy(x => random.Next()));
+                    HashSet<int> selectedHash = new HashSet<int>();
+
+                    // Select 50 questions 
+                    for (int i = 0; i < 50; i++)
+                    {
+                        // Get next question 
+                        var index = random.Next(0, numbersHash.Count() - 1);
+                        var questionId = numbersHash.ElementAt(index);
+
+                        // Store question and ensure it is not picked again 
+                        selectedHash.Add(questionId);
+                        numbersHash.Remove(questionId);
+                    }
+
+                    // Update the list of questions with those selected 
+                    testQuestionIds = selectedHash.ToList();
                 }
 
+                // Get the selected questions 
+                var testQuestions = _questionRepository.GetAllQuestions().Where(p => testQuestionIds.Contains(p.Id));
+
+                List<TestQuestion> testQuestionSet = new List<TestQuestion>();
+
+                // Insert questions in to test questions 
+                foreach (var question in testQuestions)
+                {
+                    testQuestionSet.Add(new TestQuestion { TestSet = testSet, QuestionId = question.Id, Result = "None" });
+                }
+
+                _testQuestionRepository.AddTestQuestions(testQuestionSet);
+
+                // Continue with this new test set 
                 currentTestSet = testSet;
             }
 
