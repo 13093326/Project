@@ -27,19 +27,9 @@ namespace RevisionApplication.Models
 
         public bool AddQuestion(Question question, Unit unit)
         {
-            _appDbContext.Add
-                   (
-                       new Question {
-                           Content = question.Content,
-                           Answer1 = question.Answer1,
-                           Answer2 = question.Answer2,
-                           Answer3 = question.Answer3,
-                           Answer4 = question.Answer4,
-                           CorrectAnswer = question.CorrectAnswer, 
-                           Reference = question.Reference,
-                           Unit = unit
-                       }
-                   );
+            question.Unit = unit; 
+
+            _appDbContext.Add(question);
 
             _appDbContext.SaveChanges();
 

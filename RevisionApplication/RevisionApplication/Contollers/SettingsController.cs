@@ -11,11 +11,12 @@ namespace RevisionApplication.Contollers
     public class SettingsController : Controller
     {
         private readonly IUnitRepository _unitRepository;
-        public const string SessionKeyName = "_Unit";
+        private readonly IUserSettingsRepository _userSettingsRepository;
 
-        public SettingsController(IUnitRepository unitRepository)
+        public SettingsController(IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
         {
             _unitRepository = unitRepository;
+            _userSettingsRepository = userSettingsRepository;
         }
 
         [HttpGet]
@@ -23,8 +24,9 @@ namespace RevisionApplication.Contollers
         {
 
             var units = _unitRepository.GetAllUnits().OrderBy(p => p.Id).ToList();
-            
-            var selectedUnits = HttpContext.Session.GetString(SessionKeyName).Split(',').Select(int.Parse).ToArray();
+
+            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(User.Identity.Name);
+            var selectedUnits = currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToArray();
 
             var settingsViewModel = new SettingsViewModel()
             {
@@ -42,7 +44,9 @@ namespace RevisionApplication.Contollers
 
             if (settingsViewModel.SelectedUnitIds != null)
             {
-                HttpContext.Session.SetString(SessionKeyName, string.Join(",", settingsViewModel.SelectedUnitIds));
+                var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(User.Identity.Name);
+                currentUserSettings.SelectedUnits = string.Join(",", settingsViewModel.SelectedUnitIds);
+                _userSettingsRepository.UpdateSettings(currentUserSettings);
             }
 
             return RedirectToAction("Index", "Home");

@@ -17,14 +17,15 @@ namespace RevisionApplication.Contollers
         private readonly IQuestionRepository _questionRepository;
         private readonly IUnitRepository _unitRepository;
         private readonly ITestQuestionRepository _testQuestionRepository;
-        public const string SessionKeyName = "_Unit";
+        private readonly IUserSettingsRepository _userSettingsRepository;
 
-        public TestController(ITestSetRepository testSetRepository, IQuestionRepository questionRepository, IUnitRepository unitRepository, ITestQuestionRepository testQuestionRepository)
+        public TestController(ITestSetRepository testSetRepository, IQuestionRepository questionRepository, IUnitRepository unitRepository, ITestQuestionRepository testQuestionRepository, IUserSettingsRepository userSettingsRepository)
         {
             _testSetRepository = testSetRepository;
             _questionRepository = questionRepository;
             _unitRepository = unitRepository;
             _testQuestionRepository = testQuestionRepository;
+            _userSettingsRepository = userSettingsRepository;
         }
 
         [Authorize]
@@ -36,13 +37,15 @@ namespace RevisionApplication.Contollers
             // Find if there is a current test set 
             var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.User.Equals(currentUser)).Where(p => p.Complete == false).OrderBy(p => p.Id).FirstOrDefault();
 
+
             if (currentTestSet is null)
             {
                 // No test set then create one 
                 var testSet = _testSetRepository.AddTestSet( new TestSet { User = currentUser, Complete = false });
 
                 // Get question ids for the selected units 
-                var selectedUnits = HttpContext.Session.GetString(SessionKeyName).Split(',').Select(int.Parse).ToList();
+                var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(User.Identity.Name);
+                var selectedUnits = currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToList();
                 var units = _unitRepository.GetAllUnits().Where(p => selectedUnits.Contains(p.Id));
                 var allValidQuestionIds = _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit)).Select(p => p.Id);
 

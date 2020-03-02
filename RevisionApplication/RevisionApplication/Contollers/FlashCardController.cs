@@ -11,18 +11,20 @@ namespace RevisionApplication.Contollers
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IUnitRepository _unitRepository;
-        public const string SessionKeyName = "_Unit";
+        private readonly IUserSettingsRepository _userSettingsRepository;
 
-        public FlashCardController(IQuestionRepository questionRepository, IUnitRepository unitRepository)
+        public FlashCardController(IQuestionRepository questionRepository, IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
         {
             _questionRepository = questionRepository;
             _unitRepository = unitRepository;
+            _userSettingsRepository = userSettingsRepository;
         }
 
         [HttpGet]
         public IActionResult Index(int record)
         {
-            var selectedUnits = HttpContext.Session.GetString(SessionKeyName).Split(',').Select(int.Parse).ToList();
+            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(User.Identity.Name);
+            var selectedUnits = currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToList();
             var units = _unitRepository.GetAllUnits().Where(p => selectedUnits.Contains(p.Id));
 
             // Get random question that is not the same as the last question 

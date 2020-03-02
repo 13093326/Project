@@ -10,24 +10,27 @@ namespace RevisionApplication.Contollers
     {
 
         private readonly IUnitRepository _unitRepository;
-        public const string SessionKeyName = "_Unit";
+        private readonly IUserSettingsRepository _userSettingsRepository;
 
-        public HomeController(IUnitRepository unitRepository)
+        public HomeController(IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
         {
             _unitRepository = unitRepository;
+            _userSettingsRepository = userSettingsRepository;
         }
 
         [Authorize]
         public IActionResult Index()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
+            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(User.Identity.Name); 
+
+            if (currentUserSettings is null)
             {
                 var allUnitsIds = _unitRepository.GetAllUnitIds();
 
-                HttpContext.Session.SetString(SessionKeyName, allUnitsIds);
+                currentUserSettings = _userSettingsRepository.AddSettings(new UserSetting { Username = User.Identity.Name, SelectedUnits = allUnitsIds });
             }
 
-            var units = HttpContext.Session.GetString(SessionKeyName);
+            var units = currentUserSettings.SelectedUnits;
 
             var homeViewModel = new HomeViewModel()
             {

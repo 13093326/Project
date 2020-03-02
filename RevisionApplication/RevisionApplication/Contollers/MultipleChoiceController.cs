@@ -10,21 +10,21 @@ namespace RevisionApplication.Contollers
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IUnitRepository _unitRepository;
-        public const string SessionKeyName = "_Unit";
+        private readonly IUserSettingsRepository _userSettingsRepository;
 
-        public MultipleChoiceController(IQuestionRepository questionRepository, IUnitRepository unitRepository)
+        public MultipleChoiceController(IQuestionRepository questionRepository, IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
         {
             _questionRepository = questionRepository;
             _unitRepository = unitRepository;
+            _userSettingsRepository = userSettingsRepository;
         }
 
         [HttpGet]
         public IActionResult Index(int record)
         {
-            var selectedUnits = HttpContext.Session.GetString(SessionKeyName).Split(',').Select(int.Parse).ToList();
-
+            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(User.Identity.Name);
+            var selectedUnits = currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToList();
             var units = _unitRepository.GetAllUnits().Where(p => selectedUnits.Contains(p.Id));
-
             var question = _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit)).Where(p => p.Id > record).OrderBy(p => p.Id).FirstOrDefault();
 
             if (question is null)

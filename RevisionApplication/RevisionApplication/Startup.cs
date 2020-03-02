@@ -31,6 +31,7 @@ namespace RevisionApplication
             services.AddTransient<ITestQuestionRepository, TestQuestionRepository>();
             services.AddTransient<ITestSetRepository, TestSetRepository>();
             services.AddTransient<IUnitRepository, UnitRepository>();
+            services.AddTransient<IUserSettingsRepository, UserSettingsRepository>();
 
             services.AddDistributedMemoryCache();
 
