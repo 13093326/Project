@@ -91,7 +91,7 @@ namespace RevisionApplication.Contollers
             }
 
             // Display next question for test set 
-            var nextTestQuestion = _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None")).OrderBy(p => p.Id).FirstOrDefault();
+            var nextTestQuestion = _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None") && p.TestSetId == currentTestSet.Id).OrderBy(p => p.Id).FirstOrDefault();
 
             if (nextTestQuestion != null)
             {
