@@ -11,6 +11,7 @@ namespace RevisionApplication.Models
 
         }
 
+        public DbSet<QuestionRating> QuestionRatings { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<TestQuestion> TestQuestions { get; set; }
         public DbSet<TestSet> TestSet { get; set; }

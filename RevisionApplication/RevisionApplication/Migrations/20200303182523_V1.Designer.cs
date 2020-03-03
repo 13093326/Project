@@ -10,8 +10,8 @@ using RevisionApplication.Models;
 namespace RevisionApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200302213549_V2")]
-    partial class V2
+    [Migration("20200303182523_V1")]
+    partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -215,6 +215,27 @@ namespace RevisionApplication.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("RevisionApplication.Models.QuestionRating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("QuestionId");
+
+                    b.Property<int>("Rating");
+
+                    b.Property<DateTime>("Time");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("QuestionRatings");
+                });
+
             modelBuilder.Entity("RevisionApplication.Models.TestQuestion", b =>
                 {
                     b.Property<int>("Id")
@@ -332,6 +353,14 @@ namespace RevisionApplication.Migrations
                     b.HasOne("RevisionApplication.Models.Unit", "Unit")
                         .WithMany("Questions")
                         .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RevisionApplication.Models.QuestionRating", b =>
+                {
+                    b.HasOne("RevisionApplication.Models.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

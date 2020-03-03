@@ -213,6 +213,27 @@ namespace RevisionApplication.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("RevisionApplication.Models.QuestionRating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("QuestionId");
+
+                    b.Property<int>("Rating");
+
+                    b.Property<DateTime>("Time");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("QuestionRatings");
+                });
+
             modelBuilder.Entity("RevisionApplication.Models.TestQuestion", b =>
                 {
                     b.Property<int>("Id")
@@ -330,6 +351,14 @@ namespace RevisionApplication.Migrations
                     b.HasOne("RevisionApplication.Models.Unit", "Unit")
                         .WithMany("Questions")
                         .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RevisionApplication.Models.QuestionRating", b =>
+                {
+                    b.HasOne("RevisionApplication.Models.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
