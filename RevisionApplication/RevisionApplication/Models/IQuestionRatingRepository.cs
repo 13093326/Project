@@ -7,8 +7,9 @@ namespace RevisionApplication.Models
 {
     public interface IQuestionRatingRepository
     {
-        IEnumerable<QuestionRating> GetAllQuestions();
-        QuestionRating GetQuestionByQuestionId(int questionId);
-        QuestionRating AddQuestionRating(QuestionRating questionRating);
+        IEnumerable<QuestionRating> GetAllRatings();
+        QuestionRating GetRatingByQuestionId(int questionId);
+        QuestionRating AddRating(QuestionRating questionRating);
+        QuestionRating UpdateRating(QuestionRating questionRating);
     }
 }

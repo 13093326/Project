@@ -14,7 +14,7 @@ namespace RevisionApplication.Models
             _appDbContext = appDbContext;
         }
 
-        public QuestionRating AddQuestionRating(QuestionRating questionRating)
+        public QuestionRating AddRating(QuestionRating questionRating)
         {
             _appDbContext.Add(questionRating);
             _appDbContext.SaveChanges();
@@ -22,14 +22,22 @@ namespace RevisionApplication.Models
             return questionRating;
         }
 
-        public IEnumerable<QuestionRating> GetAllQuestions()
+        public IEnumerable<QuestionRating> GetAllRatings()
         {
             return _appDbContext.QuestionRatings;
         }
 
-        public QuestionRating GetQuestionByQuestionId(int questionId)
+        public QuestionRating GetRatingByQuestionId(int questionId)
         {
             return _appDbContext.QuestionRatings.FirstOrDefault(q => q.QuestionId == questionId);
+        }
+
+        public QuestionRating UpdateRating(QuestionRating questionRating)
+        {
+            _appDbContext.QuestionRatings.Update(questionRating);
+            _appDbContext.SaveChanges();
+
+            return questionRating;
         }
     }
 }
