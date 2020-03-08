@@ -1,27 +1,28 @@
 ﻿@model SettingsViewModel
 
-<h2>@Model.Title</h2>
+<h1>@Model.Title</h1>
+
+<p class="item-label">
+    Select Units:
+</p>
 
 @using (Html.BeginForm("Index", "Settings", FormMethod.Post))
 {
 
-<fieldset>
-
-    <legend>Select unit</legend>
-
-    <div class="editor-field">
-
-        @Html.ListBoxFor(model => model.SelectedUnitIds, Model.GetUnitsAsSelectListItems())
-
-    </div>
-    @Html.Hidden("Title")
-    @Html.Hidden("Units")
-    <p>
-
-        <input type="submit" value="Save" />
-
-    </p>
-
-</fieldset>
-
+    <table style="width: 100%;">
+        <tbody>
+            <tr>
+                <td class="single-column">
+                    @Html.ListBoxFor(model => model.SelectedUnitIds, Model.GetUnitsAsSelectListItems(), new { @class= "list" })
+                    @Html.Hidden("Title")
+                    @Html.Hidden("Units")
+                </td>
+            </tr>
+            <tr>
+                <td class="single-column">
+                    <input value="Save" id="btnsave" type="submit" class="btn accept-changes">
+                </td>
+            </tr>
+        </tbody>
+    </table>
 }

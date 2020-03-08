@@ -1,14 +1,19 @@
 ﻿@model RevisionViewModel
 
 <h1>@Model.Title</h1>
-<h4>@ViewBag.Message</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Index">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                Answer: <br />
+
+<p class="item-label">
+    @ViewBag.Message
+</p>
+
+<p class="item-label">
+    Answer:
+</p>
+
+<table style="width: 100%;">
+    <tbody>
+        <tr>
+            <td class="single-column">
                 @switch (Model.Question.CorrectAnswer)
                 {
                     case 1:
@@ -24,14 +29,24 @@
                         @Html.Display("Question.Answer4")
                         break;
                 }
-                <br />
-                Reference: <br />
+            </td>
+        </tr>
+        <tr>
+            <td class="single-column">
+                <p class="item-label">
+                    Reference:
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="single-column">
                 @Html.Display("Question.Reference")
-            </div>
-            <br />
-        </form>
-    </div>
-</div>
-
-<button type="button" onclick="location.href='@Url.Action("Index","MultipleChoice", new { record = Model.Question.Id })'">Next question</button>
-
+            </td>
+        </tr>
+        <tr>
+            <td class="single-column">
+                <button type="button" id="btnnext" onclick="location.href='@Url.Action("Index","MultipleChoice", new { record = Model.Question.Id })'" class="btn">Next question</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

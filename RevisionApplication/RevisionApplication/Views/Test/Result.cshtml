@@ -1,3 +1,24 @@
 ﻿@model ResultViewModel
 
-Score: @Html.Display("CorrectCount") / @Html.Display("TotalCount")
+<p class="item-label">
+    Test Results:
+</p>
+
+@using (Html.BeginForm("Index", "Settings", FormMethod.Post))
+{
+
+    <table style="width: 100%;">
+        <tbody>
+            <tr>
+                <td class="single-column">
+                    Score: @Html.Display("CorrectCount") / @Html.Display("TotalCount")
+                </td>
+            </tr>
+            <tr>
+                <td class="single-column">
+                    <button type="button" id="btnmenu" onclick="location.href='@Url.Action("Index","Home")'" class="btn">Menu</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

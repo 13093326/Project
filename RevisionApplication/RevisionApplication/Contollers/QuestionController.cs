@@ -34,6 +34,29 @@ namespace RevisionApplication.Contollers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Delete(int Id)
+        {
+            _questionRepository.DeleteQuestion(Id);
+
+            return RedirectToAction("Index", "Question");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            Question model = _questionRepository.GetQuestionById(Id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Question question)
+        {
+            _questionRepository.UpdateQuestion(question);
+
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Add(Question question, Unit unit)
         {

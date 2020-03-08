@@ -35,5 +35,25 @@ namespace RevisionApplication.Models
 
             return true;
         }
+
+        public Question UpdateQuestion(Question question)
+        {
+            _appDbContext.Questions.Update(question);
+
+            _appDbContext.SaveChanges();
+
+            return question;
+        }
+
+        public bool DeleteQuestion(int questionId)
+        {
+            Question question = GetQuestionById(questionId);
+
+            _appDbContext.Questions.Remove(question);
+
+            _appDbContext.SaveChanges();
+
+            return true; 
+        }
     }
 }

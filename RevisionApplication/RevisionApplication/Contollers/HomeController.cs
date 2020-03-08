@@ -34,7 +34,7 @@ namespace RevisionApplication.Contollers
 
             var homeViewModel = new HomeViewModel()
             {
-                Title = "Main menu",
+                Title = "Main Menu",
                 SelectedUnits = units
             };
 

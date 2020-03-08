@@ -1,33 +1,61 @@
 ﻿@model HomeViewModel
 
-<h2>@Model.Title</h2>
+<h1>@Model.Title</h1>
 
-Units: <br />
-@Html.Display("SelectedUnits")
-<br />
+<p class="item-label">
+    Selected Units: <span class="units">@Html.Display("SelectedUnits")</span>
+</p>
 
-<button type="button" onclick="location.href='@Url.Action("Index","Settings")'">Settings</button>
-
-<br />
-
-<button type="button" onclick="location.href='@Url.Action("Index","Question")'">All questions</button>
-
-<br />
-
-<button type="button" onclick="location.href='@Url.Action("Add","Question")'">Add question</button>
-
-<br />
-
-<button type="button" onclick="location.href='@Url.Action("Index","FlashCard")'">Flash cards</button>
-
-<br />
-
-<button type="button" onclick="location.href='@Url.Action("Index","MultipleChoice")'">Multiple choice</button>
-
-<br />
-
-<button type="button" onclick="location.href='@Url.Action("Index","Test")'">Test</button>
-
-
-
-
+<h2>Navigation:</h2>
+<table style="width: 100%;" class="menu">
+    <tbody>
+        <tr class="navigation-row">
+            <td class="nagivation-description">
+                Select the active units to revise: 
+            </td>
+            <td class="navigation-button">
+                <button type="button" id="btnsettings" onclick="location.href='@Url.Action("Index","Settings")'" class="btn navigation">Settings</button>
+            </td>
+        </tr>
+        <tr class="navigation-row">
+            <td class="nagivation-description">
+                A list of all questions: 
+            </td>
+            <td class="navigation-button">
+                <button type="button" id="btnallquestions" onclick="location.href='@Url.Action("Index","Question")'" class="btn navigation">All questions</button>
+            </td>
+        </tr>
+        <tr class="navigation-row">
+            <td class="nagivation-description">
+                Add a new question: 
+            </td>
+            <td class="navigation-button">
+                <button type="button" id="btnaddquestion" onclick="location.href='@Url.Action("Add","Question")'" class="btn navigation">Add question</button>
+            </td>
+        </tr>
+        <tr class="navigation-row">
+            <td class="nagivation-description">
+                Randomly selected virtual flash cards: 
+            </td>
+            <td class="navigation-button">
+                <button type="button" id="btnflashcards" onclick="location.href='@Url.Action("Index","FlashCard")'" class="btn navigation">Flash cards</button>
+            </td>
+        </tr>
+        <tr class="navigation-row">
+            <td class="nagivation-description">
+                Multiple choice cards ordered by rating: 
+            </td>
+            <td class="navigation-button">
+                <button type="button" id="btnmultiplechoice" onclick="location.href='@Url.Action("Index","MultipleChoice")'" class="btn navigation">Multiple choice</button>
+            </td>
+        </tr>
+        <tr class="navigation-row">
+            <td class="nagivation-description">
+                Practise test: 
+            </td>
+            <td class="navigation-button">
+                <button type="button" id="btntest" onclick="location.href='@Url.Action("Index","Test")'" class="btn navigation">Test</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

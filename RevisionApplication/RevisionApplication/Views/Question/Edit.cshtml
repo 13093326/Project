@@ -1,0 +1,91 @@
+﻿@model Question
+
+<p class="item-label">
+    Add Question:
+</p>
+
+@using (Html.BeginForm("Edit", "Question", FormMethod.Post))
+{
+<table style="width: 100%;">
+    <tbody>
+        <tr>
+            <td>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="single-column left-2-col">
+                <label asp-for="Content" class="control-label"></label>
+            </td>
+            <td class="single-column right-2-col">
+                @Html.TextAreaFor(m => m.Content, new { @class= "area" })
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="single-column left-2-col">
+                <label asp-for="Answer1" class="control-label"></label>
+            </td>
+            <td class="single-column right-2-col">
+                @Html.TextAreaFor(m => m.Answer1, new { @class = "area" })
+                <span asp-validation-for="Answer1" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="single-column left-2-col">
+                <label asp-for="Answer2" class="control-label"></label>
+            </td>
+            <td class="single-column right-2-col">
+                @Html.TextAreaFor(m => m.Answer2, new { @class = "area" })
+                <span asp-validation-for="Answer2" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="single-column left-2-col">
+                <label asp-for="Answer3" class="control-label"></label>
+            </td>
+            <td class="single-column right-2-col">
+                @Html.TextAreaFor(m => m.Answer3, new { @class = "area" })
+                <span asp-validation-for="Answer3" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="single-column left-2-col">
+                <label asp-for="Answer4" class="control-label"></label>
+            </td>
+            <td class="single-column right-2-col">
+                @Html.TextAreaFor(m => m.Answer4, new { @class = "area" })
+                <span asp-validation-for="Answer4" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="single-column left-2-col">
+                <label asp-for="CorrectAnswer" class="control-label"></label>
+            </td>
+            <td class="single-column right-2-col">
+                @Html.TextAreaFor(m => m.CorrectAnswer, new { @class = "area" })
+                <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="single-column left-2-col">
+                <label asp-for="Reference" class="control-label"></label>
+            </td>
+            <td class="single-column right-2-col">
+                @Html.TextAreaFor(m => m.Reference, new { @class = "area" })
+                <span asp-validation-for="Reference" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="single-column">
+                <input value="Save" id="btnsave" type="submit" class="btn">
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@Html.HiddenFor(model => model.Id)
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+}

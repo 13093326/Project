@@ -2,17 +2,36 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="~/css/styles.css">
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div>
-        <a asp-controller="Home" asp-action="Index">Menu</a>
-        <partial name="_LoginPartial" />
-    </div>
-    <div>
-        @RenderBody()
-    </div>
+    <header>
+        <div class="wrapper">
+
+            <!-- FLOATS LEFT BY DEFAULT CONTAINING THE LOGO -->
+            <div class="logo-container">
+                <partial name="_LoginPartial" />
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+        <div class="wrapper">
+            @RenderBody()
+        </div>
+    </main>
+    <footer>
+        <div class="wrapper no-padding">
+            <div class="footer-detail-strip"></div>
+            <div class="footer-text" align="right">Copyright &copy; MB</div>
+        </div>
+    </footer>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

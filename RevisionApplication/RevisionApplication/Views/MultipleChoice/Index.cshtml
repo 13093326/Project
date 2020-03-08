@@ -1,54 +1,85 @@
 ﻿@model RevisionViewModel
 
 <h1>@Model.Title</h1>
-<h4>@ViewBag.Message</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Index">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                Question: <br />
-                @Html.Display("Question.Content")
-            </div>
-            <div class="form-group">
-                Answer 1: <br />
-                @Html.RadioButtonFor(m => m.ChosenAnswer, 1)
-                @Html.Display("Question.Answer1")
-            </div>
-            <div class="form-group">
-                Answer 2: <br />
-                @Html.RadioButtonFor(m => m.ChosenAnswer, 2)
-                @Html.Display("Question.Answer2")
-            </div>
-            <div class="form-group">
-                Answer 3: <br />
-                @Html.RadioButtonFor(m => m.ChosenAnswer, 3)
-                @Html.Display("Question.Answer3")
-            </div>
-            <div class="form-group">
-                Answer 4: <br />
-                @Html.RadioButtonFor(m => m.ChosenAnswer, 4)
-                @Html.Display("Question.Answer4")
-            </div>
-            <br />
-            @Html.Hidden("Question.Id")
-            @Html.Hidden("Title")
-            @Html.Hidden("Question.Content")
-            @Html.Hidden("Question.Answer1")
-            @Html.Hidden("Question.Answer2")
-            @Html.Hidden("Question.Answer3")
-            @Html.Hidden("Question.Answer4")
-            @Html.Hidden("Question.CorrectAnswer")
-            @Html.Hidden("Question.Reference")
-            <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
+@using (Html.BeginForm("Index", "MultipleChoice", FormMethod.Post))
+{
+    <table style="width: 100%;">
+        <tbody>
+            <tr>
+                <td colspan="2" class="single-column">
+                    <p class="item-label">
+                        Question:
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="single-column">
+                    @Html.Display("Question.Content")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-bottom: 1px solid #000000; "></td>
+            </tr>
+            <tr>
+                <td class="single-column left-2-col">
+                    Answer 1: @Html.RadioButtonFor(m => m.ChosenAnswer, 1)
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.Display("Question.Answer1")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-bottom: 1px solid #000000; "></td>
+            </tr>
+            <tr>
+                <td class="single-column left-2-col">
+                    Answer 2: @Html.RadioButtonFor(m => m.ChosenAnswer, 2)
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.Display("Question.Answer2")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-bottom: 1px solid #000000; "></td>
+            </tr>
+            <tr>
+                <td class="single-column left-2-col">
+                    Answer 3: @Html.RadioButtonFor(m => m.ChosenAnswer, 3)
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.Display("Question.Answer3")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-bottom: 1px solid #000000; "></td>
+            </tr>
+            <tr>
+                <td class="single-column left-2-col">
+                    Answer 4: @Html.RadioButtonFor(m => m.ChosenAnswer, 4)
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.Display("Question.Answer4")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="single-column">
+                    <input value="Submit" id="btnsubmit" type="submit" class="btn">
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
+    @Html.Hidden("Question.Id")
+    @Html.Hidden("Title")
+    @Html.Hidden("Question.Content")
+    @Html.Hidden("Question.Answer1")
+    @Html.Hidden("Question.Answer2")
+    @Html.Hidden("Question.Answer3")
+    @Html.Hidden("Question.Answer4")
+    @Html.Hidden("Question.CorrectAnswer")
+    @Html.Hidden("Question.Reference")
+}
 
 
 

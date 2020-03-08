@@ -30,7 +30,7 @@ namespace RevisionApplication.Contollers
 
             var settingsViewModel = new SettingsViewModel()
             {
-                Title = "Questions",
+                Title = "Settings",
                 Units = units,
                 SelectedUnitIds = selectedUnits
             };

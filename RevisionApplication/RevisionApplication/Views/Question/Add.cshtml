@@ -1,56 +1,74 @@
 ﻿@model Question
 
+<p class="item-label">
+    Add Question:
+</p>
+
 @using (Html.BeginForm("Add", "Question", FormMethod.Post))
 {
-<table cellpadding="0" cellspacing="0">
-    <tr>
-        <th colspan="2" align="center">Person Details</th>
-    </tr>
-    <tr>
-        <td>Question: </td>
-        <td>
-            @Html.TextBoxFor(m => m.Content)
-        </td>
-    </tr>
-    <tr>
-        <td>Answer 1: </td>
-        <td>
-            @Html.TextBoxFor(m => m.Answer1)
-        </td>
-    </tr>
-    <tr>
-        <td>Answer 2: </td>
-        <td>
-            @Html.TextBoxFor(m => m.Answer2)
-        </td>
-    </tr>
-    <tr>
-        <td>Answer 3: </td>
-        <td>
-            @Html.TextBoxFor(m => m.Answer3)
-        </td>
-    </tr>
-    <tr>
-        <td>Answer 4: </td>
-        <td>
-            @Html.TextBoxFor(m => m.Answer4)
-        </td>
-    </tr>
-    <tr>
-        <td>Correct answer: </td>
-        <td>
-            @Html.TextBoxFor(m => m.CorrectAnswer)
-        </td>
-    </tr>
-    <tr>
-        <td>Reference: </td>
-        <td>
-            @Html.TextBoxFor(m => m.Reference)
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><input type="submit" value="Submit" /></td>
-    </tr>
-</table>
+    <table style="width: 100%;">
+        <tbody>
+            <tr>
+                <td class="single-column left-2-col">
+                    Question: 
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.TextAreaFor(m => m.Content, new { @class= "area" })
+                </td>
+            </tr>
+            <tr>
+                <td class="single-column left-2-col">
+                    Answer 1: 
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.TextAreaFor(m => m.Answer1, new { @class = "area" })
+                </td>
+            </tr>
+            <tr>
+                <td class="single-column left-2-col">
+                    Answer 2: 
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.TextAreaFor(m => m.Answer2, new { @class = "area" })
+                </td>
+            </tr>
+            <tr>
+                <td class="single-column left-2-col">
+                    Answer 3: 
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.TextAreaFor(m => m.Answer3, new { @class = "area" })
+                </td>
+            </tr>
+            <tr>
+                <td class="single-column left-2-col">
+                    Answer 4: 
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.TextAreaFor(m => m.Answer4, new { @class = "area" })
+                </td>
+            </tr>
+            <tr>
+                <td class="single-column left-2-col">
+                    Correct answer: 
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.TextAreaFor(m => m.CorrectAnswer, new { @class = "area" })
+                </td>
+            </tr>
+            <tr>
+                <td class="single-column left-2-col">
+                    Reference: 
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.TextAreaFor(m => m.Reference, new { @class = "area" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="single-column">
+                    <input value="Save" id="btnsave" type="submit" class="btn">
+                </td>
+            </tr>
+        </tbody>
+    </table>
 }

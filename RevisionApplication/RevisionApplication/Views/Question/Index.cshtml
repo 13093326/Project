@@ -1,12 +1,39 @@
 ﻿@model QuestionViewModel
 
-<h2>@Model.Title</h2>
 
-<table>
-    @foreach (var question in Model.Questions)
-    {
+<table class="table">
+    <thead>
         <tr>
-            <td>@question.Content</td><td>@question.Answer1</td><td>@question.Answer2</td><td>@question.Answer3</td><td>@question.Answer4</td><td>@question.CorrectAnswer</td><td>@question.Reference</td>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions.First().Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions.First().UnitId)
+            </th>
+            <th></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Questions)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) <br />
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
