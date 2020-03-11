@@ -63,7 +63,7 @@ namespace RevisionApplication.Contollers
         public IActionResult Index(RevisionViewModel model)
         {
             // Check if question has rating 
-            var rating = _questionRatingRepository.GetRatingByQuestionId(model.Question.Id); 
+            var rating = _questionRatingRepository.GetAllRatings().Where(x => x.QuestionId == model.Question.Id && x.UserName.Equals(User.Identity.Name)).FirstOrDefault(); 
             var isCorrect = (model.ChosenAnswer.Equals(model.Question.CorrectAnswer.ToString())) ? true : false;
             if (rating is null)
             {
