@@ -166,6 +166,7 @@ namespace RevisionApplication.Contollers
             // Record score 
             var percentage = Math.Round((decimal)correctCount / (decimal)totalCount, 2);
             var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.Id == Id).OrderBy(p => p.Id).FirstOrDefault();
+            currentTestSet.Date = DateTime.Now;
             currentTestSet.Score = percentage;
             _testSetRepository.UpdateTestSet(currentTestSet);
 

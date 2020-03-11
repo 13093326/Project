@@ -1,0 +1,93 @@
+﻿@model ReportViewModel
+
+<h1>@Model.Title</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionCoverage.FirstOrDefault().UnitName)
+            </th>
+            <th>
+                Total Questions 
+            </th>
+            <th>
+                Answered Questions
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionCoverage.FirstOrDefault().Percentage)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.QuestionCoverage)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalQuestionCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RatedQuestionCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Percentage)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitRating.FirstOrDefault().UnitName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitRating.FirstOrDefault().AverageRating)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UnitRating)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AverageRating)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TestHistory.FirstOrDefault().DateTaken)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TestHistory.FirstOrDefault().Score)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TestHistory)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTaken)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

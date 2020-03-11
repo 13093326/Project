@@ -11,6 +11,7 @@ namespace RevisionApplication.Models
         public int Id { get; set; }
         public string User { get; set; }
         public bool Complete { get; set; }
+        public DateTime Date { get; set; }
         [Column(TypeName = "decimal(3, 2)")]
         public decimal Score { get; set; }
 
