@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RevisionApplication.Helpers;
 using RevisionApplication.Models;
 using RevisionApplication.Repository;
 using RevisionApplication.ViewModels;
@@ -10,28 +11,19 @@ namespace RevisionApplication.Contollers
     public class HomeController : Controller
     {
 
-        private readonly IUnitRepository _unitRepository;
-        private readonly IUserSettingsRepository _userSettingsRepository;
+        private readonly ICommonHelper _commonHelper;
 
-        public HomeController(IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
+        public HomeController(ICommonHelper commonHelper)
         {
-            _unitRepository = unitRepository;
-            _userSettingsRepository = userSettingsRepository;
+            _commonHelper = commonHelper;
+
         }
 
         [Authorize]
         public IActionResult Index()
         {
-            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(User.Identity.Name); 
-
-            if (currentUserSettings is null)
-            {
-                var allUnitsIds = _unitRepository.GetAllUnitIds();
-
-                currentUserSettings = _userSettingsRepository.AddSettings(new UserSetting { Username = User.Identity.Name, SelectedUnits = allUnitsIds });
-            }
-
-            var units = currentUserSettings.SelectedUnits;
+            // Get user selected units or create default 
+            var units = _commonHelper.GetUserSettingsOrCreate(User.Identity.Name);
 
             var homeViewModel = new HomeViewModel()
             {

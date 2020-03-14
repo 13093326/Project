@@ -25,6 +25,20 @@ namespace RevisionApplication.Helpers
             _userSettingsRepository = userSettingsRepository;
         }
 
+        public string GetUserSettingsOrCreate(string userName)
+        {
+            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
+
+            if (currentUserSettings is null)
+            {
+                var allUnitsIds = _unitRepository.GetAllUnitIds();
+
+                currentUserSettings = _userSettingsRepository.AddSettings(new UserSetting { Username = userName, SelectedUnits = allUnitsIds });
+            }
+
+            return currentUserSettings.SelectedUnits;
+        }
+
         public IEnumerable<Unit> GetUserSelectedUnits(string userName)
         {
             // Get the current user settings 
