@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using RevisionApplication.Models;
+using System.Collections.Generic;
 
-namespace RevisionApplication.Models
+namespace RevisionApplication.Repository
 {
     public interface IQuestionRepository
     {

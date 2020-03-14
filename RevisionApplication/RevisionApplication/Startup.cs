@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RevisionApplication.Models;
+using RevisionApplication.Repository;
 
 namespace RevisionApplication
 {

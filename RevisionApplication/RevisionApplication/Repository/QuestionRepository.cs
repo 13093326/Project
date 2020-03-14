@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using RevisionApplication.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RevisionApplication.Models
+namespace RevisionApplication.Repository
 {
     public class QuestionRepository : IQuestionRepository
     {

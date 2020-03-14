@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Extensions.Logging;
+using RevisionApplication.Models;
 
-namespace RevisionApplication.Models
+namespace RevisionApplication.Repository
 {
     public class AppDbContext : IdentityDbContext<IdentityUser>
     {
@@ -17,5 +22,8 @@ namespace RevisionApplication.Models
         public DbSet<TestSet> TestSet { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<UserSetting> UserSettings { get; set; }
+        public DbSet<ReportTestHistory> ReportTestHistory { get; set; }
+
+
     }
 }
