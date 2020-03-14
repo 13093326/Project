@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
-using RevisionApplication.Models;
-using RevisionApplication.Repository;
 using RevisionApplication.ViewModels;
-using System;
-using System.Linq;
 
 namespace RevisionApplication.Contollers
 {

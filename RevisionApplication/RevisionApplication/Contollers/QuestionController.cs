@@ -17,7 +17,6 @@ namespace RevisionApplication.Contollers
 
         public IActionResult Index()
         {
-
             var questions = _questionRepository.GetAllQuestions().OrderBy(p => p.Id).ToList();
 
             var homeViewModel = new QuestionViewModel()
@@ -47,6 +46,7 @@ namespace RevisionApplication.Contollers
         public IActionResult Edit(int Id)
         {
             Question model = _questionRepository.GetQuestionById(Id);
+
             return View(model);
         }
 
