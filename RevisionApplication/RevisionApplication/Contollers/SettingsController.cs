@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using RevisionApplication.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using RevisionApplication.Helpers;
 using RevisionApplication.Repository;
 using RevisionApplication.ViewModels;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace RevisionApplication.Contollers
@@ -12,28 +9,23 @@ namespace RevisionApplication.Contollers
     public class SettingsController : Controller
     {
         private readonly IUnitRepository _unitRepository;
-        private readonly IUserSettingsRepository _userSettingsRepository;
+        private readonly ICommonHelper _commonHelper;
 
-        public SettingsController(IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
+        public SettingsController(IUnitRepository unitRepository, ICommonHelper commonHelper)
         {
             _unitRepository = unitRepository;
-            _userSettingsRepository = userSettingsRepository;
+            _commonHelper = commonHelper;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
 
-            var units = _unitRepository.GetAllUnits().OrderBy(p => p.Id).ToList();
-
-            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(User.Identity.Name);
-            var selectedUnits = currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToArray();
-
             var settingsViewModel = new SettingsViewModel()
             {
                 Title = "Settings",
-                Units = units,
-                SelectedUnitIds = selectedUnits
+                Units = _unitRepository.GetAllUnits().OrderBy(p => p.Id).ToList(),
+                SelectedUnitIds = _commonHelper.GetSelectedUnitsIdList(User.Identity.Name)
             };
 
             return View(settingsViewModel);
@@ -45,9 +37,7 @@ namespace RevisionApplication.Contollers
 
             if (settingsViewModel.SelectedUnitIds != null)
             {
-                var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(User.Identity.Name);
-                currentUserSettings.SelectedUnits = string.Join(",", settingsViewModel.SelectedUnitIds);
-                _userSettingsRepository.UpdateSettings(currentUserSettings);
+                _commonHelper.UpdateSelectedUnits(User.Identity.Name, settingsViewModel.SelectedUnitIds);
             }
 
             return RedirectToAction("Index", "Home");

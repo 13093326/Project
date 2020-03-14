@@ -27,6 +27,20 @@ namespace RevisionApplication.Helpers
             _questionRatingRepository = questionRatingRepository;
         }
 
+        public int[] GetSelectedUnitsIdList(string userName)
+        {
+            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
+
+            return currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToArray();
+        }
+
+        public void UpdateSelectedUnits(string userName, int[] selectedUnits)
+        {
+            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
+            currentUserSettings.SelectedUnits = string.Join(",", selectedUnits);
+            _userSettingsRepository.UpdateSettings(currentUserSettings);
+        }
+
         public string GetUserSettingsOrCreate(string userName)
         {
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
