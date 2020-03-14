@@ -5,6 +5,7 @@ using RevisionApplication.Helpers;
 using RevisionApplication.Models;
 using RevisionApplication.Repository;
 using RevisionApplication.ViewModels;
+using System;
 
 namespace RevisionApplication.Contollers
 {
@@ -22,16 +23,25 @@ namespace RevisionApplication.Contollers
         [Authorize]
         public IActionResult Index()
         {
-            // Get user selected units or create default 
-            var units = _commonHelper.GetUserSettingsOrCreate(User.Identity.Name);
-
-            var homeViewModel = new HomeViewModel()
+            try
             {
-                Title = "Main Menu",
-                SelectedUnits = units
-            };
 
-            return View(homeViewModel);
+                // Get user selected units or create default 
+                var units = _commonHelper.GetUserSettingsOrCreate(User.Identity.Name);
+
+                var homeViewModel = new HomeViewModel()
+                {
+                    Title = "Main Menu",
+                    SelectedUnits = units
+                };
+
+                return View(homeViewModel);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("../Error/Index");
+            }
         }
     }
 }
