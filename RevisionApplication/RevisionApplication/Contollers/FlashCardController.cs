@@ -1,38 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using RevisionApplication.Models;
-using RevisionApplication.Repository;
+﻿using Microsoft.AspNetCore.Mvc;
+using RevisionApplication.Helpers;
 using RevisionApplication.ViewModels;
-using System;
-using System.Linq;
 
 namespace RevisionApplication.Contollers
 {
     public class FlashCardController : Controller
     {
-        private readonly IQuestionRepository _questionRepository;
-        private readonly IUnitRepository _unitRepository;
-        private readonly IUserSettingsRepository _userSettingsRepository;
+        private readonly ICommonHelper _commonHelper;
 
-        public FlashCardController(IQuestionRepository questionRepository, IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
+        public FlashCardController(ICommonHelper commonHelper)
         {
-            _questionRepository = questionRepository;
-            _unitRepository = unitRepository;
-            _userSettingsRepository = userSettingsRepository;
+            _commonHelper = commonHelper;
         }
 
         [HttpGet]
         public IActionResult Index(int record)
         {
-            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(User.Identity.Name);
-            var selectedUnits = currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToList();
-            var units = _unitRepository.GetAllUnits().Where(p => selectedUnits.Contains(p.Id));
-
             // Get random question that is not the same as the last question 
-            Random random = new Random();
-            var allValidQuestionIds = _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit) && p.Id != record).OrderBy(x => random.Next()).Select(p => p.Id);
-            var index = allValidQuestionIds.ElementAt(random.Next(0, allValidQuestionIds.Count() - 1));
-            var question = _questionRepository.GetQuestionById(index);
+            var question = _commonHelper.GetRandomQuestionFromUnits(User.Identity.Name, record);
 
             if (question is null)
             {
@@ -55,6 +40,5 @@ namespace RevisionApplication.Contollers
             model.Title = "Flash card answer"; 
             return View("Answer", model);
         }
-
     }
 }

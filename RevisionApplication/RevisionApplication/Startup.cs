@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RevisionApplication.Helpers;
 using RevisionApplication.Models;
 using RevisionApplication.Repository;
 
@@ -34,6 +35,7 @@ namespace RevisionApplication
             services.AddTransient<ITestSetRepository, TestSetRepository>();
             services.AddTransient<IUnitRepository, UnitRepository>();
             services.AddTransient<IUserSettingsRepository, UserSettingsRepository>();
+            services.AddTransient<ICommonHelper, CommonHelper>();
 
             services.AddDistributedMemoryCache();
 
