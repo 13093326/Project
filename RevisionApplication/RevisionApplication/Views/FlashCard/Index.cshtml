@@ -2,33 +2,42 @@
 
 <h1>@Model.Title</h1>
 
-<p class="item-label">
-    Question:
-</p>
-
-@using (Html.BeginForm("Index", "FlashCard", FormMethod.Post))
+@if (Model.Question == null)
 {
-<table style="width: 100%;">
-    <tbody>
-        <tr>
-            <td class="single-column">
-                @Html.Display("Question.Content")
-                @Html.Hidden("Question.Id")
-                @Html.Hidden("Question.Answer1")
-                @Html.Hidden("Question.Answer2")
-                @Html.Hidden("Question.Answer3")
-                @Html.Hidden("Question.Answer4")
-                @Html.Hidden("Question.CorrectAnswer")
-                @Html.Hidden("Question.Reference")
-            </td>
-        </tr>
-        <tr>
-            <td class="single-column">
-                <input value="Show" id="btnshow" type="submit" class="btn">
-            </td>
-        </tr>
-    </tbody>
-</table>
+<p class="item-label">
+    @ViewBag.Message
+</p>
+}
+else
+{
+    <p class="item-label">
+        Question:
+    </p>
+
+    @using (Html.BeginForm("Index", "FlashCard", FormMethod.Post))
+    {
+        <table style="width: 100%;">
+            <tbody>
+                <tr>
+                    <td class="single-column">
+                        @Html.Display("Question.Content")
+                        @Html.Hidden("Question.Id")
+                        @Html.Hidden("Question.Answer1")
+                        @Html.Hidden("Question.Answer2")
+                        @Html.Hidden("Question.Answer3")
+                        @Html.Hidden("Question.Answer4")
+                        @Html.Hidden("Question.CorrectAnswer")
+                        @Html.Hidden("Question.Reference")
+                    </td>
+                </tr>
+                <tr>
+                    <td class="single-column">
+                        <input value="Show" id="btnshow" type="submit" class="btn">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
 }
 
 

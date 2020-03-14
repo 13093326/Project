@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
 using RevisionApplication.ViewModels;
+using System;
 
 namespace RevisionApplication.Contollers
 {
@@ -16,22 +17,30 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Index(int record)
         {
-            // Get random question that is not the same as the last question 
-            var question = _commonHelper.GetRandomQuestionFromUnits(User.Identity.Name, record);
-
-            if (question is null)
+            try
             {
-                return RedirectToAction("Index", "FlashCard", new { record = 0 });
+                // Get random question that is not the same as the last question 
+                var question = _commonHelper.GetRandomQuestionFromUnits(User.Identity.Name, record);
+
+                if (question is null)
+                {
+                    ViewBag.Message = "No questions found.";
+                }
+
+                var revisionViewModel = new RevisionViewModel()
+                {
+                    Title = "Flash card question",
+                    Question = question,
+                    currentRecord = record
+                };
+
+                return View(revisionViewModel);
             }
-
-            var revisionViewModel = new RevisionViewModel()
+            catch (Exception ex)
             {
-                Title = "Flash card question",
-                Question = question,
-                currentRecord = record
-            };
-
-            return View(revisionViewModel);
+                ViewBag.Message = ex.Message;
+                return View("../Error/Index");
+            }            
         }
 
         [HttpPost]
