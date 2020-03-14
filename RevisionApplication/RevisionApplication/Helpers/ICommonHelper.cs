@@ -10,6 +10,8 @@ namespace RevisionApplication.Helpers
     {
         IEnumerable<Unit> GetUserSelectedUnits(string userName);
         string GetUserSettingsOrCreate(string userName);
+        void UpdateOrInsertRating(string userName, int questionId, bool isCorrect);
+        Question GetMultipleChoiceQuestionBasedOnRating(string userName);
         Question GetRandomQuestionFromUnits(string userName, int record);
     }
 }
