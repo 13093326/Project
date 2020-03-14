@@ -1,8 +1,5 @@
 ﻿using RevisionApplication.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RevisionApplication.Repository
 {
@@ -11,5 +8,6 @@ namespace RevisionApplication.Repository
         IEnumerable<TestSet> GetAllTestSets();
         TestSet AddTestSet(TestSet testSet);
         bool UpdateTestSet(TestSet testSet);
+        TestSet GetTestSetById(int testSetId);
     }
 }

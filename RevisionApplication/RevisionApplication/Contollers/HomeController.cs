@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
-using RevisionApplication.Models;
-using RevisionApplication.Repository;
 using RevisionApplication.ViewModels;
 using System;
 
@@ -17,7 +14,6 @@ namespace RevisionApplication.Contollers
         public HomeController(ICommonHelper commonHelper)
         {
             _commonHelper = commonHelper;
-
         }
 
         [Authorize]
@@ -25,7 +21,6 @@ namespace RevisionApplication.Contollers
         {
             try
             {
-
                 // Get user selected units or create default 
                 var units = _commonHelper.GetUserSettingsOrCreate(User.Identity.Name);
 

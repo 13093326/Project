@@ -19,8 +19,6 @@ namespace RevisionApplication.Models
         public int CorrectAnswer { get; set; }
         [DisplayName("Reference Information")]
         public string Reference { get; set; }
-
-        
         public int UnitId { get; set; }
         public Unit Unit { get; set; }
     }
