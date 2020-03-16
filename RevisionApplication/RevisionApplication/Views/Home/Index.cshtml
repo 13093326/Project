@@ -9,6 +9,17 @@
 <h2>Navigation:</h2>
 <table style="width: 100%;" class="menu">
     <tbody>
+        @if (Model.isAdmin)
+        {
+        <tr class="navigation-row">
+            <td class="nagivation-description">
+                Manage Units:
+            </td>
+            <td class="navigation-button">
+                <button type="button" id="btnsettings" onclick="location.href='@Url.Action("Index", "Unit")'" class="btn navigation">Units</button>
+            </td>
+        </tr>
+        }
         <tr class="navigation-row">
             <td class="nagivation-description">
                 Select the active units to revise:

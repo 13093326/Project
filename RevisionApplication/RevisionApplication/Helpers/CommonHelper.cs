@@ -13,18 +13,25 @@ namespace RevisionApplication.Helpers
         private readonly IQuestionRatingRepository _questionRatingRepository;
         private readonly IUserSettingsRepository _userSettingsRepository;
         private readonly IUnitRepository _unitRepository;
+        private readonly IRoleRepository _roleRepository;
 
-        public CommonHelper(IQuestionRepository questionRepository, IQuestionRatingRepository questionRatingRepository, IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
+        public CommonHelper(IQuestionRepository questionRepository, IQuestionRatingRepository questionRatingRepository, IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository, IRoleRepository roleRepository)
         {
             _questionRepository = questionRepository;
             _unitRepository = unitRepository;
             _userSettingsRepository = userSettingsRepository;
             _questionRatingRepository = questionRatingRepository;
+            _roleRepository = roleRepository;
         }
 
         public int[] GetSelectedUnitsIdList(string userName)
         {
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
+
+            if (currentUserSettings is null)
+            {
+                return null;
+            }
 
             return currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToArray();
         }
@@ -34,6 +41,11 @@ namespace RevisionApplication.Helpers
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
             currentUserSettings.SelectedUnits = string.Join(",", selectedUnits);
             _userSettingsRepository.UpdateSettings(currentUserSettings);
+        }
+
+        public bool isUserRoleAdmin(string userName)
+        {
+            return _roleRepository.isUserAdmin(userName);
         }
 
         public string GetUserSettingsOrCreate(string userName)

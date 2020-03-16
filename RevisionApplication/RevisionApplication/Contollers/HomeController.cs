@@ -23,11 +23,13 @@ namespace RevisionApplication.Contollers
             {
                 // Get user selected units or create default 
                 var units = _commonHelper.GetUserSettingsOrCreate(User.Identity.Name);
+                var isUserAdminRole = _commonHelper.isUserRoleAdmin(User.Identity.Name);
 
                 var homeViewModel = new HomeViewModel()
                 {
                     Title = "Main Menu",
-                    SelectedUnits = units
+                    SelectedUnits = units,
+                    isAdmin = isUserAdminRole
                 };
 
                 return View(homeViewModel);

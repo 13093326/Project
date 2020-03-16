@@ -13,5 +13,6 @@ namespace RevisionApplication.Helpers
         Question GetMultipleChoiceQuestionBasedOnRating(string userName);
         Question GetRandomQuestionFromUnits(string userName, int record);
         List<string> GetUnitNames();
+        bool isUserRoleAdmin(string userName);
     }
 }

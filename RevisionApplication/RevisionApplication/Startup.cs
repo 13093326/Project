@@ -38,6 +38,7 @@ namespace RevisionApplication
             services.AddTransient<ICommonHelper, CommonHelper>();
             services.AddTransient<IReportHelper, ReportHelper>();
             services.AddTransient<ITestHelper, TestHelper>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
 
             services.AddDistributedMemoryCache();
 
