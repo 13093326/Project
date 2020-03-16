@@ -23,7 +23,11 @@ namespace RevisionApplication.Contollers
 
         public IActionResult Index()
         {
-            var questions = _questionRepository.GetAllQuestions().OrderBy(p => p.Id).ToList();
+            var questions = _questionRepository.GetAllQuestions()
+                .Join(_unitRepository.GetAllUnits(), q => q.UnitId, u => u.Id,
+                (q, u) => new Question {
+                    Answer1 = q.Answer1, Answer2 = q.Answer2, Answer3 = q.Answer3, Answer4 = q.Answer4, Content = q.Content, CorrectAnswer = q.CorrectAnswer, Id = q.Id, Reference = q.Reference, UnitId = q.UnitId, Unit = u
+                }).OrderBy(q => q.Id).ToList();
 
             var homeViewModel = new QuestionListViewModel()
             {

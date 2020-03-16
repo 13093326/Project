@@ -11,7 +11,7 @@
                 @Html.DisplayNameFor(model => model.Questions.First().Content)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Questions.First().UnitId)
+                @Html.DisplayNameFor(model => model.Questions.First().Unit.Name)
             </th>
             <th></th>
         </tr>
@@ -27,7 +27,7 @@
                     @Html.DisplayFor(modelItem => item.Content)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UnitId)
+                    @Html.DisplayFor(modelItem => item.Unit.Name)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id=item.Id }) <br />

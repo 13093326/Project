@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RevisionApplication.Models;
+using RevisionApplication.Repository;
 
 namespace RevisionApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200311222728_V2")]
-    partial class V2
+    [Migration("20200316155819_V1")]
+    partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -236,6 +236,22 @@ namespace RevisionApplication.Migrations
                     b.ToTable("QuestionRatings");
                 });
 
+            modelBuilder.Entity("RevisionApplication.Models.ReportTestHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateTaken");
+
+                    b.Property<decimal>("Score")
+                        .HasColumnType("decimal(3, 2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReportTestHistory");
+                });
+
             modelBuilder.Entity("RevisionApplication.Models.TestQuestion", b =>
                 {
                     b.Property<int>("Id")
@@ -265,10 +281,14 @@ namespace RevisionApplication.Migrations
 
                     b.Property<bool>("Complete");
 
+                    b.Property<int>("CorrectCount");
+
                     b.Property<DateTime>("Date");
 
                     b.Property<decimal>("Score")
                         .HasColumnType("decimal(3, 2)");
+
+                    b.Property<int>("TotalCount");
 
                     b.Property<string>("User");
 
