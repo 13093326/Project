@@ -10,5 +10,6 @@ namespace RevisionApplication.Repository
         string GetAllUnitIds();
         Unit GetUnitByName(string name);
         Unit GetUnitById(int Id);
+        Unit UpdateUnit(Unit unit);
     }
 }

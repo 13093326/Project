@@ -21,6 +21,15 @@ namespace RevisionApplication.Repository
             return _appDbContext.Units;
         }
 
+        public Unit UpdateUnit(Unit unit)
+        {
+            _appDbContext.Units.Update(unit);
+
+            _appDbContext.SaveChanges();
+
+            return unit;
+        }
+
         public Unit GetUnitByName(string name)
         {
             return _appDbContext.Units.FirstOrDefault(u => u.Name.Equals(name));

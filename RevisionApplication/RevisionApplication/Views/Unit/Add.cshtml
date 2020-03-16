@@ -1,0 +1,26 @@
+﻿@model Unit
+
+<p class="item-label">
+    Add Unit:
+</p>
+
+@using (Html.BeginForm("Add", "Unit", FormMethod.Post))
+{
+    <table style="width: 100%;">
+        <tbody>
+            <tr>
+                <td class="single-column left-2-col">
+                    Unit:
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.TextAreaFor(m => m.Name, new { @class = "area" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="single-column">
+                    <input value="Add" id="btnsave" type="submit" class="btn">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
