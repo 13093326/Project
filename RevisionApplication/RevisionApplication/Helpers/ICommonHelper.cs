@@ -12,5 +12,6 @@ namespace RevisionApplication.Helpers
         void UpdateOrInsertRating(string userName, int questionId, bool isCorrect);
         Question GetMultipleChoiceQuestionBasedOnRating(string userName);
         Question GetRandomQuestionFromUnits(string userName, int record);
+        List<string> GetUnitNames();
     }
 }

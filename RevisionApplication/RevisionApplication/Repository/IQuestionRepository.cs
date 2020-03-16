@@ -8,7 +8,7 @@ namespace RevisionApplication.Repository
         IEnumerable<Question> GetAllQuestions();
         Question GetQuestionById(int questionId);
         Question UpdateQuestion(Question question);
-        bool AddQuestion(Question question, Unit unit);
+        bool AddQuestion(Question question);
         bool DeleteQuestion(int questionId);
     }
 }

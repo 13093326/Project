@@ -50,6 +50,11 @@ namespace RevisionApplication.Helpers
             return currentUserSettings.SelectedUnits;
         }
 
+        public List<string> GetUnitNames()
+        {
+            return _unitRepository.GetAllUnits().Select(u => u.Name).ToList();
+        }
+
         public IEnumerable<Unit> GetUserSelectedUnits(string userName)
         {
             // Get the current user settings 

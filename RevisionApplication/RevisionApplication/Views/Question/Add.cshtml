@@ -1,4 +1,4 @@
-﻿@model Question
+﻿@model QuestionViewModel
 
 <p class="item-label">
     Add Question:
@@ -10,15 +10,15 @@
         <tbody>
             <tr>
                 <td class="single-column left-2-col">
-                    Question: 
+                    Question:
                 </td>
                 <td class="single-column right-2-col">
-                    @Html.TextAreaFor(m => m.Content, new { @class= "area" })
+                    @Html.TextAreaFor(m => m.Content, new { @class = "area" })
                 </td>
             </tr>
             <tr>
                 <td class="single-column left-2-col">
-                    Answer 1: 
+                    Answer 1:
                 </td>
                 <td class="single-column right-2-col">
                     @Html.TextAreaFor(m => m.Answer1, new { @class = "area" })
@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <td class="single-column left-2-col">
-                    Answer 2: 
+                    Answer 2:
                 </td>
                 <td class="single-column right-2-col">
                     @Html.TextAreaFor(m => m.Answer2, new { @class = "area" })
@@ -34,7 +34,7 @@
             </tr>
             <tr>
                 <td class="single-column left-2-col">
-                    Answer 3: 
+                    Answer 3:
                 </td>
                 <td class="single-column right-2-col">
                     @Html.TextAreaFor(m => m.Answer3, new { @class = "area" })
@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <td class="single-column left-2-col">
-                    Answer 4: 
+                    Answer 4:
                 </td>
                 <td class="single-column right-2-col">
                     @Html.TextAreaFor(m => m.Answer4, new { @class = "area" })
@@ -50,15 +50,25 @@
             </tr>
             <tr>
                 <td class="single-column left-2-col">
-                    Correct answer: 
+                    Correct answer:
                 </td>
                 <td class="single-column right-2-col">
-                    @Html.TextAreaFor(m => m.CorrectAnswer, new { @class = "area" })
+                    1: @Html.RadioButtonFor(m => m.CorrectAnswer, 1) 2: @Html.RadioButtonFor(m => m.CorrectAnswer, 2) 3: @Html.RadioButtonFor(m => m.CorrectAnswer, 3) 4: @Html.RadioButtonFor(m => m.CorrectAnswer, 4)
                 </td>
             </tr>
             <tr>
                 <td class="single-column left-2-col">
-                    Reference: 
+                    Unit:
+                </td>
+                <td class="single-column right-2-col">
+                    @Html.DropDownListFor(m => m.SelectedUnit,
+                    new SelectList(Model.Units),
+                    "Select Unit")
+                </td>
+            </tr>
+            <tr>
+                <td class="single-column left-2-col">
+                    Reference:
                 </td>
                 <td class="single-column right-2-col">
                     @Html.TextAreaFor(m => m.Reference, new { @class = "area" })

@@ -1,4 +1,4 @@
-﻿@model Question
+﻿@model QuestionViewModel
 
 <p class="item-label">
     Add Question:
@@ -18,7 +18,7 @@
                 <label asp-for="Content" class="control-label"></label>
             </td>
             <td class="single-column right-2-col">
-                @Html.TextAreaFor(m => m.Content, new { @class= "area" })
+                @Html.TextAreaFor(m => m.Content, new { @class = "area" })
                 <span asp-validation-for="Content" class="text-danger"></span>
             </td>
         </tr>
@@ -63,8 +63,18 @@
                 <label asp-for="CorrectAnswer" class="control-label"></label>
             </td>
             <td class="single-column right-2-col">
-                @Html.TextAreaFor(m => m.CorrectAnswer, new { @class = "area" })
+                1: @Html.RadioButtonFor(m => m.CorrectAnswer, 1) 2: @Html.RadioButtonFor(m => m.CorrectAnswer, 2) 3: @Html.RadioButtonFor(m => m.CorrectAnswer, 3) 4: @Html.RadioButtonFor(m => m.CorrectAnswer, 4)
                 <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="single-column left-2-col">
+                <label asp-for="SelectedUnit" class="control-label"></label>
+            </td>
+            <td class="single-column right-2-col">
+                @Html.DropDownListFor(m => m.SelectedUnit,
+                new SelectList(Model.Units),
+                "Select Unit")
             </td>
         </tr>
         <tr>

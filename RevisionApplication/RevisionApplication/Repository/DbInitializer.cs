@@ -44,7 +44,7 @@ namespace RevisionApplication.Repository
                 context.SaveChanges();
             }
 
-            if (!context.Questions.Any())
+            if (!context.Units.Any())
             {
                 var Unit1 = new Unit { Name = "Unit 1" };
                 var Unit2 = new Unit { Name = "Unit 2" };

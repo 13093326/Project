@@ -27,10 +27,9 @@ namespace RevisionApplication.Repository
             return _appDbContext.Questions.FirstOrDefault(q => q.Id == questionId);
         }
 
-        public bool AddQuestion(Question question, Unit unit)
+        public bool AddQuestion(Question question)
         {
-            question.Unit = unit; 
-
+ 
             _appDbContext.Add(question);
 
             _appDbContext.SaveChanges();
