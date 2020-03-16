@@ -38,16 +38,18 @@ namespace RevisionApplication.Helpers
 
         public string GetUserSettingsOrCreate(string userName)
         {
-            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
+            var currentUserSettings = GetSelectedUnitsIdList(userName);
 
             if (currentUserSettings is null)
             {
                 var allUnitsIds = _unitRepository.GetAllUnitIds();
 
-                currentUserSettings = _userSettingsRepository.AddSettings(new UserSetting { Username = userName, SelectedUnits = allUnitsIds });
+                _userSettingsRepository.AddSettings(new UserSetting { Username = userName, SelectedUnits = allUnitsIds });
+
+                currentUserSettings = GetSelectedUnitsIdList(userName);
             }
 
-            return currentUserSettings.SelectedUnits;
+            return string.Join(", ", _unitRepository.GetAllUnits().Where(u => currentUserSettings.Contains(u.Id)).Select(u => u.Name));
         }
 
         public List<string> GetUnitNames()
