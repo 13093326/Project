@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace RevisionApplication.Contollers
 {
+    [Authorize]
     public class TestController : Controller
     {
         private readonly ITestSetRepository _testSetRepository;
@@ -26,7 +27,6 @@ namespace RevisionApplication.Contollers
             _testHelper = testHelper;
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult Index()
         {
@@ -59,7 +59,6 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Index(TestViewModel testViewModel)
         {
-
             // Record results 
             var result = (testViewModel.ChosenAnswer.Equals(testViewModel.Question.CorrectAnswer))? "True" : "False";
             var testQuestion = _testQuestionRepository.GetTestQuestionById(testViewModel.currentRecord);

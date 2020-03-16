@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Models;
 using RevisionApplication.Repository;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RevisionApplication.Contollers
 {
+    [Authorize]
     public class UnitController : Controller
     {
         private readonly IUnitRepository _unitRepository;
@@ -19,7 +19,6 @@ namespace RevisionApplication.Contollers
 
         public IActionResult Index()
         {
-
             List<Unit> model = _unitRepository.GetAllUnits().ToList();
 
             return View(model);

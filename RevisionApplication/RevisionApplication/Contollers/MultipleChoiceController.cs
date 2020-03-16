@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
 using RevisionApplication.ViewModels;
 
 namespace RevisionApplication.Contollers
 {
+    [Authorize]
     public class MultipleChoiceController : Controller
     {
         private readonly ICommonHelper _commonHelper;

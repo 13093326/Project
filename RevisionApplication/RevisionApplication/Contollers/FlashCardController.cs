@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
 using RevisionApplication.ViewModels;
 using System;
 
 namespace RevisionApplication.Contollers
 {
+    [Authorize]
     public class FlashCardController : Controller
     {
         private readonly ICommonHelper _commonHelper;

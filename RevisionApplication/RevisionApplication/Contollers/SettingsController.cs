@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
 using RevisionApplication.Repository;
 using RevisionApplication.ViewModels;
@@ -6,6 +7,7 @@ using System.Linq;
 
 namespace RevisionApplication.Contollers
 {
+    [Authorize]
     public class SettingsController : Controller
     {
         private readonly IUnitRepository _unitRepository;
@@ -20,7 +22,6 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Index()
         {
-
             var settingsViewModel = new SettingsViewModel()
             {
                 Title = "Settings",
@@ -34,7 +35,6 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Index(SettingsViewModel settingsViewModel)
         {
-
             if (settingsViewModel.SelectedUnitIds != null)
             {
                 _commonHelper.UpdateSelectedUnits(User.Identity.Name, settingsViewModel.SelectedUnitIds);

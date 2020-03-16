@@ -6,9 +6,9 @@ using System;
 
 namespace RevisionApplication.Contollers
 {
+    [Authorize]
     public class HomeController : Controller
     {
-
         private readonly ICommonHelper _commonHelper;
 
         public HomeController(ICommonHelper commonHelper)
@@ -16,7 +16,6 @@ namespace RevisionApplication.Contollers
             _commonHelper = commonHelper;
         }
 
-        [Authorize]
         public IActionResult Index()
         {
             try

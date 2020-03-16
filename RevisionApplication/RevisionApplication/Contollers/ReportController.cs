@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
 using RevisionApplication.ViewModels;
 
 namespace RevisionApplication.Contollers
 {
+    [Authorize]
     public class ReportController : Controller
     {
         private readonly IReportHelper _reportHelper;
@@ -15,8 +17,6 @@ namespace RevisionApplication.Contollers
 
         public IActionResult Index()
         {
-
-
             ReportViewModel model = new ReportViewModel();
 
             model.QuestionCoverage.AddRange(_reportHelper.questionCoverageReport(User.Identity.Name));

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
 using RevisionApplication.Models;
 using RevisionApplication.Repository;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace RevisionApplication.Contollers
 {
+    [Authorize]
     public class QuestionController : Controller
     {
         private readonly IQuestionRepository _questionRepository;
@@ -83,7 +85,6 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Edit(QuestionViewModel model)
         {
-
             Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit);
 
             Question question = new Question
@@ -108,7 +109,6 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Add(QuestionViewModel model)
         {
-
             Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit); 
 
             Question question = new Question
