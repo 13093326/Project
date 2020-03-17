@@ -25,16 +25,16 @@ namespace RevisionApplication.Helpers
         {
             // Get number of questions for each unit 
             var questionCoverageCounts = _unitRepository.GetAllUnits()
-                .Join(_questionRepository.GetAllQuestions(), u => u.Id, q => q.UnitId, (u, q) => new { UnitName = u.Name, QuestionId = q.Id })
-                .GroupBy(t => new { t.UnitName })
-                .Select(group => new { questionCount = group.Count(), unitName = group.Key.UnitName });
+                .Join(_questionRepository.GetAllQuestions(), u => u.Id, q => q.UnitId, (u, q) => new { UnitId = u.Id, UnitName = u.Name, QuestionId = q.Id })
+                .GroupBy(t => new { t.UnitId, t.UnitName })
+                .Select(group => new { questionCount = group.Count(), unitId = group.Key.UnitId, unitName = group.Key.UnitName });
 
             // Get number of revised questions for each unit 
             var revisionCoverageCounts = _unitRepository.GetAllUnits()
-                .Join(_questionRepository.GetAllQuestions(), u => u.Id, q => q.UnitId, (u, q) => new { UnitName = u.Name, QuestionId = q.Id })
-                .Join(_questionRatingRepository.GetAllRatings().Where(qr => qr.UserName == userName), q => q.QuestionId, r => r.QuestionId, (q, r) => new { q.UnitName, r.Id })
-                .GroupBy(t => new { t.UnitName })
-                .Select(group => new { revisionCount = group.Count(), unitName = group.Key.UnitName });
+                .Join(_questionRepository.GetAllQuestions(), u => u.Id, q => q.UnitId, (u, q) => new { UnitId = u.Id, UnitName = u.Name, QuestionId = q.Id })
+                .Join(_questionRatingRepository.GetAllRatings().Where(qr => qr.UserName == userName), q => q.QuestionId, r => r.QuestionId, (q, r) => new { q.UnitId, q.UnitName, r.Id })
+                .GroupBy(t => new { t.UnitId, t.UnitName })
+                .Select(group => new { revisionCount = group.Count(), unitId = group.Key.UnitId, unitName = group.Key.UnitName });
 
             // Get the union of the question and revision counts 
             var questionCoverageQuery = questionCoverageCounts.SelectMany

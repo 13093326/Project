@@ -72,7 +72,7 @@ namespace RevisionApplication.Migrations
                     Date = table.Column<DateTime>(nullable: false),
                     TotalCount = table.Column<int>(nullable: false),
                     CorrectCount = table.Column<int>(nullable: false),
-                    Score = table.Column<decimal>(type: "decimal(3, 2)", nullable: false)
+                    Score = table.Column<decimal>(type: "decimal(5, 2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -85,7 +85,7 @@ namespace RevisionApplication.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -218,13 +218,13 @@ namespace RevisionApplication.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Content = table.Column<string>(nullable: true),
-                    Answer1 = table.Column<string>(nullable: true),
-                    Answer2 = table.Column<string>(nullable: true),
-                    Answer3 = table.Column<string>(nullable: true),
-                    Answer4 = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: false),
+                    Answer1 = table.Column<string>(nullable: false),
+                    Answer2 = table.Column<string>(nullable: false),
+                    Answer3 = table.Column<string>(nullable: false),
+                    Answer4 = table.Column<string>(nullable: false),
                     CorrectAnswer = table.Column<int>(nullable: false),
-                    Reference = table.Column<string>(nullable: true),
+                    Reference = table.Column<string>(nullable: false),
                     UnitId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

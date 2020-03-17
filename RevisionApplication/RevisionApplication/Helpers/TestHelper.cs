@@ -138,7 +138,7 @@ namespace RevisionApplication.Helpers
 
             try
             {
-                percentage = Math.Round((decimal)correctCount / (decimal)totalCount, 2);
+                percentage = Math.Round(((decimal)correctCount / (decimal)totalCount) * 100, 2);
             }
             catch (Exception ex)
             {

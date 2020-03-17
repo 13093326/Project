@@ -12,7 +12,7 @@ namespace RevisionApplication.Models
         public DateTime Date { get; set; }
         public int TotalCount { get; set; }
         public int CorrectCount { get; set; }
-        [Column(TypeName = "decimal(3, 2)")]
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal Score { get; set; }
 
         public ICollection<TestQuestion> TestQuestions { get; set; }

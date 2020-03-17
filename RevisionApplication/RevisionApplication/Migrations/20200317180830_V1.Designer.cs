@@ -10,7 +10,7 @@ using RevisionApplication.Repository;
 namespace RevisionApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200316155819_V1")]
+    [Migration("20200317180830_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,19 +192,25 @@ namespace RevisionApplication.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Answer1");
+                    b.Property<string>("Answer1")
+                        .IsRequired();
 
-                    b.Property<string>("Answer2");
+                    b.Property<string>("Answer2")
+                        .IsRequired();
 
-                    b.Property<string>("Answer3");
+                    b.Property<string>("Answer3")
+                        .IsRequired();
 
-                    b.Property<string>("Answer4");
+                    b.Property<string>("Answer4")
+                        .IsRequired();
 
-                    b.Property<string>("Content");
+                    b.Property<string>("Content")
+                        .IsRequired();
 
                     b.Property<int>("CorrectAnswer");
 
-                    b.Property<string>("Reference");
+                    b.Property<string>("Reference")
+                        .IsRequired();
 
                     b.Property<int>("UnitId");
 
@@ -286,7 +292,7 @@ namespace RevisionApplication.Migrations
                     b.Property<DateTime>("Date");
 
                     b.Property<decimal>("Score")
-                        .HasColumnType("decimal(3, 2)");
+                        .HasColumnType("decimal(5, 2)");
 
                     b.Property<int>("TotalCount");
 
@@ -303,7 +309,8 @@ namespace RevisionApplication.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
