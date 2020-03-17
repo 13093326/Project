@@ -87,10 +87,10 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Edit(QuestionViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit);
+            Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit);
 
+            if (ModelState.IsValid && model.CorrectAnswer != 0 && unit != null)
+            {
                 Question question = new Question
                 {
                     Id = model.Id,
@@ -110,16 +110,18 @@ namespace RevisionApplication.Contollers
                 return RedirectToAction("Index", "Home");
             }
 
+            model.Units = _commonHelper.GetUnitNames();
+
             return View(model);
         }
 
         [HttpPost]
         public IActionResult Add(QuestionViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit);
+            Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit);
 
+            if (ModelState.IsValid && model.CorrectAnswer != 0 && unit != null)
+            {
                 Question question = new Question
                 {
                     Answer1 = model.Answer1,
@@ -136,6 +138,8 @@ namespace RevisionApplication.Contollers
 
                 return RedirectToAction("Index", "Home");
             }
+
+            model.Units = _commonHelper.GetUnitNames();
 
             return View(model);
         }
