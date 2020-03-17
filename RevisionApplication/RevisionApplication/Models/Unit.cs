@@ -8,7 +8,7 @@ namespace RevisionApplication.Models
     {
         public int Id { get; set; }
         [Required]
-        [DisplayName("Unit Nmae")]
+        [DisplayName("Unit Name")]
         public string Name { get; set; }
 
         public virtual ICollection<Question> Questions { get; set; }

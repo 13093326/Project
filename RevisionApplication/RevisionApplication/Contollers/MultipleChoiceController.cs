@@ -34,7 +34,7 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Index(RevisionViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.ChosenAnswer != null)
             {
                 // Check if answer was correct 
                 var isCorrect = (model.ChosenAnswer.Equals(model.Question.CorrectAnswer.ToString())) ? true : false;

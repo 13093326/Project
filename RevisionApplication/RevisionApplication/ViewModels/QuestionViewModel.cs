@@ -31,6 +31,7 @@ namespace RevisionApplication.ViewModels
         public string Reference { get; set; }
 
         public List<string> Units { get; set; }
+        [DisplayName("Unit")]
         public string SelectedUnit { get; set; }
 
         public QuestionViewModel()

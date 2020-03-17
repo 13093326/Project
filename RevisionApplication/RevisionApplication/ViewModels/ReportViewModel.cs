@@ -1,13 +1,12 @@
 ﻿using RevisionApplication.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace RevisionApplication.ViewModels
 {
     public class ReportViewModel
     {
+        [DisplayName("Ttile")]
         public string Title { get; set; }
         public List<ReportQuestionCoverage> QuestionCoverage { get; set; }
         public List<ReportUnitRating> UnitRating { get; set; }

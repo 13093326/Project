@@ -71,7 +71,14 @@
     </table>
 
     @Html.HiddenFor(m => m.Title)
+    @Html.HiddenFor(m => m.Question.Content)
+    @Html.HiddenFor(m => m.Question.Answer1)
+    @Html.HiddenFor(m => m.Question.Answer2)
+    @Html.HiddenFor(m => m.Question.Answer3)
+    @Html.HiddenFor(m => m.Question.Answer4)
     @Html.HiddenFor(m => m.Question.CorrectAnswer)
+    @Html.HiddenFor(m => m.Question.Reference)
+    @Html.HiddenFor(m => m.Question.UnitId)
     @Html.HiddenFor(m => m.currentRecord)
 }
 

@@ -59,7 +59,7 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Index(TestViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.ChosenAnswer != 0)
             {
                 // Record results 
                 var result = (model.ChosenAnswer.Equals(model.Question.CorrectAnswer)) ? "True" : "False";
