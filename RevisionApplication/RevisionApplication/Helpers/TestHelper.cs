@@ -134,7 +134,18 @@ namespace RevisionApplication.Helpers
             currentTestSet.TotalCount = totalCount;
             currentTestSet.CorrectCount = correctCount;
 
-            var percentage = Math.Round((decimal)correctCount / (decimal)totalCount, 2);
+            Decimal percentage = 0;
+
+            try
+            {
+                percentage = Math.Round((decimal)correctCount / (decimal)totalCount, 2);
+            }
+            catch (Exception ex)
+            {
+                // Assume error in calculation and assign default 
+                percentage = 0; 
+            }
+
             currentTestSet.Score = percentage;
 
             return currentTestSet; 

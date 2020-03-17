@@ -172,9 +172,14 @@ namespace RevisionApplication.Helpers
             var allValidQuestionIds = _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit) && p.Id != record).OrderBy(x => random.Next()).Select(p => p.Id);
 
             // Make a random sleection to prevent bias towards low or high numbers 
-            var index = allValidQuestionIds.ElementAt(random.Next(0, allValidQuestionIds.Count() - 1));
+            if (allValidQuestionIds.Count() > 0)
+            {
+                var index = allValidQuestionIds.ElementAt(random.Next(0, allValidQuestionIds.Count() - 1));
 
-            return _questionRepository.GetQuestionById(index);
+                return _questionRepository.GetQuestionById(index);
+            }
+
+            return null;
         }
     }
 }
