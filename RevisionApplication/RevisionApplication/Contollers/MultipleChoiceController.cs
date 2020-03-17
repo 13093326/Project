@@ -34,22 +34,27 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Index(RevisionViewModel model)
         {
-            // Check if answer was correct 
-            var isCorrect = (model.ChosenAnswer.Equals(model.Question.CorrectAnswer.ToString())) ? true : false;
-
-            // Update question rating 
-            _commonHelper.UpdateOrInsertRating(User.Identity.Name, model.Question.Id, isCorrect); 
-
-            if (isCorrect)
+            if (ModelState.IsValid)
             {
-                ViewBag.Message = "Correct."; 
-                model.Title = "Multiple choice answer";
+                // Check if answer was correct 
+                var isCorrect = (model.ChosenAnswer.Equals(model.Question.CorrectAnswer.ToString())) ? true : false;
+
+                // Update question rating 
+                _commonHelper.UpdateOrInsertRating(User.Identity.Name, model.Question.Id, isCorrect);
+
+                if (isCorrect)
+                {
+                    ViewBag.Message = "Correct.";
+                    model.Title = "Multiple choice answer";
+                }
+                else
+                {
+                    ViewBag.Message = $"Answer { model.ChosenAnswer } is incorrect.";
+                }
+                return View("Answer", model);
             }
-            else
-            {
-                ViewBag.Message = $"Answer { model.ChosenAnswer } is incorrect.";
-            }
-            return View("Answer", model);
+
+            return View(model);
         }
     }
 }

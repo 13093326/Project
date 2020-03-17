@@ -14,8 +14,8 @@
             <tr>
                 <td class="single-column">
                     @Html.ListBoxFor(model => model.SelectedUnitIds, Model.GetUnitsAsSelectListItems(), new { @class= "list" })
-                    @Html.Hidden("Title")
-                    @Html.Hidden("Units")
+                    @Html.HiddenFor(m => m.Title)
+                    @Html.HiddenFor(m => m.Units)
                 </td>
             </tr>
             <tr>

@@ -15,61 +15,61 @@
         </tr>
         <tr>
             <td class="single-column left-2-col">
-                <label asp-for="Content" class="control-label"></label>
+                @Html.DisplayNameFor(m => m.Content)
             </td>
             <td class="single-column right-2-col">
                 @Html.TextAreaFor(m => m.Content, new { @class = "area" })
-                <span asp-validation-for="Content" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.Content)
             </td>
         </tr>
         <tr>
             <td class="single-column left-2-col">
-                <label asp-for="Answer1" class="control-label"></label>
+                @Html.DisplayNameFor(m => m.Answer1)
             </td>
             <td class="single-column right-2-col">
                 @Html.TextAreaFor(m => m.Answer1, new { @class = "area" })
-                <span asp-validation-for="Answer1" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.Answer1)
             </td>
         </tr>
         <tr>
             <td class="single-column left-2-col">
-                <label asp-for="Answer2" class="control-label"></label>
+                @Html.DisplayNameFor(m => m.Answer2)
             </td>
             <td class="single-column right-2-col">
                 @Html.TextAreaFor(m => m.Answer2, new { @class = "area" })
-                <span asp-validation-for="Answer2" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.Answer2)
             </td>
         </tr>
         <tr>
             <td class="single-column left-2-col">
-                <label asp-for="Answer3" class="control-label"></label>
+                @Html.DisplayNameFor(m => m.Answer3)
             </td>
             <td class="single-column right-2-col">
                 @Html.TextAreaFor(m => m.Answer3, new { @class = "area" })
-                <span asp-validation-for="Answer3" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.Answer3)
             </td>
         </tr>
         <tr>
             <td class="single-column left-2-col">
-                <label asp-for="Answer4" class="control-label"></label>
+                @Html.DisplayNameFor(m => m.Answer4)
             </td>
             <td class="single-column right-2-col">
                 @Html.TextAreaFor(m => m.Answer4, new { @class = "area" })
-                <span asp-validation-for="Answer4" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.Answer4)
             </td>
         </tr>
         <tr>
             <td class="single-column left-2-col">
-                <label asp-for="CorrectAnswer" class="control-label"></label>
+                @Html.DisplayNameFor(m => m.CorrectAnswer)
             </td>
             <td class="single-column right-2-col">
                 1: @Html.RadioButtonFor(m => m.CorrectAnswer, 1) 2: @Html.RadioButtonFor(m => m.CorrectAnswer, 2) 3: @Html.RadioButtonFor(m => m.CorrectAnswer, 3) 4: @Html.RadioButtonFor(m => m.CorrectAnswer, 4)
-                <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.CorrectAnswer)
             </td>
         </tr>
         <tr>
             <td class="single-column left-2-col">
-                <label asp-for="SelectedUnit" class="control-label"></label>
+                @Html.DisplayNameFor(m => m.SelectedUnit)
             </td>
             <td class="single-column right-2-col">
                 @Html.DropDownListFor(m => m.SelectedUnit,
@@ -79,11 +79,11 @@
         </tr>
         <tr>
             <td class="single-column left-2-col">
-                <label asp-for="Reference" class="control-label"></label>
+                @Html.DisplayNameFor(m => m.Reference)
             </td>
             <td class="single-column right-2-col">
                 @Html.TextAreaFor(m => m.Reference, new { @class = "area" })
-                <span asp-validation-for="Reference" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.Reference)
             </td>
         </tr>
         <tr>

@@ -33,14 +33,19 @@ namespace RevisionApplication.Contollers
         }
 
         [HttpPost]
-        public IActionResult Index(SettingsViewModel settingsViewModel)
+        public IActionResult Index(SettingsViewModel model)
         {
-            if (settingsViewModel.SelectedUnitIds != null)
+            if (ModelState.IsValid)
             {
-                _commonHelper.UpdateSelectedUnits(User.Identity.Name, settingsViewModel.SelectedUnitIds);
+                if (model.SelectedUnitIds != null)
+                {
+                    _commonHelper.UpdateSelectedUnits(User.Identity.Name, model.SelectedUnitIds);
+                }
+
+                return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("Index", "Home");
+            return View(model);
         }
     }
 }

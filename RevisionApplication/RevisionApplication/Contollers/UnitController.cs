@@ -41,19 +41,29 @@ namespace RevisionApplication.Contollers
         }
 
         [HttpPost]
-        public IActionResult Edit(Unit model)
+        public IActionResult Edit(Unit unit)
         {
-            _unitRepository.UpdateUnit(model);
+            if (ModelState.IsValid)
+            {
+                _unitRepository.UpdateUnit(unit);
 
-            return RedirectToAction("Index", "Unit");
+                return RedirectToAction("Index", "Unit");
+            }
+
+            return View(unit);
         }
 
         [HttpPost]
         public IActionResult Add(Unit unit)
         {
-            _unitRepository.AddUnit(unit);
+            if (ModelState.IsValid)
+            {
+                _unitRepository.AddUnit(unit);
 
-            return RedirectToAction("Index", "Unit");
+                return RedirectToAction("Index", "Unit");
+            }
+
+            return View(unit);
         }
     }
 }

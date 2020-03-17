@@ -20,14 +20,14 @@ else
             <tbody>
                 <tr>
                     <td class="single-column">
-                        @Html.Display("Question.Content")
-                        @Html.Hidden("Question.Id")
-                        @Html.Hidden("Question.Answer1")
-                        @Html.Hidden("Question.Answer2")
-                        @Html.Hidden("Question.Answer3")
-                        @Html.Hidden("Question.Answer4")
-                        @Html.Hidden("Question.CorrectAnswer")
-                        @Html.Hidden("Question.Reference")
+                        @Html.DisplayFor(m => m.Question.Content)
+                        @Html.HiddenFor(m => m.Question.Id)
+                        @Html.HiddenFor(m => m.Question.Answer1)
+                        @Html.HiddenFor(m => m.Question.Answer2)
+                        @Html.HiddenFor(m => m.Question.Answer3)
+                        @Html.HiddenFor(m => m.Question.Answer4)
+                        @Html.HiddenFor(m => m.Question.CorrectAnswer)
+                        @Html.HiddenFor(m => m.Question.Reference)
                     </td>
                 </tr>
                 <tr>

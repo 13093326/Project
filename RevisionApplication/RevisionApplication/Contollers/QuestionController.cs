@@ -85,47 +85,57 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Edit(QuestionViewModel model)
         {
-            Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit);
-
-            Question question = new Question
+            if (ModelState.IsValid)
             {
-                Id = model.Id,
-                Answer1 = model.Answer1,
-                Answer2 = model.Answer2,
-                Answer3 = model.Answer3,
-                Answer4 = model.Answer4,
-                Content = model.Content,
-                CorrectAnswer = model.CorrectAnswer,
-                Reference = model.Reference,
-                Unit = unit,
-                UnitId = unit.Id
-            };
+                Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit);
 
-            _questionRepository.UpdateQuestion(question);
+                Question question = new Question
+                {
+                    Id = model.Id,
+                    Answer1 = model.Answer1,
+                    Answer2 = model.Answer2,
+                    Answer3 = model.Answer3,
+                    Answer4 = model.Answer4,
+                    Content = model.Content,
+                    CorrectAnswer = model.CorrectAnswer,
+                    Reference = model.Reference,
+                    Unit = unit,
+                    UnitId = unit.Id
+                };
 
-            return RedirectToAction("Index", "Home");
+                _questionRepository.UpdateQuestion(question);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult Add(QuestionViewModel model)
         {
-            Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit); 
-
-            Question question = new Question
+            if (ModelState.IsValid)
             {
-                Answer1 = model.Answer1, 
-                Answer2 = model.Answer2, 
-                Answer3 = model.Answer3, 
-                Answer4 = model.Answer4, 
-                Content = model.Content, 
-                CorrectAnswer = model.CorrectAnswer, 
-                Reference = model.Reference,
-                UnitId = unit.Id
-            }; 
+                Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit);
 
-            _questionRepository.AddQuestion(question);
+                Question question = new Question
+                {
+                    Answer1 = model.Answer1,
+                    Answer2 = model.Answer2,
+                    Answer3 = model.Answer3,
+                    Answer4 = model.Answer4,
+                    Content = model.Content,
+                    CorrectAnswer = model.CorrectAnswer,
+                    Reference = model.Reference,
+                    UnitId = unit.Id
+                };
 
-            return RedirectToAction("Index", "Home");
+                _questionRepository.AddQuestion(question);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
         }
     }
 }

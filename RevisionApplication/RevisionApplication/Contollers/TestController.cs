@@ -57,22 +57,27 @@ namespace RevisionApplication.Contollers
         }
 
         [HttpPost]
-        public IActionResult Index(TestViewModel testViewModel)
+        public IActionResult Index(TestViewModel model)
         {
-            // Record results 
-            var result = (testViewModel.ChosenAnswer.Equals(testViewModel.Question.CorrectAnswer))? "True" : "False";
-            var testQuestion = _testQuestionRepository.GetTestQuestionById(testViewModel.currentRecord);
-            testQuestion.Result = result;
-            _testQuestionRepository.UpdateTestQuestion(testQuestion);
+            if (ModelState.IsValid)
+            {
+                // Record results 
+                var result = (model.ChosenAnswer.Equals(model.Question.CorrectAnswer)) ? "True" : "False";
+                var testQuestion = _testQuestionRepository.GetTestQuestionById(model.currentRecord);
+                testQuestion.Result = result;
+                _testQuestionRepository.UpdateTestQuestion(testQuestion);
 
 
-            // Check for next question 
-            var currentUser = User.Identity.Name;
-            var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.User.Equals(currentUser)).OrderBy(p => p.Id).FirstOrDefault();
-            var nextTestQuestion = _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None")).OrderBy(p => p.Id).FirstOrDefault();
+                // Check for next question 
+                var currentUser = User.Identity.Name;
+                var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.User.Equals(currentUser)).OrderBy(p => p.Id).FirstOrDefault();
+                var nextTestQuestion = _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None")).OrderBy(p => p.Id).FirstOrDefault();
 
-            // Display next question 
-            return RedirectToAction("Index", "Test" );
+                // Display next question 
+                return RedirectToAction("Index", "Test");
+            }
+
+            return View(model);
         }
 
         [HttpGet]

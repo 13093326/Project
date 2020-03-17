@@ -14,6 +14,7 @@
                 </td>
                 <td class="single-column right-2-col">
                     @Html.TextAreaFor(m => m.Content, new { @class = "area" })
+                    @Html.ValidationMessageFor(m => m.Content)
                 </td>
             </tr>
             <tr>
@@ -22,6 +23,7 @@
                 </td>
                 <td class="single-column right-2-col">
                     @Html.TextAreaFor(m => m.Answer1, new { @class = "area" })
+                    @Html.ValidationMessageFor(m => m.Answer1)
                 </td>
             </tr>
             <tr>
@@ -30,6 +32,7 @@
                 </td>
                 <td class="single-column right-2-col">
                     @Html.TextAreaFor(m => m.Answer2, new { @class = "area" })
+                    @Html.ValidationMessageFor(m => m.Answer2)
                 </td>
             </tr>
             <tr>
@@ -38,6 +41,7 @@
                 </td>
                 <td class="single-column right-2-col">
                     @Html.TextAreaFor(m => m.Answer3, new { @class = "area" })
+                    @Html.ValidationMessageFor(m => m.Answer3)
                 </td>
             </tr>
             <tr>
@@ -46,6 +50,7 @@
                 </td>
                 <td class="single-column right-2-col">
                     @Html.TextAreaFor(m => m.Answer4, new { @class = "area" })
+                    @Html.ValidationMessageFor(m => m.Answer4)
                 </td>
             </tr>
             <tr>
@@ -54,6 +59,7 @@
                 </td>
                 <td class="single-column right-2-col">
                     1: @Html.RadioButtonFor(m => m.CorrectAnswer, 1) 2: @Html.RadioButtonFor(m => m.CorrectAnswer, 2) 3: @Html.RadioButtonFor(m => m.CorrectAnswer, 3) 4: @Html.RadioButtonFor(m => m.CorrectAnswer, 4)
+                    @Html.ValidationMessageFor(m => m.CorrectAnswer)
                 </td>
             </tr>
             <tr>
@@ -64,6 +70,7 @@
                     @Html.DropDownListFor(m => m.SelectedUnit,
                     new SelectList(Model.Units),
                     "Select Unit")
+                    @Html.ValidationMessageFor(m => m.SelectedUnit)
                 </td>
             </tr>
             <tr>
@@ -72,6 +79,7 @@
                 </td>
                 <td class="single-column right-2-col">
                     @Html.TextAreaFor(m => m.Reference, new { @class = "area" })
+                    @Html.ValidationMessageFor(m => m.Reference)
                 </td>
             </tr>
             <tr>

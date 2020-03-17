@@ -15,11 +15,11 @@
         </tr>
         <tr>
             <td class="single-column left-2-col">
-                <label asp-for="Name" class="control-label"></label>
+                @Html.DisplayNameFor(m => m.Name)
             </td>
             <td class="single-column right-2-col">
                 @Html.TextAreaFor(m => m.Name, new { @class = "area" })
-                <span asp-validation-for="Name" class="text-danger"></span>
+                @Html.ValidationMessageFor(m => m.Name)
             </td>
         </tr>
         <tr>

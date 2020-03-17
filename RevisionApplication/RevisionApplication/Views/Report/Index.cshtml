@@ -9,10 +9,10 @@
                 @Html.DisplayNameFor(model => model.QuestionCoverage.FirstOrDefault().UnitName)
             </th>
             <th>
-                Total Questions 
+                @Html.DisplayNameFor(model => model.QuestionCoverage.FirstOrDefault().TotalQuestionCount)
             </th>
             <th>
-                Answered Questions
+                @Html.DisplayNameFor(model => model.QuestionCoverage.FirstOrDefault().RatedQuestionCount)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.QuestionCoverage.FirstOrDefault().Percentage)

@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <td colspan="2" class="single-column">
-                    @Html.Display("Question.Content")
+                    @Html.DisplayFor(m => m.Question.Content)
                 </td>
             </tr>
             <tr>
@@ -26,7 +26,7 @@
                     Answer 1: @Html.RadioButtonFor(m => m.ChosenAnswer, 1)
                 </td>
                 <td class="single-column right-2-col">
-                    @Html.Display("Question.Answer1")
+                    @Html.DisplayFor(m => m.Question.Answer1)
                 </td>
             </tr>
             <tr>
@@ -37,7 +37,7 @@
                     Answer 2: @Html.RadioButtonFor(m => m.ChosenAnswer, 2)
                 </td>
                 <td class="single-column right-2-col">
-                    @Html.Display("Question.Answer2")
+                    @Html.DisplayFor(m => m.Question.Answer2)
                 </td>
             </tr>
             <tr>
@@ -48,7 +48,7 @@
                     Answer 3: @Html.RadioButtonFor(m => m.ChosenAnswer, 3)
                 </td>
                 <td class="single-column right-2-col">
-                    @Html.Display("Question.Answer3")
+                    @Html.DisplayFor(m => m.Question.Answer3)
                 </td>
             </tr>
             <tr>
@@ -59,7 +59,7 @@
                     Answer 4: @Html.RadioButtonFor(m => m.ChosenAnswer, 4)
                 </td>
                 <td class="single-column right-2-col">
-                    @Html.Display("Question.Answer4")
+                    @Html.DisplayFor(m => m.Question.Answer4)
                 </td>
             </tr>
             <tr>
@@ -70,15 +70,15 @@
         </tbody>
     </table>
 
-    @Html.Hidden("Question.Id")
-    @Html.Hidden("Title")
-    @Html.Hidden("Question.Content")
-    @Html.Hidden("Question.Answer1")
-    @Html.Hidden("Question.Answer2")
-    @Html.Hidden("Question.Answer3")
-    @Html.Hidden("Question.Answer4")
-    @Html.Hidden("Question.CorrectAnswer")
-    @Html.Hidden("Question.Reference")
+    @Html.HiddenFor(m => m.Question.Id)
+    @Html.HiddenFor(m => m.Title)
+    @Html.HiddenFor(m => m.Question.Content)
+    @Html.HiddenFor(m => m.Question.Answer1)
+    @Html.HiddenFor(m => m.Question.Answer2)
+    @Html.HiddenFor(m => m.Question.Answer3)
+    @Html.HiddenFor(m => m.Question.Answer4)
+    @Html.HiddenFor(m => m.Question.CorrectAnswer)
+    @Html.HiddenFor(m => m.Question.Reference)
 }
 
 
