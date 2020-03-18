@@ -139,20 +139,20 @@ namespace RevisionApplication.Helpers
 
         public Question GetMultipleChoiceQuestionBasedOnRating(string userName)
         {
-            var units = GetUserSelectedUnits(userName);
+            var units = GetSelectedUnitsIdList(userName);
 
             // Find new question 
-            var question = _questionRepository.GetAllQuestions().Where(q => !_questionRatingRepository.GetAllRatings().Where(r => r.UserName == userName && units.Contains(r.Question.Unit)).Select(r => r.QuestionId).Contains(q.Id)).FirstOrDefault();
+            var question = _questionRepository.GetAllQuestions().Where(q => !_questionRatingRepository.GetAllRatings().Where(r => r.UserName == userName).Select(r => r.QuestionId).Contains(q.Id) && units.Contains(q.UnitId)).FirstOrDefault();
 
             if (question is null)
             {
                 // Find lowest rated question id 
-                var nextQuestionId = _questionRatingRepository.GetAllRatings().Where(r => r.UserName == userName && units.Contains(r.Question.Unit) && r.Time < DateTime.Now.AddHours(-1) && r.Rating < 6).OrderBy(r => r.Time).FirstOrDefault();
+                var nextQuestionId = _questionRatingRepository.GetAllRatings().Where(r => r.UserName == userName && units.Contains(r.Question.UnitId) && r.Time < DateTime.Now.AddHours(-1) && r.Rating < 6).OrderBy(r => r.Time).FirstOrDefault();
 
                 if (nextQuestionId is null)
                 {
                     // Get oldest rated question id  
-                    nextQuestionId = _questionRatingRepository.GetAllRatings().Where(r => r.UserName == userName && units.Contains(r.Question.Unit)).OrderBy(r => r.Time).FirstOrDefault();
+                    nextQuestionId = _questionRatingRepository.GetAllRatings().Where(r => r.UserName == userName && units.Contains(r.Question.UnitId)).OrderBy(r => r.Time).FirstOrDefault();
                 }
 
                 // Get the question 
