@@ -32,6 +32,7 @@ namespace RevisionApplication
             services.AddTransient<ICommonHelper, CommonHelper>();
             services.AddTransient<IMultipleChoiceHelper, MultipleChoiceHelper>();
             services.AddTransient<IFlashCardHelper, FlashCardHelper>();
+            services.AddTransient<IQuestionHelper, QuestionHelper>();
             services.AddTransient<IQuestionRatingRepository, QuestionRatingRepository>();
             services.AddTransient<IQuestionRepository, QuestionRepository>();
             services.AddTransient<IReportHelper, ReportHelper>();

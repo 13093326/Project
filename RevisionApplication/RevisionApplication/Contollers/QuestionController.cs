@@ -12,26 +12,18 @@ namespace RevisionApplication.Contollers
     [Authorize]
     public class QuestionController : Controller
     {
-        private readonly IQuestionRepository _questionRepository;
         private readonly ICommonHelper _commonHelper;
-        private readonly IUnitRepository _unitRepository;
+        private readonly IQuestionHelper _questionHelper;
 
-        public QuestionController(IQuestionRepository questionRepository, ICommonHelper commonHelper, IUnitRepository unitRepository)
+        public QuestionController(ICommonHelper commonHelper, IQuestionHelper questionHelper)
         {
-            _questionRepository = questionRepository;
             _commonHelper = commonHelper;
-            _unitRepository = unitRepository;
+            _questionHelper = questionHelper;
         }
 
         public IActionResult Index()
         {
-            var units = _commonHelper.GetSelectedUnitsIdList(User.Identity.Name);
-
-            var questions = _questionRepository.GetAllQuestions()
-                .Join(_unitRepository.GetAllUnits().Where(u => units.Contains(u.Id)), q => q.UnitId, u => u.Id,
-                (q, u) => new Question {
-                    Answer1 = q.Answer1, Answer2 = q.Answer2, Answer3 = q.Answer3, Answer4 = q.Answer4, Content = q.Content, CorrectAnswer = q.CorrectAnswer, Id = q.Id, Reference = q.Reference, UnitId = q.UnitId, Unit = u
-                }).OrderBy(q => q.Id).ToList();
+            var questions = _questionHelper.GetAllQuestions(User.Identity.Name);
 
             var homeViewModel = new QuestionListViewModel()
             {
@@ -55,7 +47,7 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Delete(int Id)
         {
-            _questionRepository.DeleteQuestion(Id);
+            _questionHelper.DeleteQuestion(Id);
 
             return RedirectToAction("Index", "Question");
         }
@@ -63,10 +55,9 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
-            Question question = _questionRepository.GetQuestionById(Id);
-
+            var question = _questionHelper.GetQuestionById(Id);
+            var unit = _questionHelper.GetUnitById(question.UnitId);
             List<string> units = _commonHelper.GetUnitNames();
-            Unit unit = _unitRepository.GetUnitById(question.UnitId);
 
             QuestionViewModel model = new QuestionViewModel
             {
@@ -87,7 +78,7 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Edit(QuestionViewModel model)
         {
-            Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit);
+            var unit = _questionHelper.GetUnitByName(model.SelectedUnit);
 
             if (ModelState.IsValid && model.CorrectAnswer != 0 && unit != null)
             {
@@ -105,7 +96,7 @@ namespace RevisionApplication.Contollers
                     UnitId = unit.Id
                 };
 
-                _questionRepository.UpdateQuestion(question);
+                _questionHelper.UpdateQuestion(question);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -118,7 +109,7 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Add(QuestionViewModel model)
         {
-            Unit unit = _unitRepository.GetUnitByName(model.SelectedUnit);
+            var unit = _questionHelper.GetUnitByName(model.SelectedUnit);
 
             if (ModelState.IsValid && model.CorrectAnswer != 0 && unit != null)
             {
@@ -134,7 +125,7 @@ namespace RevisionApplication.Contollers
                     UnitId = unit.Id
                 };
 
-                _questionRepository.AddQuestion(question);
+                _questionHelper.AddQuestion(question);
 
                 return RedirectToAction("Index", "Home");
             }
