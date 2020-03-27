@@ -30,6 +30,7 @@ namespace RevisionApplication
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<ICommonHelper, CommonHelper>();
+            services.AddTransient<IMultipleChoiceHelper, MultipleChoiceHelper>();
             services.AddTransient<IFlashCardHelper, FlashCardHelper>();
             services.AddTransient<IQuestionRatingRepository, QuestionRatingRepository>();
             services.AddTransient<IQuestionRepository, QuestionRepository>();

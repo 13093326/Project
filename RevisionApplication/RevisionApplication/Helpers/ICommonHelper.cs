@@ -9,8 +9,6 @@ namespace RevisionApplication.Helpers
         string GetUserSettingsOrCreate(string userName);
         int[] GetSelectedUnitsIdList(string userName);
         void UpdateSelectedUnits(string userName, int[] selectedUnits);
-        void UpdateOrInsertRating(string userName, int questionId, bool isCorrect);
-        Question GetMultipleChoiceQuestionBasedOnRating(string userName);
         List<string> GetUnitNames();
         bool isUserRoleAdmin(string userName);
     }

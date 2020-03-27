@@ -9,17 +9,19 @@ namespace RevisionApplication.Contollers
     public class MultipleChoiceController : Controller
     {
         private readonly ICommonHelper _commonHelper;
+        private readonly IMultipleChoiceHelper _multipleChoiceHelper;
 
-        public MultipleChoiceController(ICommonHelper commonHelper)
+        public MultipleChoiceController(ICommonHelper commonHelper, IMultipleChoiceHelper multipleChoiceHelper)
         {
-            _commonHelper = commonHelper; 
+            _commonHelper = commonHelper;
+            _multipleChoiceHelper = multipleChoiceHelper;
         }
 
         [HttpGet]
         public IActionResult Index(int record)
         {
             // Get question based on rating 
-            var question = _commonHelper.GetMultipleChoiceQuestionBasedOnRating(User.Identity.Name); 
+            var question = _multipleChoiceHelper.GetMultipleChoiceQuestionBasedOnRating(User.Identity.Name); 
 
             var revisionViewModel = new RevisionViewModel()
             {
@@ -40,7 +42,7 @@ namespace RevisionApplication.Contollers
                 var isCorrect = (model.ChosenAnswer.Equals(model.Question.CorrectAnswer.ToString())) ? true : false;
 
                 // Update question rating 
-                _commonHelper.UpdateOrInsertRating(User.Identity.Name, model.Question.Id, isCorrect);
+                _multipleChoiceHelper.UpdateOrInsertRating(User.Identity.Name, model.Question.Id, isCorrect);
 
                 if (isCorrect)
                 {
