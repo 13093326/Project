@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace RevisionApplication.Helpers
 {
     public  class CommonHelper : ICommonHelper
@@ -160,26 +159,6 @@ namespace RevisionApplication.Helpers
             }
 
             return question;
-        }
-
-        public Question GetRandomQuestionFromUnits(string userName, int record)
-        {
-            // Get user selected units 
-            var units = GetUserSelectedUnits(userName);
-
-            // Get questions in random order for units that is not the record provided if it should not match that last retrieved question 
-            Random random = new Random();
-            var allValidQuestionIds = _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit) && p.Id != record).OrderBy(x => random.Next()).Select(p => p.Id);
-
-            // Make a random sleection to prevent bias towards low or high numbers 
-            if (allValidQuestionIds.Count() > 0)
-            {
-                var index = allValidQuestionIds.ElementAt(random.Next(0, allValidQuestionIds.Count() - 1));
-
-                return _questionRepository.GetQuestionById(index);
-            }
-
-            return null;
         }
     }
 }

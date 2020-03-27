@@ -9,10 +9,12 @@ namespace RevisionApplication.Contollers
     [Authorize]
     public class FlashCardController : Controller
     {
+        private readonly IFlashCardHelper _flashCardHelper;
         private readonly ICommonHelper _commonHelper;
 
-        public FlashCardController(ICommonHelper commonHelper)
+        public FlashCardController(IFlashCardHelper flashCardHelper, ICommonHelper commonHelper)
         {
+            _flashCardHelper = flashCardHelper;
             _commonHelper = commonHelper;
         }
 
@@ -22,7 +24,7 @@ namespace RevisionApplication.Contollers
             try
             {
                 // Get random question that is not the same as the last question 
-                var question = _commonHelper.GetRandomQuestionFromUnits(User.Identity.Name, record);
+                var question = _flashCardHelper.GetRandomQuestionFromUnits(User.Identity.Name, record);
 
                 if (question is null)
                 {

@@ -29,18 +29,29 @@ namespace RevisionApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<ICommonHelper, CommonHelper>();
+            services.AddTransient<IFlashCardHelper, FlashCardHelper>();
             services.AddTransient<IQuestionRatingRepository, QuestionRatingRepository>();
             services.AddTransient<IQuestionRepository, QuestionRepository>();
-            services.AddTransient<ITestQuestionRepository, TestQuestionRepository>();
+            services.AddTransient<IReportHelper, ReportHelper>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<ITestHelper, TestHelper>();
             services.AddTransient<ITestSetRepository, TestSetRepository>();
+            services.AddTransient<ITestQuestionRepository, TestQuestionRepository>();
             services.AddTransient<IUnitRepository, UnitRepository>();
             services.AddTransient<IUserSettingsRepository, UserSettingsRepository>();
-            services.AddTransient<ICommonHelper, CommonHelper>();
-            services.AddTransient<IReportHelper, ReportHelper>();
-            services.AddTransient<ITestHelper, TestHelper>();
-            services.AddTransient<IRoleRepository, RoleRepository>();
 
             services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddMvc();
         }
 
@@ -60,7 +71,7 @@ namespace RevisionApplication
             {
                 // Default route 
                 routes.MapRoute(
-                    name:"default",
+                    name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}"
                     );
             }
