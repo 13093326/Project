@@ -7,63 +7,50 @@
     <table style="width: 100%;">
         <tbody>
             <tr>
-                <td colspan="2" class="single-column">
-                    <p class="item-label">
+                <td colspan="4" style="border: none;">
+                    <p class="item-label" style="margin: 0px;">
                         Question:
                     </p>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="single-column">
+                <td colspan="4" style="border: none;">
                     @Html.DisplayFor(m => m.Question.Content)
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-bottom: 1px solid #000000; "></td>
+                <td colspan="4" style="border-bottom: 1px solid #000000; "></td>
             </tr>
             <tr>
-                <td class="single-column left-2-col">
+                <td class="answer-option">
                     Answer 1: @Html.RadioButtonFor(m => m.ChosenAnswer, 1)
                 </td>
-                <td class="single-column right-2-col">
+                <td class="answer-text">
                     @Html.DisplayFor(m => m.Question.Answer1)
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="border-bottom: 1px solid #000000; "></td>
-            </tr>
-            <tr>
-                <td class="single-column left-2-col">
+                <td class="answer-option" style="padding-left: 0px;">
                     Answer 2: @Html.RadioButtonFor(m => m.ChosenAnswer, 2)
                 </td>
-                <td class="single-column right-2-col">
+                <td class="answer-text">
                     @Html.DisplayFor(m => m.Question.Answer2)
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="border-bottom: 1px solid #000000; "></td>
-            </tr>
-            <tr>
-                <td class="single-column left-2-col">
+                <td class="answer-option">
                     Answer 3: @Html.RadioButtonFor(m => m.ChosenAnswer, 3)
                 </td>
-                <td class="single-column right-2-col">
+                <td class="answer-text">
                     @Html.DisplayFor(m => m.Question.Answer3)
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="border-bottom: 1px solid #000000; "></td>
-            </tr>
-            <tr>
-                <td class="single-column left-2-col">
+                <td class="answer-option" style="padding-left: 0px;">
                     Answer 4: @Html.RadioButtonFor(m => m.ChosenAnswer, 4)
                 </td>
-                <td class="single-column right-2-col">
+                <td class="answer-text">
                     @Html.DisplayFor(m => m.Question.Answer4)
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="single-column">
+                <td colspan="4" class="single-column">
                     <input value="Submit" id="btnsubmit" type="submit" class="btn">
                 </td>
             </tr>
