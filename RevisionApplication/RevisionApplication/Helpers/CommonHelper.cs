@@ -23,6 +23,13 @@ namespace RevisionApplication.Helpers
             _roleRepository = roleRepository;
         }
 
+        public void UpdateSelectedUnits(string userName, int[] selectedUnits)
+        {
+            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
+            currentUserSettings.SelectedUnits = string.Join(",", selectedUnits);
+            _userSettingsRepository.UpdateSettings(currentUserSettings);
+        }
+
         public int[] GetSelectedUnitsIdList(string userName)
         {
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
@@ -33,13 +40,6 @@ namespace RevisionApplication.Helpers
             }
 
             return currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToArray();
-        }
-
-        public void UpdateSelectedUnits(string userName, int[] selectedUnits)
-        {
-            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
-            currentUserSettings.SelectedUnits = string.Join(",", selectedUnits);
-            _userSettingsRepository.UpdateSettings(currentUserSettings);
         }
 
         public bool isUserRoleAdmin(string userName)

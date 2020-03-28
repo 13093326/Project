@@ -1,22 +1,20 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
-using RevisionApplication.Repository;
 using RevisionApplication.ViewModels;
-using System.Linq;
 
 namespace RevisionApplication.Contollers
 {
     [Authorize]
     public class SettingsController : Controller
     {
-        private readonly IUnitRepository _unitRepository;
         private readonly ICommonHelper _commonHelper;
+        private readonly ISettingsHelper _settingsHelper;
 
-        public SettingsController(IUnitRepository unitRepository, ICommonHelper commonHelper)
+        public SettingsController(ICommonHelper commonHelper, ISettingsHelper settingsHelper)
         {
-            _unitRepository = unitRepository;
             _commonHelper = commonHelper;
+            _settingsHelper = settingsHelper;
         }
 
         [HttpGet]
@@ -25,7 +23,7 @@ namespace RevisionApplication.Contollers
             var settingsViewModel = new SettingsViewModel()
             {
                 Title = "Settings",
-                Units = _unitRepository.GetAllUnits().OrderBy(p => p.Id).ToList(),
+                Units = _settingsHelper.GetAllUnits(),
                 SelectedUnitIds = _commonHelper.GetSelectedUnitsIdList(User.Identity.Name)
             };
 
@@ -39,7 +37,7 @@ namespace RevisionApplication.Contollers
             {
                 if (model.SelectedUnitIds != null)
                 {
-                    _commonHelper.UpdateSelectedUnits(User.Identity.Name, model.SelectedUnitIds);
+                    _settingsHelper.UpdateSelectedUnits(User.Identity.Name, model.SelectedUnitIds);
                 }
 
                 return RedirectToAction("Index", "Home");

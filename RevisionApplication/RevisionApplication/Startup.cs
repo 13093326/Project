@@ -37,6 +37,7 @@ namespace RevisionApplication
             services.AddTransient<IQuestionRepository, QuestionRepository>();
             services.AddTransient<IReportHelper, ReportHelper>();
             services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<ISettingsHelper, SettingsHelper>();
             services.AddTransient<ITestHelper, TestHelper>();
             services.AddTransient<ITestSetRepository, TestSetRepository>();
             services.AddTransient<ITestQuestionRepository, TestQuestionRepository>();
