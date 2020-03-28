@@ -47,10 +47,12 @@ namespace RevisionApplication.Contollers
                 if (isCorrect)
                 {
                     ViewBag.Message = "Correct.";
+                    ViewBag.Colour = "Green";
                 }
                 else
                 {
                     ViewBag.Message = $"Answer { model.ChosenAnswer } is incorrect.";
+                    ViewBag.Colour = "Red";
                 }
 
                 model.Title = "Multiple Choice Answer";

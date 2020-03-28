@@ -2,16 +2,17 @@
 
 <h1>@Model.Title</h1>
 
-<p class="item-label">
+<p class="item-label" style="padding: 5px; border: solid 5px @ViewBag.Colour;">
     @ViewBag.Message
-</p>
-
-<p class="item-label">
-    Answer:
 </p>
 
 <table style="width: 100%;">
     <tbody>
+        <tr>
+            <td class="single-column">
+                Correct Answer:
+            </td>
+        </tr>
         <tr>
             <td class="single-column">
                 @switch (Model.Question.CorrectAnswer)
@@ -33,9 +34,7 @@
         </tr>
         <tr>
             <td class="single-column">
-                <p class="item-label">
-                    Reference:
-                </p>
+                Reference:
             </td>
         </tr>
         <tr>
