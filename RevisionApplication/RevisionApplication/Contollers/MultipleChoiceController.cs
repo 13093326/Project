@@ -25,7 +25,7 @@ namespace RevisionApplication.Contollers
 
             var revisionViewModel = new RevisionViewModel()
             {
-                Title = "Multiple choice question",
+                Title = "Multiple Choice Question",
                 Question = question,
                 currentRecord = record
             };
@@ -47,12 +47,14 @@ namespace RevisionApplication.Contollers
                 if (isCorrect)
                 {
                     ViewBag.Message = "Correct.";
-                    model.Title = "Multiple choice answer";
                 }
                 else
                 {
                     ViewBag.Message = $"Answer { model.ChosenAnswer } is incorrect.";
                 }
+
+                model.Title = "Multiple Choice Answer";
+
                 return View("Answer", model);
             }
 

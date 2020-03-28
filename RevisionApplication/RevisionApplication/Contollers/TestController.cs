@@ -73,6 +73,7 @@ namespace RevisionApplication.Contollers
 
             var resultViewModel = new ResultViewModel
             {
+                Title = "Test Results",
                 TotalCount = testSet.TotalCount, 
                 CorrectCount = testSet.CorrectCount
             };

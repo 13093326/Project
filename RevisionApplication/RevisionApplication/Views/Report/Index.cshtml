@@ -2,6 +2,10 @@
 
 <h1>@Model.Title</h1>
 
+<p class="item-label">
+    Question Progress By Unit:
+</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -22,23 +26,27 @@
     <tbody>
         @foreach (var item in Model.QuestionCoverage)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalQuestionCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RatedQuestionCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Percentage)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalQuestionCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RatedQuestionCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Percentage)
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+<p class="item-label">
+    Average Question Rating By Unit:
+</p>
 
 <table class="table">
     <thead>
@@ -65,6 +73,10 @@
         }
     </tbody>
 </table>
+
+<p class="item-label">
+    Test Score Percentage History:
+</p>
 
 <table class="table">
     <thead>

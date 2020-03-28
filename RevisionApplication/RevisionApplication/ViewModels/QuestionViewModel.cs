@@ -1,5 +1,4 @@
-﻿using RevisionApplication.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,6 +7,7 @@ namespace RevisionApplication.ViewModels
     public class QuestionViewModel
     {
         public int Id { get; set; }
+        public string Title { get; set; }
         [Required]
         [DisplayName("Question")]
         public string Content { get; set; }

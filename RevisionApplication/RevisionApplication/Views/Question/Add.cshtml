@@ -1,8 +1,6 @@
 ﻿@model QuestionViewModel
 
-<p class="item-label">
-    Add Question:
-</p>
+<h1>@Model.Title</h1>
 
 @using (Html.BeginForm("Add", "Question", FormMethod.Post))
 {

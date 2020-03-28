@@ -19,6 +19,7 @@ namespace RevisionApplication.Contollers
         {
             ReportViewModel model = new ReportViewModel();
 
+            model.Title = "Reports";
             model.QuestionCoverage.AddRange(_reportHelper.questionCoverageReport(User.Identity.Name));
             model.UnitRating.AddRange(_reportHelper.GetUnitRatingReport(User.Identity.Name));
             model.TestHistory.AddRange(_reportHelper.GetTestHistoryReport(User.Identity.Name));

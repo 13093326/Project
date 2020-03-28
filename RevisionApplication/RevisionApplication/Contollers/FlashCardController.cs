@@ -33,7 +33,7 @@ namespace RevisionApplication.Contollers
 
                 var revisionViewModel = new RevisionViewModel()
                 {
-                    Title = "Flash card question",
+                    Title = "Flash Card Question",
                     Question = question,
                     currentRecord = record
                 };
@@ -50,7 +50,7 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Index(RevisionViewModel model)
         {
-            model.Title = "Flash card answer"; 
+            model.Title = "Flash Card Answer"; 
             return View("Answer", model);
         }
     }

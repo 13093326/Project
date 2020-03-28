@@ -39,6 +39,7 @@ namespace RevisionApplication.Contollers
         {
             QuestionViewModel model = new QuestionViewModel();
 
+            model.Title = "Add Question";
             model.Units = _commonHelper.GetUnitNames();
 
             return View(model);
@@ -72,6 +73,8 @@ namespace RevisionApplication.Contollers
                 Units = units
             };
 
+            model.Title = "Edit Question";
+
             return View(model);
         }
 
@@ -101,6 +104,7 @@ namespace RevisionApplication.Contollers
                 return RedirectToAction("Index", "Home");
             }
 
+            model.Title = "Edit Question";
             model.Units = _commonHelper.GetUnitNames();
 
             return View(model);
