@@ -8,26 +8,15 @@ namespace RevisionApplication.Helpers
 {
     public  class CommonHelper : ICommonHelper
     {
-        private readonly IQuestionRepository _questionRepository;
-        private readonly IQuestionRatingRepository _questionRatingRepository;
-        private readonly IUserSettingsRepository _userSettingsRepository;
-        private readonly IUnitRepository _unitRepository;
         private readonly IRoleRepository _roleRepository;
+        private readonly IUnitRepository _unitRepository;
+        private readonly IUserSettingsRepository _userSettingsRepository;
 
-        public CommonHelper(IQuestionRepository questionRepository, IQuestionRatingRepository questionRatingRepository, IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository, IRoleRepository roleRepository)
+        public CommonHelper(IRoleRepository roleRepository, IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
         {
-            _questionRepository = questionRepository;
+            _roleRepository = roleRepository;
             _unitRepository = unitRepository;
             _userSettingsRepository = userSettingsRepository;
-            _questionRatingRepository = questionRatingRepository;
-            _roleRepository = roleRepository;
-        }
-
-        public void UpdateSelectedUnits(string userName, int[] selectedUnits)
-        {
-            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
-            currentUserSettings.SelectedUnits = string.Join(",", selectedUnits);
-            _userSettingsRepository.UpdateSettings(currentUserSettings);
         }
 
         public int[] GetSelectedUnitsIdList(string userName)

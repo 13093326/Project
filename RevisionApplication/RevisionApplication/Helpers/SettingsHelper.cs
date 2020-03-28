@@ -7,13 +7,11 @@ namespace RevisionApplication.Helpers
 {
     public class SettingsHelper : ISettingsHelper
     {
-        private readonly ICommonHelper _commonHelper;
         private readonly IUnitRepository _unitRepository;
         private readonly IUserSettingsRepository _userSettingsRepository;
 
-        public SettingsHelper(ICommonHelper commonHelper, IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
+        public SettingsHelper(IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
         {
-            _commonHelper = commonHelper;
             _unitRepository = unitRepository;
             _userSettingsRepository = userSettingsRepository;
         }
