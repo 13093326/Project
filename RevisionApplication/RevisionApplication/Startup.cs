@@ -35,6 +35,7 @@ namespace RevisionApplication
             services.AddTransient<ITestHelper, TestHelper>();
             services.AddTransient<ITestSetRepository, TestSetRepository>();
             services.AddTransient<ITestQuestionRepository, TestQuestionRepository>();
+            services.AddTransient<IUnitHelper, UnitHelper>();
             services.AddTransient<IUnitRepository, UnitRepository>();
             services.AddTransient<IUserSettingsRepository, UserSettingsRepository>();
 

@@ -1,25 +1,24 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RevisionApplication.Helpers;
 using RevisionApplication.Models;
-using RevisionApplication.Repository;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RevisionApplication.Contollers
 {
     [Authorize]
     public class UnitController : Controller
     {
-        private readonly IUnitRepository _unitRepository;
+        private readonly IUnitHelper _unitHelper;
 
-        public UnitController(IUnitRepository unitRepository)
+        public UnitController(IUnitHelper unitHelper)
         {
-            _unitRepository = unitRepository;
+            _unitHelper = unitHelper;
         }
 
         public IActionResult Index()
         {
-            List<Unit> model = _unitRepository.GetAllUnits().ToList();
+            List<Unit> model = _unitHelper.GetAllUnits();
 
             return View(model);
         }
@@ -35,7 +34,7 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
-            Unit model = _unitRepository.GetUnitById(Id);
+            Unit model = _unitHelper.GetUnitById(Id);
 
             return View(model);
         }
@@ -45,7 +44,7 @@ namespace RevisionApplication.Contollers
         {
             if (ModelState.IsValid)
             {
-                _unitRepository.UpdateUnit(unit);
+                _unitHelper.UpdateUnit(unit);
 
                 return RedirectToAction("Index", "Unit");
             }
@@ -58,7 +57,7 @@ namespace RevisionApplication.Contollers
         {
             if (ModelState.IsValid)
             {
-                _unitRepository.AddUnit(unit);
+                _unitHelper.AddUnit(unit);
 
                 return RedirectToAction("Index", "Unit");
             }
