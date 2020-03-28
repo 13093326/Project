@@ -8,28 +8,72 @@ namespace RevisionApplication.Helpers
 {
     public class TestHelper : ITestHelper
     {
-        private readonly ITestSetRepository _testSetRepository;
+        private readonly ICommonHelper _commonHelper;
         private readonly IQuestionRepository _questionRepository;
         private readonly ITestQuestionRepository _testQuestionRepository;
-        private readonly ICommonHelper _commonHelper;
+        private readonly ITestSetRepository _testSetRepository;
 
-        public TestHelper(ITestSetRepository testSetRepository, IQuestionRepository questionRepository, ITestQuestionRepository testQuestionRepository, ICommonHelper commonHelper)
+        public TestHelper(ICommonHelper commonHelper, IQuestionRepository questionRepository, ITestQuestionRepository testQuestionRepository, ITestSetRepository testSetRepository)
         {
-            _testSetRepository = testSetRepository;
+            _commonHelper = commonHelper;
             _questionRepository = questionRepository;
             _testQuestionRepository = testQuestionRepository;
-            _commonHelper = commonHelper;
+            _testSetRepository = testSetRepository;
         }
 
-        private TestSet GetCurrentTestSet(string userName)
+        public int CloseCurrentTestSet(string userName)
         {
-            return _testSetRepository.GetAllTestSets().Where(p => p.User.Equals(userName)).Where(p => p.Complete == false).OrderBy(p => p.Id).FirstOrDefault();
+            var currentTestSet = GetCurrentTestSet(userName);
+            currentTestSet.Complete = true;
+            currentTestSet = SetTestScore(currentTestSet);
+            currentTestSet.Date = DateTime.Now;
+
+            _testSetRepository.UpdateTestSet(currentTestSet);
+
+            return currentTestSet.Id;
         }
 
-        private IEnumerable<int> GetAllValidQuestionId(string userName)
+        public TestSet GetCurentTestSet(string currentUser)
         {
-            var units = _commonHelper.GetUserSelectedUnits(userName);
-            return _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit)).Select(p => p.Id);
+            return _testSetRepository.GetAllTestSets().Where(p => p.User.Equals(currentUser)).OrderBy(p => p.Id).FirstOrDefault();
+        }
+
+        public TestQuestion GetNextTestQuestion(string userName)
+        {
+            var currentTestSet = GetCurrentTestSet(userName); 
+
+            if (currentTestSet is null)
+            {
+                currentTestSet = CreateTestSet(userName);
+            }
+
+            // Display next question for test set 
+            return _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None") && p.TestSetId == currentTestSet.Id).OrderBy(p => p.Id).FirstOrDefault();
+        }
+
+        public Question GetQuestionById(int Id)
+        {
+            return _questionRepository.GetQuestionById(Id);
+        }
+
+        public TestQuestion GetTestQuestionById(int Id)
+        {
+            return _testQuestionRepository.GetTestQuestionById(Id);
+        }
+
+        public TestQuestion GetNextTestQuestion()
+        {
+            return _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None")).OrderBy(p => p.Id).FirstOrDefault();
+        }
+
+        public TestSet GetTestSetById(int Id)
+        {
+            return _testSetRepository.GetTestSetById(Id);
+        }
+
+        public void UpdateTestQuestion(TestQuestion testQuestion)
+        {
+            _testQuestionRepository.UpdateTestQuestion(testQuestion);
         }
 
         private TestSet CreateTestSet(string userName)
@@ -54,6 +98,17 @@ namespace RevisionApplication.Helpers
             return testSet;
         }
 
+        private IEnumerable<int> GetAllValidQuestionId(string userName)
+        {
+            var units = _commonHelper.GetUserSelectedUnits(userName);
+            return _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit)).Select(p => p.Id);
+        }
+
+        private TestSet GetCurrentTestSet(string userName)
+        {
+            return _testSetRepository.GetAllTestSets().Where(p => p.User.Equals(userName)).Where(p => p.Complete == false).OrderBy(p => p.Id).FirstOrDefault();
+        }
+        
         private IEnumerable<Question> GetQuestions(string userName)
         {
             // Get question ids for the selected units 
@@ -90,31 +145,6 @@ namespace RevisionApplication.Helpers
             return _questionRepository.GetAllQuestions().Where(p => testQuestionIds.Contains(p.Id));
         }
 
-        public TestQuestion GetNextTestQuestion(string userName)
-        {
-            var currentTestSet = GetCurrentTestSet(userName); 
-
-            if (currentTestSet is null)
-            {
-                currentTestSet = CreateTestSet(userName);
-            }
-
-            // Display next question for test set 
-            return _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None") && p.TestSetId == currentTestSet.Id).OrderBy(p => p.Id).FirstOrDefault();
-        }
-
-        public int CloseCurrentTestSet(string userName)
-        {
-            var currentTestSet = GetCurrentTestSet(userName);
-            currentTestSet.Complete = true;
-            currentTestSet = SetTestScore(currentTestSet);
-            currentTestSet.Date = DateTime.Now;
-
-            _testSetRepository.UpdateTestSet(currentTestSet);
-
-            return currentTestSet.Id;
-        }
-
         private TestSet SetTestScore(TestSet currentTestSet)
         {
             var results = _testQuestionRepository.GetAllTestQuestions().Where(p => p.TestSetId == currentTestSet.Id);
@@ -143,12 +173,12 @@ namespace RevisionApplication.Helpers
             catch (Exception ex)
             {
                 // Assume error in calculation and assign default 
-                percentage = 0; 
+                percentage = 0;
             }
 
             currentTestSet.Score = percentage;
 
-            return currentTestSet; 
+            return currentTestSet;
         }
     }
 }

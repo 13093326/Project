@@ -1,29 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
-using RevisionApplication.Repository;
 using RevisionApplication.ViewModels;
-using System.Linq;
 
 namespace RevisionApplication.Contollers
 {
     [Authorize]
     public class TestController : Controller
     {
-        private readonly ITestSetRepository _testSetRepository;
-        private readonly IQuestionRepository _questionRepository;
-        private readonly IUnitRepository _unitRepository;
-        private readonly ITestQuestionRepository _testQuestionRepository;
-        private readonly IUserSettingsRepository _userSettingsRepository;
         private readonly ITestHelper _testHelper;
 
-        public TestController(ITestSetRepository testSetRepository, IQuestionRepository questionRepository, IUnitRepository unitRepository, ITestQuestionRepository testQuestionRepository, IUserSettingsRepository userSettingsRepository, ITestHelper testHelper)
+        public TestController(ITestHelper testHelper)
         {
-            _testSetRepository = testSetRepository;
-            _questionRepository = questionRepository;
-            _unitRepository = unitRepository;
-            _testQuestionRepository = testQuestionRepository;
-            _userSettingsRepository = userSettingsRepository;
             _testHelper = testHelper;
         }
 
@@ -35,7 +23,7 @@ namespace RevisionApplication.Contollers
 
             if (nextTestQuestion != null)
             {
-                var nextQuestion = _questionRepository.GetQuestionById(nextTestQuestion.QuestionId);
+                var nextQuestion = _testHelper.GetQuestionById(nextTestQuestion.QuestionId);
 
                 var testViewModel = new TestViewModel()
                 {
@@ -48,7 +36,6 @@ namespace RevisionApplication.Contollers
             }
             else
             {
-
                 // Close test set 
                 var testSetId = _testHelper.CloseCurrentTestSet(User.Identity.Name);
 
@@ -63,15 +50,13 @@ namespace RevisionApplication.Contollers
             {
                 // Record results 
                 var result = (model.ChosenAnswer.Equals(model.Question.CorrectAnswer)) ? "True" : "False";
-                var testQuestion = _testQuestionRepository.GetTestQuestionById(model.currentRecord);
+                var testQuestion = _testHelper.GetTestQuestionById(model.currentRecord);
                 testQuestion.Result = result;
-                _testQuestionRepository.UpdateTestQuestion(testQuestion);
-
+                _testHelper.UpdateTestQuestion(testQuestion);
 
                 // Check for next question 
-                var currentUser = User.Identity.Name;
-                var currentTestSet = _testSetRepository.GetAllTestSets().Where(p => p.User.Equals(currentUser)).OrderBy(p => p.Id).FirstOrDefault();
-                var nextTestQuestion = _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None")).OrderBy(p => p.Id).FirstOrDefault();
+                var currentTestSet = _testHelper.GetCurentTestSet(User.Identity.Name);
+                var nextTestQuestion = _testHelper.GetNextTestQuestion();
 
                 // Display next question 
                 return RedirectToAction("Index", "Test");
@@ -84,7 +69,7 @@ namespace RevisionApplication.Contollers
         public IActionResult Result(int Id)
         {
             // Get test results 
-            var testSet = _testSetRepository.GetTestSetById(Id);
+            var testSet = _testHelper.GetTestSetById(Id);
 
             var resultViewModel = new ResultViewModel
             {
