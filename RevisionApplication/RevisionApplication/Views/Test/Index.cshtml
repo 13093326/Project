@@ -49,6 +49,14 @@
                     @Html.DisplayFor(m => m.Question.Answer4)
                 </td>
             </tr>
+            @if (ViewBag.RadioValidation != null)
+            {
+                <tr>
+                    <td colspan="4">
+                        @ViewBag.RadioValidation
+                    </td>
+                </tr>
+            }
             <tr>
                 <td colspan="4" class="single-column">
                     <input value="Submit" id="btnsubmit" type="submit" class="btn">

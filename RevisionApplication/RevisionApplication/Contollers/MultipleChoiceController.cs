@@ -60,6 +60,11 @@ namespace RevisionApplication.Contollers
                 return View("Answer", model);
             }
 
+            if (model.ChosenAnswer is null)
+            {
+                ViewBag.RadioValidation = "The Answer field is required.";
+            }
+
             return View(model);
         }
     }

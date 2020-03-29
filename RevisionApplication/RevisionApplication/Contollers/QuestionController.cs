@@ -104,6 +104,16 @@ namespace RevisionApplication.Contollers
                 return RedirectToAction("Index", "Home");
             }
 
+            if (model.CorrectAnswer == 0)
+            {
+                ViewBag.RadioValidation = "The Correct answer field is required.";
+            }
+
+            if (unit is null)
+            {
+                ViewBag.UnitValidation = "The Unit field is required.";
+            }
+
             model.Title = "Edit Question";
             model.Units = _commonHelper.GetUnitNames();
 
@@ -132,6 +142,16 @@ namespace RevisionApplication.Contollers
                 _questionHelper.AddQuestion(question);
 
                 return RedirectToAction("Index", "Home");
+            }
+
+            if (model.CorrectAnswer == 0)
+            {
+                ViewBag.RadioValidation = "The Correct answer field is required.";
+            }
+
+            if (unit is null)
+            {
+                ViewBag.UnitValidation = "The Unit field is required.";
             }
 
             model.Units = _commonHelper.GetUnitNames();

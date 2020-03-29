@@ -62,7 +62,11 @@
             </td>
             <td class="single-column right-2-col">
                 1: @Html.RadioButtonFor(m => m.CorrectAnswer, 1) 2: @Html.RadioButtonFor(m => m.CorrectAnswer, 2) 3: @Html.RadioButtonFor(m => m.CorrectAnswer, 3) 4: @Html.RadioButtonFor(m => m.CorrectAnswer, 4)
-                @Html.ValidationMessageFor(m => m.CorrectAnswer)
+                @if (ViewBag.RadioValidation != null)
+                {
+                    <br />
+                    @ViewBag.RadioValidation
+                }
             </td>
         </tr>
         <tr>
@@ -73,6 +77,11 @@
                 @Html.DropDownListFor(m => m.SelectedUnit,
                 new SelectList(Model.Units),
                 "Select Unit")
+                @if (ViewBag.UnitValidation != null)
+                {
+                    <br />
+                    @ViewBag.UnitValidation
+                }
             </td>
         </tr>
         <tr>

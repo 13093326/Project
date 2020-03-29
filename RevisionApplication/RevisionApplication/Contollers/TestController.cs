@@ -62,6 +62,11 @@ namespace RevisionApplication.Contollers
                 return RedirectToAction("Index", "Test");
             }
 
+            if (model.ChosenAnswer == 0)
+            {
+                ViewBag.RadioValidation = "The Answer field is required.";
+            }
+
             return View(model);
         }
 
