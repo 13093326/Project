@@ -8,11 +8,11 @@
     <table style="width: 100%;">
         <tr>
             <td style="padding: 12px 10px 0px 0px; border: none;">
-                <button type="button" id="btnsettings" onclick="location.href='@Url.Action("Index","Home")'">Menu</button>
+                <button type="button" id="btnsettings" class="navigation-bar-button" onclick="location.href='@Url.Action("Index","Home")'">Menu</button>
             </td>
             <td style="padding: 0px 10px 0px 0px; border: none;">
                 <form id="logoutform" asp-area="Identity" style="height: 10px;" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")">
-                    <button id="btnlogout" type="submit">Log Out</button>
+                    <button id="btnlogout" type="submit" class="navigation-bar-button">Log Out</button>
                 </form>
             </td>
             <td style="padding: 0px; border: none;">
@@ -26,7 +26,7 @@ else
     <table style="width: 100%;">
         <tr>
             <td style="padding: 12px 10px 0px 0px; border: none;">
-                <button type="button" id="btnsettings" onclick="location.href='@Url.Action("Index","Home")'">Menu</button>
+                <button type="button" id="btnsettings" class="navigation-bar-button" onclick="location.href='@Url.Action("Index","Home")'">Menu</button>
             </td>
         </tr>
     </table>

@@ -13,12 +13,7 @@ header {
     height: 80px;
     margin: 0;
     position: relative;
-    /* GRADIENT BACKGROUND */
     background: #413225;
-    background: -moz-linear-gradient(top, #413225 0%, #32251b 100%);
-    background: -webkit-linear-gradient(top, #413225 0%,#32251b 100%);
-    background: linear-gradient(to bottom, #413225 0%,#32251b 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#413225', endColorstr='#32251b',GradientType=0 );
 }
 
 main {
@@ -56,10 +51,6 @@ h2, .item-label {
 
 .no-padding {
     padding: 0 !important;
-}
-
-.no-margin {
-    margin: 0 !important;
 }
 
 /* SET FORM WIDTH HERE */
@@ -115,6 +106,14 @@ table.menu td {
     border-radius: 0;
 }
 
+.navigation-bar-button {
+    color: #BBBBBB;
+}
+
+.navigation-bar-button:hover {
+    color: #BBBBBB;
+}
+
 .nagivation-description {
     vertical-align : middle;
     text-align: right;
@@ -165,10 +164,6 @@ table.menu td {
         color: #FFFFFF;
     }
 
-form label {
-    line-height: 2.6em;
-    vertical-align: middle;
-}
 
 .footer-detail-strip {
     height: 60px;
@@ -176,18 +171,6 @@ form label {
 }
 
 @media(max-width: 640px) {
-
-    .navigation-row th:after,
-    .navigation-row td:after {
-        display: table;
-        content: " ";
-        clear: both;
-    }
-
-    .row-spacer {
-        display: block;
-        border-bottom: 1px solid #cccccc;
-    }
 
     .nagivation-description {
         display: block;
