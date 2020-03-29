@@ -7,11 +7,6 @@
 <table style="width: 100%;">
     <tbody>
         <tr>
-            <td>
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            </td>
-        </tr>
-        <tr>
             <td class="single-column left-2-col">
                 @Html.DisplayNameFor(m => m.Content)
             </td>
@@ -102,6 +97,7 @@
 </table>
 
 @Html.HiddenFor(model => model.Id)
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
