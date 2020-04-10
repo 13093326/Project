@@ -294,7 +294,7 @@ namespace RevisionApplication.Migrations
 
                     b.Property<int>("TotalCount");
 
-                    b.Property<string>("User");
+                    b.Property<string>("UserName");
 
                     b.HasKey("Id");
 
@@ -323,7 +323,7 @@ namespace RevisionApplication.Migrations
 
                     b.Property<string>("SelectedUnits");
 
-                    b.Property<string>("Username");
+                    b.Property<string>("UserName");
 
                     b.HasKey("Id");
 

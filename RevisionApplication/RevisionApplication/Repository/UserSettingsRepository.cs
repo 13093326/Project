@@ -26,7 +26,7 @@ namespace RevisionApplication.Repository
 
         public UserSetting GetSettingsByUserName(string userName)
         {
-            return _appDbContext.UserSettings.FirstOrDefault(u => u.Username.Equals(userName));
+            return _appDbContext.UserSettings.FirstOrDefault(u => u.UserName.Equals(userName));
         }
 
         public UserSetting UpdateSettings(UserSetting userSetting)

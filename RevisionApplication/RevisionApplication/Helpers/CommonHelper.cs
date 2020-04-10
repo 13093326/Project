@@ -44,7 +44,7 @@ namespace RevisionApplication.Helpers
             {
                 var allUnitsIds = _unitRepository.GetAllUnitIds();
 
-                _userSettingsRepository.AddSettings(new UserSetting { Username = userName, SelectedUnits = allUnitsIds });
+                _userSettingsRepository.AddSettings(new UserSetting { UserName = userName, SelectedUnits = allUnitsIds });
 
                 currentUserSettings = GetSelectedUnitsIdList(userName);
             }

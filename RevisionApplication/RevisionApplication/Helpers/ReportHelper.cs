@@ -60,7 +60,7 @@ namespace RevisionApplication.Helpers
 
         public IOrderedEnumerable<ReportTestHistory> GetTestHistoryReport(string userName)
         {
-            var testHistoryQuery = _testSetRepository.GetAllTestSets().Where(t => t.User == userName)
+            var testHistoryQuery = _testSetRepository.GetAllTestSets().Where(t => t.UserName == userName)
                 .Select(r => new ReportTestHistory { DateTaken = r.Date, Score = r.Score })
                 .ToList().OrderByDescending(r => r.DateTaken);
 

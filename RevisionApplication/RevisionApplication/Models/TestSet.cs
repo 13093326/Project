@@ -7,7 +7,7 @@ namespace RevisionApplication.Models
     public class TestSet
     {
         public int Id { get; set; }
-        public string User { get; set; }
+        public string UserName { get; set; }
         public bool Complete { get; set; }
         public DateTime Date { get; set; }
         public int TotalCount { get; set; }

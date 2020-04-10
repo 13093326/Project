@@ -35,7 +35,7 @@ namespace RevisionApplication.Helpers
 
         public TestSet GetCurentTestSet(string currentUser)
         {
-            return _testSetRepository.GetAllTestSets().Where(p => p.User.Equals(currentUser)).OrderBy(p => p.Id).FirstOrDefault();
+            return _testSetRepository.GetAllTestSets().Where(p => p.UserName.Equals(currentUser)).OrderBy(p => p.Id).FirstOrDefault();
         }
 
         public TestQuestion GetNextTestQuestion(string userName)
@@ -79,7 +79,7 @@ namespace RevisionApplication.Helpers
         private TestSet CreateTestSet(string userName)
         {
             // Add new test set 
-            var testSet = _testSetRepository.AddTestSet(new TestSet { User = userName, Complete = false });
+            var testSet = _testSetRepository.AddTestSet(new TestSet { UserName = userName, Complete = false });
 
             // Get questions 
             IEnumerable<Question> testQuestions = GetQuestions(userName);
@@ -106,7 +106,7 @@ namespace RevisionApplication.Helpers
 
         private TestSet GetCurrentTestSet(string userName)
         {
-            return _testSetRepository.GetAllTestSets().Where(p => p.User.Equals(userName)).Where(p => p.Complete == false).OrderBy(p => p.Id).FirstOrDefault();
+            return _testSetRepository.GetAllTestSets().Where(p => p.UserName.Equals(userName)).Where(p => p.Complete == false).OrderBy(p => p.Id).FirstOrDefault();
         }
         
         private IEnumerable<Question> GetQuestions(string userName)
