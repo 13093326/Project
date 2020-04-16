@@ -49,7 +49,7 @@ h2, .item-label {
     margin: 20px 0 10px 0;
     color: #857260;
     font-size: 1.25em;
-    font-family: ,Arial, Helvatica, sans-serif;
+    font-family: arial, helvatica, sans-serif;
     letter-spacing: .1px;
 }
 
@@ -57,7 +57,6 @@ h2, .item-label {
     padding: 0 !important;
 }
 
-/* SET FORM WIDTH HERE */
 .wrapper {
     width: 100%;
     max-width: 740px;
@@ -65,11 +64,11 @@ h2, .item-label {
     margin: 0 auto;
 }
 
-    .wrapper:after {
-        display: table;
-        content: " ";
-        clear: both;
-    }
+.wrapper:after {
+    display: table;
+    content: " ";
+    clear: both;
+}
 
 .units {
     font-weight: bold;
@@ -158,16 +157,15 @@ table.menu td {
     border-radius: 0;
 }
 
-    .btn.navigation {
-        width: 200px;
-        font-weight: bold;
-    }
+.btn.navigation {
+    width: 200px;
+    font-weight: bold;
+}
 
-    .btn:hover, input.btn:hover {
-        background-color: #f8485e;
-        color: #FFFFFF;
-    }
-
+.btn:hover, input.btn:hover {
+    background-color: #f8485e;
+    color: #FFFFFF;
+}
 
 .footer-detail-strip {
     height: 60px;
