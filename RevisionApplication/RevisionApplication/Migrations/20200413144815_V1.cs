@@ -67,7 +67,7 @@ namespace RevisionApplication.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    User = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
                     Complete = table.Column<bool>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     TotalCount = table.Column<int>(nullable: false),
@@ -98,7 +98,7 @@ namespace RevisionApplication.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Username = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
                     SelectedUnits = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

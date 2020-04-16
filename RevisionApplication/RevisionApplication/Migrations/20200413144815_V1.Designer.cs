@@ -10,7 +10,7 @@ using RevisionApplication.Repository;
 namespace RevisionApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200317180830_V1")]
+    [Migration("20200413144815_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
