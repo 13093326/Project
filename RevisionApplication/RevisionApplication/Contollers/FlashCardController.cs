@@ -21,30 +21,22 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Index(int record)
         {
-            try
+            // Get random question that is not the same as the last question 
+            var question = _flashCardHelper.GetRandomQuestionFromUnits(User.Identity.Name, record);
+
+            if (question is null)
             {
-                // Get random question that is not the same as the last question 
-                var question = _flashCardHelper.GetRandomQuestionFromUnits(User.Identity.Name, record);
-
-                if (question is null)
-                {
-                    ViewBag.Message = "No questions found.";
-                }
-
-                var revisionViewModel = new RevisionViewModel()
-                {
-                    Title = "Flash Card Question",
-                    Question = question,
-                    currentRecord = record
-                };
-
-                return View(revisionViewModel);
+                ViewBag.Message = "No questions found.";
             }
-            catch (Exception ex)
+
+            var revisionViewModel = new RevisionViewModel()
             {
-                ViewBag.Message = ex.Message;
-                return View("../Error/Index");
-            }            
+                Title = "Flash Card Question",
+                Question = question,
+                currentRecord = record
+            };
+
+            return View(revisionViewModel);            
         }
 
         [HttpPost]

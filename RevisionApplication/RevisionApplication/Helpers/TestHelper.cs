@@ -166,14 +166,13 @@ namespace RevisionApplication.Helpers
 
             Decimal percentage = 0;
 
-            try
+            if (totalCount == 0)
             {
-                percentage = Math.Round(((decimal)correctCount / (decimal)totalCount) * 100, 2);
-            }
-            catch (Exception ex)
-            {
-                // Assume error in calculation and assign default 
                 percentage = 0;
+            }
+            else
+            { 
+                percentage = Math.Round(((decimal)correctCount / (decimal)totalCount) * 100, 2);
             }
 
             currentTestSet.Score = percentage;

@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RevisionApplication.Helpers;
 using RevisionApplication.Repository;
 using System;
+using System.Net;
 
 namespace RevisionApplication
 {
@@ -57,6 +60,10 @@ namespace RevisionApplication
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/home/error");
             }
 
             app.UseStatusCodePages();
