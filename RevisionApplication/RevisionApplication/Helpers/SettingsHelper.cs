@@ -16,11 +16,13 @@ namespace RevisionApplication.Helpers
             _userSettingsRepository = userSettingsRepository;
         }
 
+        // Get list of all units. 
         public List<Unit> GetAllUnits()
         {
             return _unitRepository.GetAllUnits().OrderBy(p => p.Id).ToList();
         }
 
+        // Update the selected units for the current user. 
         public void UpdateSelectedUnits(string userName, int[] selectedUnits)
         {
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);

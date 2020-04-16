@@ -16,16 +16,17 @@ namespace RevisionApplication.Helpers
             _questionRepository = questionRepository;
         }
 
+        // Get random question for the currently selected units. 
         public Question GetRandomQuestionFromUnits(string userName, int record)
         {
-            // Get user selected units 
+            // Get user selected units. 
             var units = _commonHelper.GetUserSelectedUnits(userName);
 
-            // Get questions in random order for units that is not the record provided if it should not match that last retrieved question 
+            // Get questions in random order for the currently selected units and does not match the record. 
             Random random = new Random();
             var allValidQuestionIds = _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit) && p.Id != record).OrderBy(x => random.Next()).Select(p => p.Id);
 
-            // Make a random sleection to prevent bias towards low or high numbers 
+            // Make a random selection from the randomly ordered list. 
             if (allValidQuestionIds.Count() > 0)
             {
                 var index = allValidQuestionIds.ElementAt(random.Next(0, allValidQuestionIds.Count() - 1));

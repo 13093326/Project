@@ -21,6 +21,7 @@ namespace RevisionApplication.Helpers
             _testSetRepository = testSetRepository;
         }
 
+        // Close an open test set for a user. 
         public int CloseCurrentTestSet(string userName)
         {
             var currentTestSet = GetCurrentTestSet(userName);
@@ -33,11 +34,13 @@ namespace RevisionApplication.Helpers
             return currentTestSet.Id;
         }
 
-        public TestSet GetCurentTestSet(string currentUser)
+        // Get the current test set for a user. 
+        public TestSet GetCurentTestSet(string userName)
         {
-            return _testSetRepository.GetAllTestSets().Where(p => p.UserName.Equals(currentUser)).OrderBy(p => p.Id).FirstOrDefault();
+            return _testSetRepository.GetAllTestSets().Where(p => p.UserName.Equals(userName)).OrderBy(p => p.Id).FirstOrDefault();
         }
 
+        // Get the next question in the test for a user. 
         public TestQuestion GetNextTestQuestion(string userName)
         {
             var currentTestSet = GetCurrentTestSet(userName); 
@@ -47,35 +50,34 @@ namespace RevisionApplication.Helpers
                 currentTestSet = CreateTestSet(userName);
             }
 
-            // Display next question for test set 
             return _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None") && p.TestSetId == currentTestSet.Id).OrderBy(p => p.Id).FirstOrDefault();
         }
 
+        // Get a question by question id. 
         public Question GetQuestionById(int Id)
         {
             return _questionRepository.GetQuestionById(Id);
         }
 
+        // Get test question by test question id. 
         public TestQuestion GetTestQuestionById(int Id)
         {
             return _testQuestionRepository.GetTestQuestionById(Id);
         }
 
-        public TestQuestion GetNextTestQuestion()
-        {
-            return _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None")).OrderBy(p => p.Id).FirstOrDefault();
-        }
-
+        // Get test set by test set id. 
         public TestSet GetTestSetById(int Id)
         {
             return _testSetRepository.GetTestSetById(Id);
         }
 
+        // Update test question. 
         public void UpdateTestQuestion(TestQuestion testQuestion)
         {
             _testQuestionRepository.UpdateTestQuestion(testQuestion);
         }
 
+        // Create new test set. 
         private TestSet CreateTestSet(string userName)
         {
             // Add new test set 
@@ -98,17 +100,20 @@ namespace RevisionApplication.Helpers
             return testSet;
         }
 
+        // Get all questions for the selected units a user. 
         private IEnumerable<int> GetAllValidQuestionId(string userName)
         {
             var units = _commonHelper.GetUserSelectedUnits(userName);
             return _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit)).Select(p => p.Id);
         }
 
+        // Get current test set for a user. 
         private TestSet GetCurrentTestSet(string userName)
         {
             return _testSetRepository.GetAllTestSets().Where(p => p.UserName.Equals(userName)).Where(p => p.Complete == false).OrderBy(p => p.Id).FirstOrDefault();
         }
         
+        // Get questions for the selected units for a user. 
         private IEnumerable<Question> GetQuestions(string userName)
         {
             // Get question ids for the selected units 
@@ -145,9 +150,10 @@ namespace RevisionApplication.Helpers
             return _questionRepository.GetAllQuestions().Where(p => testQuestionIds.Contains(p.Id));
         }
 
-        private TestSet SetTestScore(TestSet currentTestSet)
+        // Set a test score for the a test set. 
+        private TestSet SetTestScore(TestSet testSet)
         {
-            var results = _testQuestionRepository.GetAllTestQuestions().Where(p => p.TestSetId == currentTestSet.Id);
+            var results = _testQuestionRepository.GetAllTestQuestions().Where(p => p.TestSetId == testSet.Id);
 
             int totalCount = 0;
             int correctCount = 0;
@@ -161,8 +167,8 @@ namespace RevisionApplication.Helpers
                 }
             }
 
-            currentTestSet.TotalCount = totalCount;
-            currentTestSet.CorrectCount = correctCount;
+            testSet.TotalCount = totalCount;
+            testSet.CorrectCount = correctCount;
 
             Decimal percentage = 0;
 
@@ -175,9 +181,9 @@ namespace RevisionApplication.Helpers
                 percentage = Math.Round(((decimal)correctCount / (decimal)totalCount) * 100, 2);
             }
 
-            currentTestSet.Score = percentage;
+            testSet.Score = percentage;
 
-            return currentTestSet;
+            return testSet;
         }
     }
 }

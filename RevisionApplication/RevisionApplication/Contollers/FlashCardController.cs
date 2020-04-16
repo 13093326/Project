@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
 using RevisionApplication.ViewModels;
-using System;
 
 namespace RevisionApplication.Contollers
 {
@@ -10,18 +9,16 @@ namespace RevisionApplication.Contollers
     public class FlashCardController : Controller
     {
         private readonly IFlashCardHelper _flashCardHelper;
-        private readonly ICommonHelper _commonHelper;
 
-        public FlashCardController(IFlashCardHelper flashCardHelper, ICommonHelper commonHelper)
+        public FlashCardController(IFlashCardHelper flashCardHelper)
         {
             _flashCardHelper = flashCardHelper;
-            _commonHelper = commonHelper;
         }
 
         [HttpGet]
         public IActionResult Index(int record)
         {
-            // Get random question that is not the same as the last question 
+            // Get random question that is not the same as the last question. 
             var question = _flashCardHelper.GetRandomQuestionFromUnits(User.Identity.Name, record);
 
             if (question is null)

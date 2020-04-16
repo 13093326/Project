@@ -18,6 +18,7 @@ namespace RevisionApplication.Contollers
 
         public IActionResult Index()
         {
+            // Display all units. 
             List<Unit> model = _unitHelper.GetAllUnits();
 
             return View(model);
@@ -42,8 +43,10 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Edit(Unit unit)
         {
+            // Check fields valid. 
             if (ModelState.IsValid)
             {
+                // Update selected unit. 
                 _unitHelper.UpdateUnit(unit);
 
                 return RedirectToAction("Index", "Unit");
@@ -55,8 +58,10 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Add(Unit unit)
         {
+            // Check fields valid. 
             if (ModelState.IsValid)
             {
+                // Add new unit. 
                 _unitHelper.AddUnit(unit);
 
                 return RedirectToAction("Index", "Unit");

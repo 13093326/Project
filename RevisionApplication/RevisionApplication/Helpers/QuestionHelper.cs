@@ -19,16 +19,19 @@ namespace RevisionApplication.Helpers
             _unitRepository = unitRepository;
         }
 
+        // Add new question. 
         public void AddQuestion(Question question)
         {
             _questionRepository.AddQuestion(question);
         }
 
+        // Delete selected quesiton. 
         public void DeleteQuestion(int Id)
         {
             _questionRepository.DeleteQuestion(Id);
         }
 
+        // Get list of all questions for the selected units. 
         public List<Question> GetAllQuestions(string userName)
         {
             var units = _commonHelper.GetSelectedUnitsIdList(userName);
@@ -52,21 +55,25 @@ namespace RevisionApplication.Helpers
             return questions;
         }
 
+        // Get question by question id. 
         public Question GetQuestionById(int Id)
         {
             return _questionRepository.GetQuestionById(Id);
         }
 
+        // Get unit by unit id. 
         public Unit GetUnitById(int unitId)
         {
             return _unitRepository.GetUnitById(unitId);
         }
 
+        // Get unit by unit name. 
         public Unit GetUnitByName(string selectedUnit)
         {
             return _unitRepository.GetUnitByName(selectedUnit);
         }
 
+        // Update question. 
         public void UpdateQuestion(Question question)
         {
             _questionRepository.UpdateQuestion(question);

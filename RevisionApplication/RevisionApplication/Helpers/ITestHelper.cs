@@ -7,7 +7,6 @@ namespace RevisionApplication.Helpers
         int CloseCurrentTestSet(string userName);
         TestSet GetCurentTestSet(string currentUser);
         TestQuestion GetNextTestQuestion(string userName);
-        TestQuestion GetNextTestQuestion();
         Question GetQuestionById(int Id);
         TestQuestion GetTestQuestionById(int Id);
         TestSet GetTestSetById(int Id);

@@ -33,10 +33,12 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Index(SettingsViewModel model)
         {
+            // Check fields valid. 
             if (ModelState.IsValid)
             {
                 if (model.SelectedUnitIds != null)
                 {
+                    // Update unit selection. 
                     _settingsHelper.UpdateSelectedUnits(User.Identity.Name, model.SelectedUnitIds);
                 }
 

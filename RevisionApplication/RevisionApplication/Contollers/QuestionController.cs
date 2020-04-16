@@ -2,10 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
 using RevisionApplication.Models;
-using RevisionApplication.Repository;
 using RevisionApplication.ViewModels;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RevisionApplication.Contollers
 {
@@ -23,6 +21,7 @@ namespace RevisionApplication.Contollers
 
         public IActionResult Index()
         {
+            // Get all questions. 
             var questions = _questionHelper.GetAllQuestions(User.Identity.Name);
 
             var homeViewModel = new QuestionListViewModel()
@@ -37,10 +36,11 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Add()
         {
-            QuestionViewModel model = new QuestionViewModel();
-
-            model.Title = "Add Question";
-            model.Units = _commonHelper.GetUnitNames();
+            QuestionViewModel model = new QuestionViewModel()
+            {
+                Title = "Add Question",
+                Units = _commonHelper.GetUnitNames()
+            };
 
             return View(model);
         }
@@ -48,6 +48,7 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Delete(int Id)
         {
+            // Delete selected question. 
             _questionHelper.DeleteQuestion(Id);
 
             return RedirectToAction("Index", "Question");
@@ -56,6 +57,7 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
+            // Get selected question. 
             var question = _questionHelper.GetQuestionById(Id);
             var unit = _questionHelper.GetUnitById(question.UnitId);
             List<string> units = _commonHelper.GetUnitNames();
@@ -70,10 +72,9 @@ namespace RevisionApplication.Contollers
                 CorrectAnswer = question.CorrectAnswer, 
                 Reference = question.Reference,
                 SelectedUnit = unit.Name,
-                Units = units
-            };
-
-            model.Title = "Edit Question";
+                Units = units,
+                Title = "Edit Question"
+        }; 
 
             return View(model);
         }
@@ -81,8 +82,10 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Edit(QuestionViewModel model)
         {
+            // Get selected unit. 
             var unit = _questionHelper.GetUnitByName(model.SelectedUnit);
 
+            // Check fields valid. 
             if (ModelState.IsValid && model.CorrectAnswer != 0 && unit != null)
             {
                 Question question = new Question
@@ -103,17 +106,21 @@ namespace RevisionApplication.Contollers
 
                 return RedirectToAction("Index", "Home");
             }
-
-            if (model.CorrectAnswer == 0)
+            else
             {
-                ViewBag.RadioValidation = "The Correct answer field is required.";
+                // Custom validation. 
+                if (model.CorrectAnswer == 0)
+                {
+                    ViewBag.RadioValidation = "The Correct answer field is required.";
+                }
+
+                if (unit is null)
+                {
+                    ViewBag.UnitValidation = "The Unit field is required.";
+                }
             }
 
-            if (unit is null)
-            {
-                ViewBag.UnitValidation = "The Unit field is required.";
-            }
-
+            // Set title and unit list names for page. 
             model.Title = "Edit Question";
             model.Units = _commonHelper.GetUnitNames();
 
@@ -123,8 +130,10 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Add(QuestionViewModel model)
         {
+            // Get the selected unit. 
             var unit = _questionHelper.GetUnitByName(model.SelectedUnit);
 
+            // Check fields valid. 
             if (ModelState.IsValid && model.CorrectAnswer != 0 && unit != null)
             {
                 Question question = new Question
@@ -143,17 +152,21 @@ namespace RevisionApplication.Contollers
 
                 return RedirectToAction("Index", "Home");
             }
+            else
+           {
+                // Custom validation. 
+                if (model.CorrectAnswer == 0)
+                {
+                    ViewBag.RadioValidation = "The Correct answer field is required.";
+                }
 
-            if (model.CorrectAnswer == 0)
-            {
-                ViewBag.RadioValidation = "The Correct answer field is required.";
+                if (unit is null)
+                {
+                    ViewBag.UnitValidation = "The Unit field is required.";
+                }
             }
 
-            if (unit is null)
-            {
-                ViewBag.UnitValidation = "The Unit field is required.";
-            }
-
+            // Set unit list names for page. 
             model.Units = _commonHelper.GetUnitNames();
 
             return View(model);

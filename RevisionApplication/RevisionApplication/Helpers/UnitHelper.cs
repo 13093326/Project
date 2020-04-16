@@ -14,21 +14,25 @@ namespace RevisionApplication.Helpers
             _unitRepository = unitRepository;
         }
 
+        // Get list of all units. 
         public List<Unit> GetAllUnits()
         {
             return _unitRepository.GetAllUnits().ToList();
         }
 
+        // Get unit by unit id. 
         public Unit GetUnitById(int Id)
         {
             return _unitRepository.GetUnitById(Id);
         }
 
+        // Update unit. 
         public Unit UpdateUnit(Unit unit)
         {
             return _unitRepository.UpdateUnit(unit);
         }
 
+        // Add unit. 
         public bool AddUnit(Unit unit)
         {
             return _unitRepository.AddUnit(unit);

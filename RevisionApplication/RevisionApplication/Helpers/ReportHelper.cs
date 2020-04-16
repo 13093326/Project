@@ -21,22 +21,23 @@ namespace RevisionApplication.Helpers
             _testSetRepository = testSetRepository; 
         }
 
+        // Get all data for the question coverage report for the current logged in user. 
         public IOrderedEnumerable<ReportQuestionCoverage> questionCoverageReport(string userName)
         {
-            // Get number of questions for each unit 
+            // Get number of questions for each unit. 
             var questionCoverageCounts = _unitRepository.GetAllUnits()
                 .Join(_questionRepository.GetAllQuestions(), u => u.Id, q => q.UnitId, (u, q) => new { UnitId = u.Id, UnitName = u.Name, QuestionId = q.Id })
                 .GroupBy(t => new { t.UnitId, t.UnitName })
                 .Select(group => new { questionCount = group.Count(), unitId = group.Key.UnitId, unitName = group.Key.UnitName });
 
-            // Get number of revised questions for each unit 
+            // Get number of revised questions for each unit. 
             var revisionCoverageCounts = _unitRepository.GetAllUnits()
                 .Join(_questionRepository.GetAllQuestions(), u => u.Id, q => q.UnitId, (u, q) => new { UnitId = u.Id, UnitName = u.Name, QuestionId = q.Id })
                 .Join(_questionRatingRepository.GetAllRatings().Where(qr => qr.UserName == userName), q => q.QuestionId, r => r.QuestionId, (q, r) => new { q.UnitId, q.UnitName, r.Id })
                 .GroupBy(t => new { t.UnitId, t.UnitName })
                 .Select(group => new { revisionCount = group.Count(), unitId = group.Key.UnitId, unitName = group.Key.UnitName });
 
-            // Get the union of the question and revision counts 
+            // Get the union of the question and revision counts. 
             var questionCoverageQuery = questionCoverageCounts.SelectMany
                 (q => revisionCoverageCounts.Where(r => q.unitName == r.unitName).DefaultIfEmpty(),
                 (q, r) => new ReportQuestionCoverage { UnitName = q.unitName, TotalQuestionCount = q.questionCount, RatedQuestionCount = (r != null) ? r.revisionCount : 0, Percentage = (r != null) ? Math.Round(((double)r.revisionCount / (double)q.questionCount) * 100, 2) : 0 })
@@ -45,9 +46,10 @@ namespace RevisionApplication.Helpers
             return questionCoverageQuery;
         }
 
+        // Get all data for the unit rating report for the current logged in user. 
         public IOrderedEnumerable<ReportUnitRating> GetUnitRatingReport(string userName)
         {
-            // Get the average rating score for each unit 
+            // Get the average rating score for each unit. 
             var unitRatingQuery = _unitRepository.GetAllUnits()
                 .Join(_questionRepository.GetAllQuestions(), u => u.Id, q => q.UnitId, (u, q) => new { UnitName = u.Name, QuestionId = q.Id })
                 .Join(_questionRatingRepository.GetAllRatings().Where(qr => qr.UserName == userName), q => q.QuestionId, qr => qr.QuestionId, (q, qr) => new { q.UnitName, q.QuestionId, qr.Rating })
@@ -58,8 +60,10 @@ namespace RevisionApplication.Helpers
             return unitRatingQuery;
         }
 
+        // Get all data for the test history report for the current logged in user. 
         public IOrderedEnumerable<ReportTestHistory> GetTestHistoryReport(string userName)
         {
+            // Get the test scores. 
             var testHistoryQuery = _testSetRepository.GetAllTestSets().Where(t => t.UserName == userName)
                 .Select(r => new ReportTestHistory { DateTaken = r.Date, Score = r.Score })
                 .ToList().OrderByDescending(r => r.DateTaken);

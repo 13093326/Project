@@ -18,13 +18,15 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Index()
         {
-            // Get the next test question 
-            var nextTestQuestion = _testHelper.GetNextTestQuestion(User.Identity.Name); 
+            // Get the next test question. 
+            var nextTestQuestion = _testHelper.GetNextTestQuestion(User.Identity.Name);
 
+            // Check there is a question to display. 
             if (nextTestQuestion != null)
             {
+                // Get the question. 
                 var nextQuestion = _testHelper.GetQuestionById(nextTestQuestion.QuestionId);
-
+                
                 var testViewModel = new TestViewModel()
                 {
                     Title = "Test",
@@ -36,9 +38,10 @@ namespace RevisionApplication.Contollers
             }
             else
             {
-                // Close test set 
+                // No further questions found so close test set. 
                 var testSetId = _testHelper.CloseCurrentTestSet(User.Identity.Name);
 
+                // Display results. 
                 return RedirectToAction("Result", "Test", new { Id = testSetId } );
             }
         }
@@ -46,22 +49,24 @@ namespace RevisionApplication.Contollers
         [HttpPost]
         public IActionResult Index(TestViewModel model)
         {
+            // Check fields valid. 
             if (ModelState.IsValid && model.ChosenAnswer != 0)
             {
-                // Record results 
+                // Record answer result. 
                 var result = (model.ChosenAnswer.Equals(model.Question.CorrectAnswer)) ? "True" : "False";
                 var testQuestion = _testHelper.GetTestQuestionById(model.currentRecord);
                 testQuestion.Result = result;
                 _testHelper.UpdateTestQuestion(testQuestion);
 
-                // Check for next question 
+                // Check for next question. 
                 var currentTestSet = _testHelper.GetCurentTestSet(User.Identity.Name);
                 var nextTestQuestion = _testHelper.GetNextTestQuestion();
 
-                // Display next question 
+                // Display next question.  
                 return RedirectToAction("Index", "Test");
             }
 
+            // Custom validation. 
             if (model.ChosenAnswer == 0)
             {
                 ViewBag.RadioValidation = "The Answer field is required.";
@@ -73,7 +78,7 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Result(int Id)
         {
-            // Get test results 
+            // Get test results. 
             var testSet = _testHelper.GetTestSetById(Id);
 
             var resultViewModel = new ResultViewModel

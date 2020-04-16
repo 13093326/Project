@@ -17,9 +17,12 @@ namespace RevisionApplication.Contollers
 
         public IActionResult Index()
         {
-            ReportViewModel model = new ReportViewModel();
+            ReportViewModel model = new ReportViewModel
+            {
+                Title = "Reports"
+            };
 
-            model.Title = "Reports";
+            // Set report content. 
             model.QuestionCoverage.AddRange(_reportHelper.questionCoverageReport(User.Identity.Name));
             model.UnitRating.AddRange(_reportHelper.GetUnitRatingReport(User.Identity.Name));
             model.TestHistory.AddRange(_reportHelper.GetTestHistoryReport(User.Identity.Name));

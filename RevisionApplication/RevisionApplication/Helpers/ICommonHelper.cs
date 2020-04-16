@@ -9,6 +9,6 @@ namespace RevisionApplication.Helpers
         string GetUserSettingsOrCreate(string userName);
         int[] GetSelectedUnitsIdList(string userName);
         List<string> GetUnitNames();
-        bool isUserRoleAdmin(string userName);
+        bool IsUserRoleAdmin(string userName);
     }
 }
