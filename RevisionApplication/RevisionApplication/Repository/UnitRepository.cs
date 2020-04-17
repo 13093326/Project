@@ -22,7 +22,6 @@ namespace RevisionApplication.Repository
         public Unit UpdateUnit(Unit unit)
         {
             _appDbContext.Units.Update(unit);
-
             _appDbContext.SaveChanges();
 
             return unit;
@@ -41,7 +40,6 @@ namespace RevisionApplication.Repository
         public bool AddUnit(Unit unit)
         {
             _appDbContext.Add(unit);
-
             _appDbContext.SaveChanges();
 
             return true;

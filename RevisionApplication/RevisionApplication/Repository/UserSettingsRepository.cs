@@ -15,7 +15,6 @@ namespace RevisionApplication.Repository
         public UserSetting AddSettings(UserSetting userSettings)
         {
             _appDbContext.Add(userSettings);
-
             _appDbContext.SaveChanges();
 
             return userSettings;

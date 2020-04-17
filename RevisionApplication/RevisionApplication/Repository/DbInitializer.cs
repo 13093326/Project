@@ -6,6 +6,7 @@ namespace RevisionApplication.Repository
 {
     public static class DbInitializer
     {
+        // On run seed the database where needed. 
         public static void Seed(AppDbContext context)
         {
             // Check for admin role. 
@@ -59,7 +60,7 @@ namespace RevisionApplication.Repository
                 var Unit3 = new Unit { Name = "Unit 3" };
                 var Unit4 = new Unit { Name = "Unit 4" };
 
-                // Seed units and examples questions. 
+                // Add units and examples questions. 
                 context.AddRange
                     (
                         Unit1,

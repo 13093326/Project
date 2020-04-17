@@ -14,7 +14,6 @@ namespace RevisionApplication
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-
                 var context = services.GetRequiredService<AppDbContext>();
                 DbInitializer.Seed(context);
             }

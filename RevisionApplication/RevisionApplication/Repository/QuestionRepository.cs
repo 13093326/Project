@@ -21,6 +21,7 @@ namespace RevisionApplication.Repository
 
         public Question GetQuestionById(int questionId)
         {
+
             return _appDbContext.Questions.FirstOrDefault(q => q.Id == questionId);
         }
 
@@ -28,7 +29,6 @@ namespace RevisionApplication.Repository
         {
  
             _appDbContext.Add(question);
-
             _appDbContext.SaveChanges();
 
             return true;
@@ -37,7 +37,6 @@ namespace RevisionApplication.Repository
         public Question UpdateQuestion(Question question)
         {
             _appDbContext.Questions.Update(question);
-
             _appDbContext.SaveChanges();
 
             return question;
@@ -46,9 +45,7 @@ namespace RevisionApplication.Repository
         public bool DeleteQuestion(int questionId)
         {
             Question question = GetQuestionById(questionId);
-
             _appDbContext.Questions.Remove(question);
-
             _appDbContext.SaveChanges();
 
             return true; 
