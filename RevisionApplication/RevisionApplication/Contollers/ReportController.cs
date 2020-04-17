@@ -15,8 +15,10 @@ namespace RevisionApplication.Contollers
             _reportHelper = reportHelper;
         }
 
+        // Reports page. 
         public IActionResult Index()
         {
+            // Create page model. 
             ReportViewModel model = new ReportViewModel
             {
                 Title = "Reports"

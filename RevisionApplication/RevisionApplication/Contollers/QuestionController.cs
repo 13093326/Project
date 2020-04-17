@@ -19,11 +19,13 @@ namespace RevisionApplication.Contollers
             _questionHelper = questionHelper;
         }
 
+        // Display list of questions page. 
         public IActionResult Index()
         {
             // Get all questions. 
             var questions = _questionHelper.GetAllQuestions(User.Identity.Name);
 
+            // Create page model. 
             var homeViewModel = new QuestionListViewModel()
             {
                 Title = "Questions",
@@ -33,9 +35,11 @@ namespace RevisionApplication.Contollers
             return View(homeViewModel);
         }
 
+        // Add question page. 
         [HttpGet]
         public IActionResult Add()
         {
+            // Create page model. 
             QuestionViewModel model = new QuestionViewModel()
             {
                 Title = "Add Question",
@@ -45,6 +49,7 @@ namespace RevisionApplication.Contollers
             return View(model);
         }
 
+        // Delete question. 
         [HttpGet]
         public IActionResult Delete(int Id)
         {
@@ -54,6 +59,7 @@ namespace RevisionApplication.Contollers
             return RedirectToAction("Index", "Question");
         }
 
+        // Edit question. 
         [HttpGet]
         public IActionResult Edit(int Id)
         {
@@ -62,6 +68,7 @@ namespace RevisionApplication.Contollers
             var unit = _questionHelper.GetUnitById(question.UnitId);
             List<string> units = _commonHelper.GetUnitNames();
 
+            // Create page model. 
             QuestionViewModel model = new QuestionViewModel
             {
                 Content = question.Content, 
@@ -79,6 +86,7 @@ namespace RevisionApplication.Contollers
             return View(model);
         }
 
+        // Post edit question. 
         [HttpPost]
         public IActionResult Edit(QuestionViewModel model)
         {
@@ -88,6 +96,7 @@ namespace RevisionApplication.Contollers
             // Check fields valid. 
             if (ModelState.IsValid && model.CorrectAnswer != 0 && unit != null)
             {
+                // Save question. 
                 Question question = new Question
                 {
                     Id = model.Id,
@@ -104,6 +113,7 @@ namespace RevisionApplication.Contollers
 
                 _questionHelper.UpdateQuestion(question);
 
+                // Load main menu. 
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -124,9 +134,11 @@ namespace RevisionApplication.Contollers
             model.Title = "Edit Question";
             model.Units = _commonHelper.GetUnitNames();
 
+            // Load original page due to invalid fields. 
             return View(model);
         }
 
+        // Post add question. 
         [HttpPost]
         public IActionResult Add(QuestionViewModel model)
         {
@@ -136,6 +148,7 @@ namespace RevisionApplication.Contollers
             // Check fields valid. 
             if (ModelState.IsValid && model.CorrectAnswer != 0 && unit != null)
             {
+                // Add question. 
                 Question question = new Question
                 {
                     Answer1 = model.Answer1,
@@ -150,6 +163,7 @@ namespace RevisionApplication.Contollers
 
                 _questionHelper.AddQuestion(question);
 
+                // Load main menu. 
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -169,6 +183,7 @@ namespace RevisionApplication.Contollers
             // Set unit list names for page. 
             model.Units = _commonHelper.GetUnitNames();
 
+            // Load original page due to invalid fields. 
             return View(model);
         }
     }

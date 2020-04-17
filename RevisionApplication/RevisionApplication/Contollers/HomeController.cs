@@ -16,6 +16,7 @@ namespace RevisionApplication.Contollers
             _commonHelper = commonHelper;
         }
 
+        // Error page on exception. 
         public IActionResult Error()
         {
             // Get the exception. 
@@ -30,6 +31,7 @@ namespace RevisionApplication.Contollers
             return View();
         }
 
+        // Main menu. 
         public IActionResult Index()
         {
             // Get user selected units or set to default of all units. 
@@ -38,6 +40,7 @@ namespace RevisionApplication.Contollers
             // Check if user has the admin role. 
             var isUserAdminRole = _commonHelper.IsUserRoleAdmin(User.Identity.Name);
 
+            // Create page model. 
             var homeViewModel = new HomeViewModel()
             {
                 Title = "Main Menu",

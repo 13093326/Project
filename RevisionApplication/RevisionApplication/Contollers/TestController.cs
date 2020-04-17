@@ -15,6 +15,7 @@ namespace RevisionApplication.Contollers
             _testHelper = testHelper;
         }
 
+        // Test question page. 
         [HttpGet]
         public IActionResult Index()
         {
@@ -27,6 +28,7 @@ namespace RevisionApplication.Contollers
                 // Get the question. 
                 var nextQuestion = _testHelper.GetQuestionById(nextTestQuestion.QuestionId);
                 
+                // Create page model. 
                 var testViewModel = new TestViewModel()
                 {
                     Title = "Test",
@@ -41,11 +43,12 @@ namespace RevisionApplication.Contollers
                 // No further questions found so close test set. 
                 var testSetId = _testHelper.CloseCurrentTestSet(User.Identity.Name);
 
-                // Display results. 
+                // Display results page. 
                 return RedirectToAction("Result", "Test", new { Id = testSetId } );
             }
         }
 
+        // Post test question page. 
         [HttpPost]
         public IActionResult Index(TestViewModel model)
         {
@@ -72,15 +75,18 @@ namespace RevisionApplication.Contollers
                 ViewBag.RadioValidation = "The Answer field is required.";
             }
 
+            // Load original page due to invalid fields. 
             return View(model);
         }
 
+        // Results page. 
         [HttpGet]
         public IActionResult Result(int Id)
         {
             // Get test results. 
             var testSet = _testHelper.GetTestSetById(Id);
 
+            // Create page model. 
             var resultViewModel = new ResultViewModel
             {
                 Title = "Test Results",

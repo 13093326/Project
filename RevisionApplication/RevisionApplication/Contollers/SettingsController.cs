@@ -17,9 +17,11 @@ namespace RevisionApplication.Contollers
             _settingsHelper = settingsHelper;
         }
 
+        // Settings page. 
         [HttpGet]
         public IActionResult Index()
         {
+            // Create page model. 
             var settingsViewModel = new SettingsViewModel()
             {
                 Title = "Settings",
@@ -30,6 +32,7 @@ namespace RevisionApplication.Contollers
             return View(settingsViewModel);
         }
 
+        // Post settings page. 
         [HttpPost]
         public IActionResult Index(SettingsViewModel model)
         {
@@ -41,10 +44,16 @@ namespace RevisionApplication.Contollers
                     // Update unit selection. 
                     _settingsHelper.UpdateSelectedUnits(User.Identity.Name, model.SelectedUnitIds);
                 }
+                else
+                {
+                    return View(model);
+                }
 
+                // Load main menu. 
                 return RedirectToAction("Index", "Home");
             }
 
+            // Load original page due to invalid fields. 
             return View(model);
         }
     }

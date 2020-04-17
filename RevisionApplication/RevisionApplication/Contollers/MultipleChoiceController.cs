@@ -15,12 +15,14 @@ namespace RevisionApplication.Contollers
             _multipleChoiceHelper = multipleChoiceHelper;
         }
 
+        // Multiple choice question page. 
         [HttpGet]
         public IActionResult Index(int record)
         {
             // Get question based on rating algorithm. 
             var question = _multipleChoiceHelper.GetMultipleChoiceQuestionBasedOnRating(User.Identity.Name); 
 
+            // Create page model. 
             var revisionViewModel = new RevisionViewModel()
             {
                 Title = "Multiple Choice Question",
@@ -31,10 +33,11 @@ namespace RevisionApplication.Contollers
             return View(revisionViewModel);
         }
 
+        // Post multiple choice page and load answer page. 
         [HttpPost]
         public IActionResult Index(RevisionViewModel model)
         {
-            // Check fields validated. 
+            // Check fields valid. 
             if (ModelState.IsValid && model.ChosenAnswer != null)
             {
                 // Check if answer was correct. 
@@ -55,6 +58,7 @@ namespace RevisionApplication.Contollers
                     ViewBag.Colour = "Red";
                 }
 
+                // Load answer page. 
                 model.Title = "Multiple Choice Answer";
 
                 return View("Answer", model);
@@ -68,6 +72,7 @@ namespace RevisionApplication.Contollers
                 }
             }
 
+            // Load question page due to invalid fields. 
             return View(model);
         }
     }

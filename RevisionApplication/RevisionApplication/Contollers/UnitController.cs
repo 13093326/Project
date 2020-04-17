@@ -16,6 +16,7 @@ namespace RevisionApplication.Contollers
             _unitHelper = unitHelper;
         }
 
+        // Unit list page. 
         public IActionResult Index()
         {
             // Display all units. 
@@ -24,6 +25,7 @@ namespace RevisionApplication.Contollers
             return View(model);
         }
 
+        // Add unit. 
         [HttpGet]
         public IActionResult Add()
         {
@@ -32,6 +34,7 @@ namespace RevisionApplication.Contollers
             return View(model);
         }
 
+        // Edit unit. 
         [HttpGet]
         public IActionResult Edit(int Id)
         {
@@ -40,6 +43,7 @@ namespace RevisionApplication.Contollers
             return View(model);
         }
 
+        // Post edit unit. 
         [HttpPost]
         public IActionResult Edit(Unit unit)
         {
@@ -49,12 +53,15 @@ namespace RevisionApplication.Contollers
                 // Update selected unit. 
                 _unitHelper.UpdateUnit(unit);
 
+                // Load unit list. 
                 return RedirectToAction("Index", "Unit");
             }
 
+            // Load original page due to invalid fields. 
             return View(unit);
         }
 
+        // Post add unit. 
         [HttpPost]
         public IActionResult Add(Unit unit)
         {
@@ -64,9 +71,11 @@ namespace RevisionApplication.Contollers
                 // Add new unit. 
                 _unitHelper.AddUnit(unit);
 
+                // Load unit list. 
                 return RedirectToAction("Index", "Unit");
             }
 
+            // Load original page due to invalid fields. 
             return View(unit);
         }
     }
