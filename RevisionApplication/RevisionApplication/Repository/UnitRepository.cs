@@ -1,8 +1,6 @@
 ﻿using RevisionApplication.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace RevisionApplication.Repository
 {
@@ -42,13 +40,7 @@ namespace RevisionApplication.Repository
 
         public bool AddUnit(Unit unit)
         {
-            _appDbContext.Add
-                   (
-                       new Unit
-                       {
-                           Name = unit.Name
-                       }
-                   );
+            _appDbContext.Add(unit);
 
             _appDbContext.SaveChanges();
 

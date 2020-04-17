@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RevisionApplication.Models;
-using System;
+﻿using RevisionApplication.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace RevisionApplication.Repository
 {

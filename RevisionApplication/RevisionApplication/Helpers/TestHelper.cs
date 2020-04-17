@@ -34,10 +34,10 @@ namespace RevisionApplication.Helpers
             return currentTestSet.Id;
         }
 
-        // Get the current test set for a user. 
-        public TestSet GetCurentTestSet(string userName)
+        // Get current test set for a user. 
+        public TestSet GetCurrentTestSet(string userName)
         {
-            return _testSetRepository.GetAllTestSets().Where(p => p.UserName.Equals(userName)).OrderBy(p => p.Id).FirstOrDefault();
+            return _testSetRepository.GetAllTestSets().Where(p => p.UserName.Equals(userName)).Where(p => p.Complete == false).OrderBy(p => p.Id).FirstOrDefault();
         }
 
         // Get the next question in the test for a user. 
@@ -45,6 +45,7 @@ namespace RevisionApplication.Helpers
         {
             var currentTestSet = GetCurrentTestSet(userName); 
 
+            // If no test set then create new test set. 
             if (currentTestSet is null)
             {
                 currentTestSet = CreateTestSet(userName);
@@ -107,12 +108,6 @@ namespace RevisionApplication.Helpers
             return _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit)).Select(p => p.Id);
         }
 
-        // Get current test set for a user. 
-        private TestSet GetCurrentTestSet(string userName)
-        {
-            return _testSetRepository.GetAllTestSets().Where(p => p.UserName.Equals(userName)).Where(p => p.Complete == false).OrderBy(p => p.Id).FirstOrDefault();
-        }
-        
         // Get questions for the selected units for a user. 
         private IEnumerable<Question> GetQuestions(string userName)
         {
@@ -158,6 +153,7 @@ namespace RevisionApplication.Helpers
             int totalCount = 0;
             int correctCount = 0;
 
+            // Get total counts. 
             foreach (var result in results)
             {
                 totalCount++;
@@ -172,6 +168,7 @@ namespace RevisionApplication.Helpers
 
             Decimal percentage = 0;
 
+            // Set percentage. 
             if (totalCount == 0)
             {
                 percentage = 0;

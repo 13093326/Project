@@ -59,8 +59,8 @@ namespace RevisionApplication.Contollers
                 _testHelper.UpdateTestQuestion(testQuestion);
 
                 // Check for next question. 
-                var currentTestSet = _testHelper.GetCurentTestSet(User.Identity.Name);
-                var nextTestQuestion = _testHelper.GetNextTestQuestion();
+                var currentTestSet = _testHelper.GetCurrentTestSet(User.Identity.Name);
+                var nextTestQuestion = _testHelper.GetNextTestQuestion(User.Identity.Name);
 
                 // Display next question.  
                 return RedirectToAction("Index", "Test");

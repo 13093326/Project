@@ -35,7 +35,16 @@ namespace RevisionApplication.Helpers
         // Return true if the currently logged in user is an admin. 
         public bool IsUserRoleAdmin(string userName)
         {
-            return _roleRepository.isUserAdmin(userName);
+            var role = _roleRepository.GetAdminRoleForUser(userName);
+
+            if (role != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // Get the user unit settings or return default if not set yet. 

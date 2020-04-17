@@ -8,38 +8,50 @@ namespace RevisionApplication.Repository
     {
         public static void Seed(AppDbContext context)
         {
-
+            // Check for admin role. 
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
-                var role = new IdentityRole();
-                role.Name = "Admin";
+                var role = new IdentityRole
+                {
+                    Name = "Admin"
+                };
 
+                // Add admin role. 
                 context.Roles.Add(role);
                 context.SaveChanges();
             }
 
+            // Check for admin account. 
             if (!context.Users.Any(u => u.UserName == "admin@admin.com"))
             {
-                var user = new IdentityUser();
-                user.UserName = "admin@admin.com"; 
-                user.NormalizedEmail = "admin@admin.com";
-                user.NormalizedUserName = "admin@admin.com";
-                user.LockoutEnabled = false;
-                user.SecurityStamp = "fewjiojfew";
-                user.Email = "admin@admin.com";
+                var user = new IdentityUser
+                {
+                    UserName = "admin@admin.com",
+                    NormalizedEmail = "admin@admin.com",
+                    NormalizedUserName = "admin@admin.com",
+                    LockoutEnabled = false,
+                    SecurityStamp = "fewjiojfew",
+                    Email = "admin@admin.com"
+                };
+
                 var hasher = new PasswordHasher<IdentityUser>();
                 user.PasswordHash = hasher.HashPassword(user, "Aa111!");
 
+                // Add admin account. 
                 context.Users.Add(user);
 
-                var userRole = new IdentityUserRole<string>();
-                userRole.UserId = user.Id;
-                userRole.RoleId = context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).FirstOrDefault();
+                var userRole = new IdentityUserRole<string>
+                {
+                    UserId = user.Id,
+                    RoleId = context.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).FirstOrDefault()
+                };
 
+                // Assign admin role to admin account. 
                 context.UserRoles.Add(userRole);
                 context.SaveChanges();
             }
 
+            // Check for units. 
             if (!context.Units.Any())
             {
                 var Unit1 = new Unit { Name = "Unit 1" };
@@ -47,6 +59,7 @@ namespace RevisionApplication.Repository
                 var Unit3 = new Unit { Name = "Unit 3" };
                 var Unit4 = new Unit { Name = "Unit 4" };
 
+                // Seed units and examples questions. 
                 context.AddRange
                     (
                         Unit1,
