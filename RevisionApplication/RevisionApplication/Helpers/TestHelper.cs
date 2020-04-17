@@ -24,11 +24,11 @@ namespace RevisionApplication.Helpers
         // Close an open test set for a user. 
         public int CloseCurrentTestSet(string userName)
         {
+            // Update current test set with closed properties. 
             var currentTestSet = GetCurrentTestSet(userName);
             currentTestSet.Complete = true;
             currentTestSet = SetTestScore(currentTestSet);
             currentTestSet.Date = DateTime.Now;
-
             _testSetRepository.UpdateTestSet(currentTestSet);
 
             return currentTestSet.Id;
@@ -163,12 +163,13 @@ namespace RevisionApplication.Helpers
                 }
             }
 
+            // Set total counts. 
             testSet.TotalCount = totalCount;
             testSet.CorrectCount = correctCount;
 
             Decimal percentage = 0;
 
-            // Set percentage. 
+            // Calculate percentage. 
             if (totalCount == 0)
             {
                 percentage = 0;
@@ -178,6 +179,7 @@ namespace RevisionApplication.Helpers
                 percentage = Math.Round(((decimal)correctCount / (decimal)totalCount) * 100, 2);
             }
 
+            // Set percentage. 
             testSet.Score = percentage;
 
             return testSet;

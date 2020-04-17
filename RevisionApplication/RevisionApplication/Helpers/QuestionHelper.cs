@@ -34,8 +34,10 @@ namespace RevisionApplication.Helpers
         // Get list of all questions for the selected units. 
         public List<Question> GetAllQuestions(string userName)
         {
+            // Get user selected units. 
             var units = _commonHelper.GetSelectedUnitsIdList(userName);
 
+            // Get all questions where the unit has been selected. 
             var questions = _questionRepository.GetAllQuestions()
                 .Join(_unitRepository.GetAllUnits().Where(u => units.Contains(u.Id)), q => q.UnitId, u => u.Id,
                 (q, u) => new Question

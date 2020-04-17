@@ -67,6 +67,7 @@ namespace RevisionApplication.Helpers
         // Add a new rating. 
         private void AddRating(string userName, int questionId, bool isCorrect)
         {
+            // Create new rating. 
             QuestionRating newRating = new QuestionRating()
             {
                 QuestionId = questionId,

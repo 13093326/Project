@@ -22,21 +22,26 @@ namespace RevisionApplication.Helpers
         // Get a list of selected unit id's for the currently logged in user. 
         public int[] GetSelectedUnitsIdList(string userName)
         {
+            // Get the user settings. 
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
 
+            // Handle no settings. 
             if (currentUserSettings is null)
             {
                 return null;
             }
 
+            // Return unit settings split in to an array. 
             return currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToArray();
         }
 
         // Return true if the currently logged in user is an admin. 
         public bool IsUserRoleAdmin(string userName)
         {
+            // Get user role. 
             var role = _roleRepository.GetAdminRoleForUser(userName);
 
+            // Check and return result. 
             if (role != null)
             {
                 return true;
@@ -56,9 +61,7 @@ namespace RevisionApplication.Helpers
             if (currentUserSettings is null)
             {
                 var allUnitsIds = _unitRepository.GetAllUnitIds();
-
                 _userSettingsRepository.AddSettings(new UserSetting { UserName = userName, SelectedUnits = allUnitsIds });
-
                 currentUserSettings = GetSelectedUnitsIdList(userName);
             }
 
