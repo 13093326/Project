@@ -11,15 +11,35 @@
 
     <table style="width: 100%;">
         <tbody>
+            @if (ViewBag.UnitValidation != null)
+            {
+                <tr>
+                    <td colspan="2" class="single-column">
+                        @ViewBag.UnitValidation <br /><br />
+                    </td>
+                </tr>
+            }
+
+            @for (var i = 0; i < Model.Units.Count(); i++)
+            {
+                <tr>
+                    <td class="single-column left-2-col" style="width: 10px;">
+                        @Html.CheckBoxFor(model => model.Units[i].isSelected)
+                    </td>
+                    <td class="single-column right-2-col">
+                        @Html.DisplayFor(model => model.Units[i].Name)
+                        @Html.HiddenFor(model => model.Units[i].Id)
+                        @Html.HiddenFor(model => model.Units[i].Name)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <table style="width: 100%;">
+        <tbody>
             <tr>
                 <td class="single-column">
-                    @Html.ListBoxFor(model => model.SelectedUnitIds, Model.GetUnitsAsSelectListItems(), new { @class= "list" })
                     @Html.HiddenFor(m => m.Title)
-                    @Html.HiddenFor(m => m.Units)
-                </td>
-            </tr>
-            <tr>
-                <td class="single-column">
                     <input value="Save" id="btnsave" type="submit" class="btn accept-changes">
                 </td>
             </tr>

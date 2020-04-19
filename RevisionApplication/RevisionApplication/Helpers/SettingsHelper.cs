@@ -23,10 +23,11 @@ namespace RevisionApplication.Helpers
         }
 
         // Update the selected units for the current user. 
-        public void UpdateSelectedUnits(string userName, int[] selectedUnits)
+        public void UpdateSelectedUnits(string userName, List<UnitProperties> selectedUnits)
         {
+            // Get the current user settings and update. 
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
-            currentUserSettings.SelectedUnits = string.Join(",", selectedUnits);
+            currentUserSettings.SelectedUnits = string.Join(",", selectedUnits.Where(x => x.isSelected).Select(x => x.Id));
             _userSettingsRepository.UpdateSettings(currentUserSettings);
         }
     }

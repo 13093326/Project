@@ -35,6 +35,36 @@ namespace RevisionApplication.Helpers
             return currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToArray();
         }
 
+        // Get a list of unit properties for the user. 
+        public List<UnitProperties> GetSelectedUnitsProperteisList(string userName)
+        {
+            // Get all units 
+            var allUnits = _unitRepository.GetAllUnits(); 
+
+            // Get the user settings. 
+            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
+
+            // Handle no settings. 
+            if (currentUserSettings is null)
+            {
+                return null;
+            }
+
+            // Split user settings in to list 
+            var currentUserSettingIds = currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToList();
+
+            List<UnitProperties> properties = new List<UnitProperties>();
+
+            // Generate list of properties and update with user selection 
+            foreach (var unit in allUnits)
+            {
+                properties.Add(new UnitProperties { Id = unit.Id, Name = unit.Name, isSelected = (currentUserSettingIds.Contains(unit.Id)? true : false) });
+            }
+
+            // Return unit settings split in to an array. 
+            return properties; 
+        }
+
         // Return true if the currently logged in user is an admin. 
         public bool IsUserRoleAdmin(string userName)
         {

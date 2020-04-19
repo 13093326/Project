@@ -6,6 +6,6 @@ namespace RevisionApplication.Helpers
     public interface ISettingsHelper
     {
         List<Unit> GetAllUnits();
-        void UpdateSelectedUnits(string userName, int[] unitIds);
+        void UpdateSelectedUnits(string userName, List<UnitProperties> selectedUnits);
     }
 }

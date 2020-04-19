@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
+using RevisionApplication.Models;
 using RevisionApplication.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RevisionApplication.Contollers
 {
@@ -25,9 +28,8 @@ namespace RevisionApplication.Contollers
             var settingsViewModel = new SettingsViewModel()
             {
                 Title = "Settings",
-                Units = _settingsHelper.GetAllUnits(),
-                SelectedUnitIds = _commonHelper.GetSelectedUnitsIdList(User.Identity.Name)
-            };
+                Units = _commonHelper.GetSelectedUnitsProperteisList(User.Identity.Name)
+        };
 
             return View(settingsViewModel);
         }
@@ -37,23 +39,17 @@ namespace RevisionApplication.Contollers
         public IActionResult Index(SettingsViewModel model)
         {
             // Check fields valid. 
-            if (ModelState.IsValid)
+            if (model.Units.Count() > 0 && model.Units.Where(x => x.isSelected).Count() > 0)
             {
-                if (model.SelectedUnitIds != null)
-                {
-                    // Update unit selection. 
-                    _settingsHelper.UpdateSelectedUnits(User.Identity.Name, model.SelectedUnitIds);
-                }
-                else
-                {
-                    return View(model);
-                }
+                // Update unit selection. 
+                _settingsHelper.UpdateSelectedUnits(User.Identity.Name, model.Units);
 
                 // Load main menu. 
                 return RedirectToAction("Index", "Home");
             }
 
             // Load original page due to invalid fields. 
+            ViewBag.UnitValidation = "Select at least one unit.";
             return View(model);
         }
     }
