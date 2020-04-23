@@ -240,22 +240,6 @@ namespace RevisionApplication.Migrations
                     b.ToTable("QuestionRatings");
                 });
 
-            modelBuilder.Entity("RevisionApplication.Models.ReportTestHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateTaken");
-
-                    b.Property<decimal>("Score")
-                        .HasColumnType("decimal(3, 2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReportTestHistory");
-                });
-
             modelBuilder.Entity("RevisionApplication.Models.TestQuestion", b =>
                 {
                     b.Property<int>("Id")

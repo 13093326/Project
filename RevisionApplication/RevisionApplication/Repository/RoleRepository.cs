@@ -19,7 +19,14 @@ namespace RevisionApplication.Repository
             var adminRole = _appDbContext.Roles.FirstOrDefault(r => r.Name.Equals("Admin"));
 
             // Return admin role for user. 
-            return _appDbContext.UserRoles.FirstOrDefault(r => r.RoleId.Equals(adminRole.Id) && r.UserId.Equals(Currentuser.Id));
+            if (Currentuser == null)
+            {
+                return null;
+            }
+            else
+            {
+                return _appDbContext.UserRoles.FirstOrDefault(r => r.RoleId.Equals(adminRole.Id) && r.UserId.Equals(Currentuser.Id));
+            }
         }
     }
 }

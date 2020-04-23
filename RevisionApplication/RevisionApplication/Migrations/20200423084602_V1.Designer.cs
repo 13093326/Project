@@ -10,7 +10,7 @@ using RevisionApplication.Repository;
 namespace RevisionApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200413144815_V1")]
+    [Migration("20200423084602_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -240,22 +240,6 @@ namespace RevisionApplication.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("QuestionRatings");
-                });
-
-            modelBuilder.Entity("RevisionApplication.Models.ReportTestHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateTaken");
-
-                    b.Property<decimal>("Score")
-                        .HasColumnType("decimal(3, 2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReportTestHistory");
                 });
 
             modelBuilder.Entity("RevisionApplication.Models.TestQuestion", b =>

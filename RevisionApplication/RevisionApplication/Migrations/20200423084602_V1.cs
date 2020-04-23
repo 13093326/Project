@@ -48,20 +48,6 @@ namespace RevisionApplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ReportTestHistory",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DateTaken = table.Column<DateTime>(nullable: false),
-                    Score = table.Column<decimal>(type: "decimal(3, 2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReportTestHistory", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TestSet",
                 columns: table => new
                 {
@@ -366,9 +352,6 @@ namespace RevisionApplication.Migrations
 
             migrationBuilder.DropTable(
                 name: "QuestionRatings");
-
-            migrationBuilder.DropTable(
-                name: "ReportTestHistory");
 
             migrationBuilder.DropTable(
                 name: "TestQuestions");
