@@ -75,7 +75,7 @@
 </table>
 
 <p class="item-label">
-    Test Score Percentage History:
+    Test Score History:
 </p>
 
 <table class="table">
@@ -85,6 +85,12 @@
                 @Html.DisplayNameFor(model => model.TestHistory.FirstOrDefault().DateTaken)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.TestHistory.FirstOrDefault().Correct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TestHistory.FirstOrDefault().Total)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.TestHistory.FirstOrDefault().Score)
             </th>
         </tr>
@@ -92,14 +98,20 @@
     <tbody>
         @foreach (var item in Model.TestHistory)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateTaken)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Score)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTaken)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Correct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+        </tr>
         }
     </tbody>
 </table>

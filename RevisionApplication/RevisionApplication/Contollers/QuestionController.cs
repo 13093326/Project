@@ -114,7 +114,7 @@ namespace RevisionApplication.Contollers
                 _questionHelper.UpdateQuestion(question);
 
                 // Load main menu. 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Question");
             }
             else
             {
