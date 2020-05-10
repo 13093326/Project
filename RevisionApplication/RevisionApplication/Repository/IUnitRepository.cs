@@ -7,7 +7,7 @@ namespace RevisionApplication.Repository
     {
         IEnumerable<Unit> GetAllUnits();
         bool AddUnit(Unit unit);
-        string GetAllUnitIds();
+        int[] GetAllUnitIds();
         Unit GetUnitByName(string name);
         Unit GetUnitById(int Id);
         Unit UpdateUnit(Unit unit);

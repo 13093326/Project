@@ -35,24 +35,24 @@ namespace RevisionApplication.Helpers
         public List<Question> GetAllQuestions(string userName)
         {
             // Get user selected units. 
-            var units = _commonHelper.GetSelectedUnitsIdList(userName);
+            var units = _commonHelper.GetSelectedUnitsList(userName).Select(u => u.SelectedUnitId).ToList();
 
             // Get all questions where the unit has been selected. 
             var questions = _questionRepository.GetAllQuestions()
-                .Join(_unitRepository.GetAllUnits().Where(u => units.Contains(u.Id)), q => q.UnitId, u => u.Id,
-                (q, u) => new Question
-                {
-                    Answer1 = q.Answer1,
-                    Answer2 = q.Answer2,
-                    Answer3 = q.Answer3,
-                    Answer4 = q.Answer4,
-                    Content = q.Content,
-                    CorrectAnswer = q.CorrectAnswer,
-                    Id = q.Id,
-                    Reference = q.Reference,
-                    UnitId = q.UnitId,
-                    Unit = u
-                }).OrderBy(q => q.Id).ToList();
+            .Join(_unitRepository.GetAllUnits().Where(u => units.Contains(u.Id)), q => q.UnitId, u => u.Id,
+            (q, u) => new Question
+            {
+            Answer1 = q.Answer1,
+            Answer2 = q.Answer2,
+            Answer3 = q.Answer3,
+            Answer4 = q.Answer4,
+            Content = q.Content,
+            CorrectAnswer = q.CorrectAnswer,
+            Id = q.Id,
+            Reference = q.Reference,
+            UnitId = q.UnitId,
+            Unit = u
+            }).OrderBy(q => q.Id).ToList();
 
             return questions;
         }

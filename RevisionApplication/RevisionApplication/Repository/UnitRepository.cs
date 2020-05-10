@@ -45,9 +45,9 @@ namespace RevisionApplication.Repository
             return true;
         }
 
-        public string GetAllUnitIds()
+        public int[] GetAllUnitIds()
         {
-            return string.Join(",", GetAllUnits().Select(item => item.Id));
+            return GetAllUnits().Select(item => item.Id).ToArray();
         }
     }
 }

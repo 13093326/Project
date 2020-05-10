@@ -11,28 +11,30 @@ namespace RevisionApplication.Helpers
         private readonly IRoleRepository _roleRepository;
         private readonly IUnitRepository _unitRepository;
         private readonly IUserSettingsRepository _userSettingsRepository;
+        private readonly IUnitSelectionRepository _unitSelectionRepository;
 
-        public CommonHelper(IRoleRepository roleRepository, IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
+        public CommonHelper(IRoleRepository roleRepository, IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository, IUnitSelectionRepository unitSelectionRepository)
         {
             _roleRepository = roleRepository;
             _unitRepository = unitRepository;
             _userSettingsRepository = userSettingsRepository;
+            _unitSelectionRepository = unitSelectionRepository; 
         }
 
-        // Get a list of selected unit id's for the currently logged in user. 
-        public int[] GetSelectedUnitsIdList(string userName)
+        // Get a list of selected unit for the currently logged in user. 
+        public UnitSelection[] GetSelectedUnitsList(string userName)
         {
-            // Get the user settings. 
-            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
+            // Get the user settings Id. 
+            var settings = _userSettingsRepository.GetSettingsByUserName(userName); 
 
             // Handle no settings. 
-            if (currentUserSettings is null)
+            if (settings is null)
             {
                 return null;
             }
 
-            // Return unit settings split in to an array. 
-            return currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToArray();
+            // Return unit selections. 
+            return _unitSelectionRepository.GetSelectionById(settings.Id);
         }
 
         // Get a list of unit properties for the user. 
@@ -50,15 +52,15 @@ namespace RevisionApplication.Helpers
                 return null;
             }
 
-            // Split user settings in to list 
-            var currentUserSettingIds = currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToList();
+            // Get list of selected unit ids. 
+            var currentUnitSelection = _unitSelectionRepository.GetSelectionById(currentUserSettings.Id).Select(u => u.SelectedUnitId).ToList();
 
             List<UnitProperties> properties = new List<UnitProperties>();
 
             // Generate list of properties and update with user selection 
             foreach (var unit in allUnits)
             {
-                properties.Add(new UnitProperties { Id = unit.Id, Name = unit.Name, isSelected = (currentUserSettingIds.Contains(unit.Id)? true : false) });
+                properties.Add(new UnitProperties { Id = unit.Id, Name = unit.Name, isSelected = (currentUnitSelection.Contains(unit.Id)? true : false) });
             }
 
             // Return unit settings split in to an array. 
@@ -85,18 +87,23 @@ namespace RevisionApplication.Helpers
         // Get the user unit settings or return default if not set yet. 
         public string GetUserSettingsOrCreate(string userName)
         {
-            var currentUserSettings = GetSelectedUnitsIdList(userName);
+            // Get settings for Id. 
+            var currentUserSettings = GetSelectedUnitsList(userName);
 
             // If no settings found update user to default settings. 
             if (currentUserSettings is null)
             {
                 var allUnitsIds = _unitRepository.GetAllUnitIds();
-                _userSettingsRepository.AddSettings(new UserSetting { UserName = userName, SelectedUnits = allUnitsIds });
-                currentUserSettings = GetSelectedUnitsIdList(userName);
+                var userSettings = _userSettingsRepository.AddSettings(new UserSetting { UserName = userName });
+                _unitSelectionRepository.AddSettings(userSettings.Id, allUnitsIds);
+                currentUserSettings = GetSelectedUnitsList(userName);
             }
 
+            // Get unit selection for setting id 
+            var unitIdList = currentUserSettings.Select(u => u.SelectedUnitId).ToArray();
+
             // Return as a comma seperated list of unit names. 
-            return string.Join(", ", _unitRepository.GetAllUnits().Where(u => currentUserSettings.Contains(u.Id)).Select(u => u.Name));
+            return string.Join(", ", _unitRepository.GetAllUnits().Where(u => unitIdList.Contains(u.Id)).Select(u => u.Name));
         }
 
         // Get a list of unit names. 
@@ -110,7 +117,7 @@ namespace RevisionApplication.Helpers
         {
             // Get the current user settings 
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
-            var selectedUnits = currentUserSettings.SelectedUnits.Split(',').Select(int.Parse).ToList();
+            var selectedUnits = _unitSelectionRepository.GetSelectionById(currentUserSettings.Id).Select(u => u.SelectedUnitId).ToList();
 
             // Get the id of the units 
             var units = _unitRepository.GetAllUnits().Where(p => selectedUnits.Contains(p.Id));

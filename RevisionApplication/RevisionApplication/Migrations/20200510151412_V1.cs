@@ -84,8 +84,7 @@ namespace RevisionApplication.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserName = table.Column<string>(nullable: true),
-                    SelectedUnits = table.Column<string>(nullable: true)
+                    UserName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -225,6 +224,26 @@ namespace RevisionApplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UnitSelection",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    SelectedUnitId = table.Column<int>(nullable: false),
+                    UserSettingId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UnitSelection", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UnitSelection_UserSettings_UserSettingId",
+                        column: x => x.UserSettingId,
+                        principalTable: "UserSettings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "QuestionRatings",
                 columns: table => new
                 {
@@ -331,6 +350,11 @@ namespace RevisionApplication.Migrations
                 name: "IX_TestQuestions_TestSetId",
                 table: "TestQuestions",
                 column: "TestSetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UnitSelection_UserSettingId",
+                table: "UnitSelection",
+                column: "UserSettingId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -357,7 +381,7 @@ namespace RevisionApplication.Migrations
                 name: "TestQuestions");
 
             migrationBuilder.DropTable(
-                name: "UserSettings");
+                name: "UnitSelection");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -370,6 +394,9 @@ namespace RevisionApplication.Migrations
 
             migrationBuilder.DropTable(
                 name: "TestSet");
+
+            migrationBuilder.DropTable(
+                name: "UserSettings");
 
             migrationBuilder.DropTable(
                 name: "Units");

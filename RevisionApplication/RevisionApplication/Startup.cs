@@ -41,6 +41,7 @@ namespace RevisionApplication
             services.AddTransient<IUnitHelper, UnitHelper>();
             services.AddTransient<IUnitRepository, UnitRepository>();
             services.AddTransient<IUserSettingsRepository, UserSettingsRepository>();
+            services.AddTransient<IUnitSelectionRepository, UnitSelectionRepository>();
 
             // Set up MVC and settings. 
             services.AddDistributedMemoryCache();

@@ -9,11 +9,13 @@ namespace RevisionApplication.Helpers
     {
         private readonly IUnitRepository _unitRepository;
         private readonly IUserSettingsRepository _userSettingsRepository;
+        private readonly IUnitSelectionRepository _unitSelectionRepository;
 
-        public SettingsHelper(IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository)
+        public SettingsHelper(IUnitRepository unitRepository, IUserSettingsRepository userSettingsRepository, IUnitSelectionRepository unitSelectionRepository)
         {
             _unitRepository = unitRepository;
             _userSettingsRepository = userSettingsRepository;
+            _unitSelectionRepository = unitSelectionRepository;
         }
 
         // Get list of all units. 
@@ -23,12 +25,16 @@ namespace RevisionApplication.Helpers
         }
 
         // Update the selected units for the current user. 
-        public void UpdateSelectedUnits(string userName, List<UnitProperties> selectedUnits)
+        public void UpdateSelectedUnits(string userName, List<UnitProperties> units)
         {
             // Get the current user settings and update. 
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
-            currentUserSettings.SelectedUnits = string.Join(",", selectedUnits.Where(x => x.isSelected).Select(x => x.Id));
-            _userSettingsRepository.UpdateSettings(currentUserSettings);
+
+            // Get selected units 
+            var selectedUnits = units.Where(x => x.isSelected).Select(x => x.Id).ToArray();
+
+            // Update selected units 
+            _unitSelectionRepository.UpdateSelection(currentUserSettings.Id, selectedUnits); 
         }
     }
 }

@@ -22,7 +22,7 @@ namespace RevisionApplication.Helpers
         public Question GetMultipleChoiceQuestionBasedOnRating(string userName)
         {
             // Get the currently selected units. 
-            var units = _commonHelper.GetSelectedUnitsIdList(userName);
+            var units = _commonHelper.GetSelectedUnitsList(userName).Select(u => u.SelectedUnitId).ToList();
 
             // Find new question.  
             var question = _questionRepository.GetAllQuestions().Where(q => !_questionRatingRepository.GetAllRatings().Where(r => r.UserName == userName).Select(r => r.QuestionId).Contains(q.Id) && units.Contains(q.UnitId)).FirstOrDefault();

@@ -19,5 +19,6 @@ namespace RevisionApplication.Repository
         public DbSet<TestSet> TestSet { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<UserSetting> UserSettings { get; set; }
+        public DbSet<UnitSelection> UnitSelection { get; set; }
     }
 }

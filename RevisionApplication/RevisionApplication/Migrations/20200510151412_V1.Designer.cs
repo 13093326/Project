@@ -10,7 +10,7 @@ using RevisionApplication.Repository;
 namespace RevisionApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200423084602_V1")]
+    [Migration("20200510151412_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -301,13 +301,28 @@ namespace RevisionApplication.Migrations
                     b.ToTable("Units");
                 });
 
-            modelBuilder.Entity("RevisionApplication.Models.UserSetting", b =>
+            modelBuilder.Entity("RevisionApplication.Models.UnitSelection", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("SelectedUnits");
+                    b.Property<int>("SelectedUnitId");
+
+                    b.Property<int>("UserSettingId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserSettingId");
+
+                    b.ToTable("UnitSelection");
+                });
+
+            modelBuilder.Entity("RevisionApplication.Models.UserSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("UserName");
 
@@ -387,6 +402,14 @@ namespace RevisionApplication.Migrations
                     b.HasOne("RevisionApplication.Models.TestSet", "TestSet")
                         .WithMany("TestQuestions")
                         .HasForeignKey("TestSetId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RevisionApplication.Models.UnitSelection", b =>
+                {
+                    b.HasOne("RevisionApplication.Models.UserSetting", "UserSetting")
+                        .WithMany()
+                        .HasForeignKey("UserSettingId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
