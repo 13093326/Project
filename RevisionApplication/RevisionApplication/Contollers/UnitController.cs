@@ -10,10 +10,12 @@ namespace RevisionApplication.Contollers
     public class UnitController : Controller
     {
         private readonly IUnitHelper _unitHelper;
+        private readonly ICommonHelper _commonHelper;
 
-        public UnitController(IUnitHelper unitHelper)
+        public UnitController(IUnitHelper unitHelper, ICommonHelper commonHelper)
         {
             _unitHelper = unitHelper;
+            _commonHelper = commonHelper;
         }
 
         // Unit list page. 
@@ -38,7 +40,7 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
-            Unit model = _unitHelper.GetUnitById(Id);
+            Unit model = _commonHelper.GetUnitById(Id);
 
             return View(model);
         }

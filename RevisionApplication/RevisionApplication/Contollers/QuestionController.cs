@@ -65,7 +65,7 @@ namespace RevisionApplication.Contollers
         {
             // Get selected question. 
             var question = _questionHelper.GetQuestionById(Id);
-            var unit = _questionHelper.GetUnitById(question.UnitId);
+            var unit = _commonHelper.GetUnitById(question.UnitId);
             List<string> units = _commonHelper.GetUnitNames();
 
             // Create page model. 
