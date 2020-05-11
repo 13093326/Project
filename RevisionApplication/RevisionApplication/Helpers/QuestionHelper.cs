@@ -35,7 +35,7 @@ namespace RevisionApplication.Helpers
         public List<Question> GetAllQuestions(string userName)
         {
             // Get user selected units. 
-            var units = _commonHelper.GetSelectedUnitsList(userName).Select(u => u.SelectedUnitId).ToList();
+            var units = _commonHelper.GetSelectedUnitsList(userName).Select(u => u.SelectedUnitId);
 
             // Get all questions where the unit has been selected. 
             var questions = _questionRepository.GetAllQuestions()

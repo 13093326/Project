@@ -22,9 +22,9 @@ namespace RevisionApplication.Helpers
         }
 
         // Get a list of selected unit for the currently logged in user. 
-        public UnitSelection[] GetSelectedUnitsList(string userName)
+        public List<UnitSelection> GetSelectedUnitsList(string userName)
         {
-            // Get the user settings Id. 
+            // Get the user settings. 
             var settings = _userSettingsRepository.GetSettingsByUserName(userName); 
 
             // Handle no settings. 
@@ -33,37 +33,29 @@ namespace RevisionApplication.Helpers
                 return null;
             }
 
-            // Return unit selections. 
-            return _unitSelectionRepository.GetSelectionById(settings.Id);
+            // Return unit selections for the setting id. 
+            return _unitSelectionRepository.GetSelectionById(settings.Id).ToList();
         }
 
-        // Get a list of unit properties for the user. 
+        // Get a list of units with selection properties for the user. 
         public List<UnitProperties> GetSelectedUnitsProperteisList(string userName)
         {
             // Get all units 
             var allUnits = _unitRepository.GetAllUnits(); 
 
-            // Get the user settings. 
-            var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
-
-            // Handle no settings. 
-            if (currentUserSettings is null)
-            {
-                return null;
-            }
-
             // Get list of selected unit ids. 
-            var currentUnitSelection = _unitSelectionRepository.GetSelectionById(currentUserSettings.Id).Select(u => u.SelectedUnitId).ToList();
+            var currentUnitSelection = GetSelectedUnitsList(userName).Select(u => u.SelectedUnitId).ToList();
 
             List<UnitProperties> properties = new List<UnitProperties>();
 
             // Generate list of properties and update with user selection 
             foreach (var unit in allUnits)
             {
+                // Set the selected units in the list of units. 
                 properties.Add(new UnitProperties { Id = unit.Id, Name = unit.Name, isSelected = (currentUnitSelection.Contains(unit.Id)? true : false) });
             }
 
-            // Return unit settings split in to an array. 
+            // Return list of units with current user selection. 
             return properties; 
         }
 
@@ -84,7 +76,7 @@ namespace RevisionApplication.Helpers
             }
         }
 
-        // Get the user unit settings or return default if not set yet. 
+        // Get comma seperated list of the user unit settings or return default if not set yet. 
         public string GetUserSettingsOrCreate(string userName)
         {
             // Get settings for Id. 

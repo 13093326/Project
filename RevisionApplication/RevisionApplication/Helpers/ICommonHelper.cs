@@ -7,7 +7,7 @@ namespace RevisionApplication.Helpers
     {
         IEnumerable<Unit> GetUserSelectedUnits(string userName);
         string GetUserSettingsOrCreate(string userName);
-        UnitSelection[] GetSelectedUnitsList(string userName);
+        List<UnitSelection> GetSelectedUnitsList(string userName);
         List<UnitProperties> GetSelectedUnitsProperteisList(string userName);
         List<string> GetUnitNames();
         bool IsUserRoleAdmin(string userName);
