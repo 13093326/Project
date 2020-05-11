@@ -27,7 +27,7 @@ namespace RevisionApplication.Helpers
         // Update the selected units for the current user. 
         public void UpdateSelectedUnits(string userName, List<UnitProperties> units)
         {
-            // Get the current user settings and update. 
+            // Get the current user settings. 
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
 
             // Get selected units 
