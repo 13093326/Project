@@ -20,12 +20,6 @@ namespace RevisionApplication.Helpers
             return _unitRepository.GetAllUnits().ToList();
         }
 
-        // Get unit by unit id. 
-        public Unit GetUnitById(int Id)
-        {
-            return _unitRepository.GetUnitById(Id);
-        }
-
         // Update unit. 
         public Unit UpdateUnit(Unit unit)
         {

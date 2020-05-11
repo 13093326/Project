@@ -42,16 +42,16 @@ namespace RevisionApplication.Helpers
             .Join(_unitRepository.GetAllUnits().Where(u => units.Contains(u.Id)), q => q.UnitId, u => u.Id,
             (q, u) => new Question
             {
-            Answer1 = q.Answer1,
-            Answer2 = q.Answer2,
-            Answer3 = q.Answer3,
-            Answer4 = q.Answer4,
-            Content = q.Content,
-            CorrectAnswer = q.CorrectAnswer,
-            Id = q.Id,
-            Reference = q.Reference,
-            UnitId = q.UnitId,
-            Unit = u
+                Answer1 = q.Answer1,
+                Answer2 = q.Answer2,
+                Answer3 = q.Answer3,
+                Answer4 = q.Answer4,
+                Content = q.Content,
+                CorrectAnswer = q.CorrectAnswer,
+                Id = q.Id,
+                Reference = q.Reference,
+                UnitId = q.UnitId,
+                Unit = u
             }).OrderBy(q => q.Id).ToList();
 
             return questions;
@@ -61,12 +61,6 @@ namespace RevisionApplication.Helpers
         public Question GetQuestionById(int Id)
         {
             return _questionRepository.GetQuestionById(Id);
-        }
-
-        // Get unit by unit id. 
-        public Unit GetUnitById(int unitId)
-        {
-            return _unitRepository.GetUnitById(unitId);
         }
 
         // Get unit by unit name. 

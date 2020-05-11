@@ -116,5 +116,11 @@ namespace RevisionApplication.Helpers
 
             return units;
         }
+
+        // Get unit by unit id. 
+        public Unit GetUnitById(int unitId)
+        {
+            return _unitRepository.GetUnitById(unitId);
+        }
     }
 }

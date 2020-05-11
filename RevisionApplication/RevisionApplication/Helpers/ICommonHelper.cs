@@ -11,5 +11,6 @@ namespace RevisionApplication.Helpers
         List<UnitProperties> GetSelectedUnitsProperteisList(string userName);
         List<string> GetUnitNames();
         bool IsUserRoleAdmin(string userName);
+        Unit GetUnitById(int unitId);
     }
 }
