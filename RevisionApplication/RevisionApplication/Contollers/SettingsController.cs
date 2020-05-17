@@ -28,7 +28,7 @@ namespace RevisionApplication.Contollers
             var settingsViewModel = new SettingsViewModel()
             {
                 Title = "Settings",
-                Units = _commonHelper.GetSelectedUnitsProperteisList(User.Identity.Name)
+                Units = _commonHelper.GetSelectedUnitsPropertiesList(User.Identity.Name)
         };
 
             return View(settingsViewModel);

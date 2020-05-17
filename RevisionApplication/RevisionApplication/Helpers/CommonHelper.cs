@@ -38,7 +38,7 @@ namespace RevisionApplication.Helpers
         }
 
         // Get a list of units with selection properties for the user. 
-        public List<UnitProperties> GetSelectedUnitsProperteisList(string userName)
+        public List<UnitProperties> GetSelectedUnitsPropertiesList(string userName)
         {
             // Get all units 
             var allUnits = _unitRepository.GetAllUnits(); 
