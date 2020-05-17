@@ -50,6 +50,7 @@ namespace RevisionApplication.Contollers
 
             // Load original page due to invalid fields. 
             ViewBag.UnitValidation = "Select at least one unit.";
+
             return View(model);
         }
     }
