@@ -79,7 +79,7 @@ namespace RevisionApplication.Helpers
         // Get comma seperated list of the user unit settings or return default if not set yet. 
         public string GetUserSettingsOrCreate(string userName)
         {
-            // Get settings for Id. 
+            // Get settings for user. 
             var currentUserSettings = GetSelectedUnitsList(userName);
 
             // If no settings found update user to default settings. 
