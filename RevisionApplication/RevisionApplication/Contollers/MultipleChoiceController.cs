@@ -17,7 +17,7 @@ namespace RevisionApplication.Contollers
 
         // Multiple choice question page. 
         [HttpGet]
-        public IActionResult Index(int record)
+        public IActionResult Index()
         {
             // Get question based on rating algorithm. 
             var question = _multipleChoiceHelper.GetMultipleChoiceQuestionBasedOnRating(User.Identity.Name); 
@@ -26,8 +26,7 @@ namespace RevisionApplication.Contollers
             var revisionViewModel = new RevisionViewModel()
             {
                 Title = "Multiple Choice Question",
-                Question = question,
-                currentRecord = record
+                Question = question
             };
 
             return View(revisionViewModel);
