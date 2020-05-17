@@ -107,11 +107,11 @@ namespace RevisionApplication.Helpers
         // Get a list of selected units for the currently logged in user. 
         public IEnumerable<Unit> GetUserSelectedUnits(string userName)
         {
-            // Get the current user settings 
+            // Get the current user settings. 
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
             var selectedUnits = _unitSelectionRepository.GetSelectionById(currentUserSettings.Id).Select(u => u.SelectedUnitId).ToList();
 
-            // Get the id of the units 
+            // Get the units for the selection. 
             var units = _unitRepository.GetAllUnits().Where(p => selectedUnits.Contains(p.Id));
 
             return units;
