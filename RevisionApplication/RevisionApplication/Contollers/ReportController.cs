@@ -25,7 +25,7 @@ namespace RevisionApplication.Contollers
             };
 
             // Set report content. 
-            model.QuestionCoverage.AddRange(_reportHelper.questionCoverageReport(User.Identity.Name));
+            model.QuestionCoverage.AddRange(_reportHelper.QuestionCoverageReport(User.Identity.Name));
             model.UnitRating.AddRange(_reportHelper.GetUnitRatingReport(User.Identity.Name));
             model.TestHistory.AddRange(_reportHelper.GetTestHistoryReport(User.Identity.Name));
 

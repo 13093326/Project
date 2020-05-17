@@ -22,7 +22,7 @@ namespace RevisionApplication.Helpers
         }
 
         // Get all data for the question coverage report for the current logged in user. 
-        public IOrderedEnumerable<ReportQuestionCoverage> questionCoverageReport(string userName)
+        public IOrderedEnumerable<ReportQuestionCoverage> QuestionCoverageReport(string userName)
         {
             // Get number of questions for each unit. 
             var questionCoverageCounts = _unitRepository.GetAllUnits()
