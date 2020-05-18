@@ -40,7 +40,7 @@ namespace RevisionApplication.Helpers
         // Get a list of units with selection properties for the user. 
         public List<UnitProperties> GetSelectedUnitsPropertiesList(string userName)
         {
-            // Get all units 
+            // Get all units. 
             var allUnits = _unitRepository.GetAllUnits(); 
 
             // Get list of selected unit ids. 
@@ -48,7 +48,7 @@ namespace RevisionApplication.Helpers
 
             List<UnitProperties> properties = new List<UnitProperties>();
 
-            // Generate list of properties and update with user selection 
+            // Generate list of properties and update with user selection. 
             foreach (var unit in allUnits)
             {
                 // Set the selected units in the list of units. 
@@ -76,7 +76,7 @@ namespace RevisionApplication.Helpers
             }
         }
 
-        // Get comma seperated list of the user unit settings or return default if not set yet. 
+        // Get comma separated list of the user unit settings or return default if not set yet. 
         public string GetUserSettingsOrCreate(string userName)
         {
             // Get settings for user. 
@@ -91,10 +91,10 @@ namespace RevisionApplication.Helpers
                 currentUserSettings = GetSelectedUnitsList(userName);
             }
 
-            // Get unit selection for setting id 
+            // Get unit selection for setting id. 
             var unitIdList = currentUserSettings.Select(u => u.SelectedUnitId).ToArray();
 
-            // Return as a comma seperated list of unit names. 
+            // Return as a comma separated list of unit names. 
             return string.Join(", ", _unitRepository.GetAllUnits().Where(u => unitIdList.Contains(u.Id)).Select(u => u.Name));
         }
 

@@ -81,15 +81,15 @@ namespace RevisionApplication.Helpers
         // Create new test set. 
         private TestSet CreateTestSet(string userName)
         {
-            // Add new test set 
+            // Add new test set. 
             var testSet = _testSetRepository.AddTestSet(new TestSet { UserName = userName, Complete = false });
 
-            // Get questions 
+            // Get questions. 
             IEnumerable<Question> testQuestions = GetQuestions(userName);
 
             List<TestQuestion> testQuestionSet = new List<TestQuestion>();
 
-            // Add questions to test set 
+            // Add questions to test set. 
             foreach (var question in testQuestions)
             {
                 testQuestionSet.Add(new TestQuestion { TestSet = testSet, QuestionId = question.Id, Result = "None" });
@@ -110,37 +110,37 @@ namespace RevisionApplication.Helpers
         // Get questions for the selected units for a user. 
         private IEnumerable<Question> GetQuestions(string userName)
         {
-            // Get question ids for the selected units 
+            // Get question ids for the selected units. 
             var allValidQuestionIds = GetAllValidQuestionId(userName);
 
-            // Default to using all the questions in the test 
+            // Default to using all the questions in the test. 
             var testQuestionIds = allValidQuestionIds;
 
-            // Check there is enough questions to make a random selection 
+            // Check there is enough questions to make a random selection. 
             if (allValidQuestionIds.Count() > 50)
             {
-                // Set up for question selection 
+                // Set up for question selection. 
                 Random random = new Random();
                 HashSet<int> numbersHash = new HashSet<int>(allValidQuestionIds.OrderBy(x => random.Next()));
                 HashSet<int> selectedHash = new HashSet<int>();
 
-                // Select 50 questions 
+                // Select 50 questions. 
                 for (int i = 0; i < 50; i++)
                 {
-                    // Get next question 
+                    // Get next question. 
                     var index = random.Next(0, numbersHash.Count() - 1);
                     var questionId = numbersHash.ElementAt(index);
 
-                    // Store question and ensure it is not picked again 
+                    // Store question and ensure it is not picked again. 
                     selectedHash.Add(questionId);
                     numbersHash.Remove(questionId);
                 }
 
-                // Update the list of questions with those selected 
+                // Update the list of questions with those selected. 
                 testQuestionIds = selectedHash.ToList();
             }
 
-            // Get the selected questions 
+            // Get the selected questions. 
             return _questionRepository.GetAllQuestions().Where(q => testQuestionIds.Contains(q.Id));
         }
 

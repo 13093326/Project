@@ -74,7 +74,7 @@ namespace RevisionApplication
             app.UseAuthentication();
             app.UseMvc(routes =>
             {
-                // Default route 
+                // Default route. 
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}"

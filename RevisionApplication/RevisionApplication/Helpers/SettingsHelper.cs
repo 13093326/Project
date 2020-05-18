@@ -30,10 +30,10 @@ namespace RevisionApplication.Helpers
             // Get the current user settings. 
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
 
-            // Get selected units 
+            // Get selected units. 
             var selectedUnits = units.Where(x => x.isSelected).Select(x => x.Id).ToArray();
 
-            // Update selected units 
+            // Update selected units. 
             _unitSelectionRepository.UpdateSelection(currentUserSettings.Id, selectedUnits); 
         }
     }
