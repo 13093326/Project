@@ -24,7 +24,7 @@ namespace RevisionApplication.Helpers
 
             // Get questions in random order for the currently selected units and does not match the record. 
             Random random = new Random();
-            var allValidQuestionIds = _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit) && p.Id != record).OrderBy(x => random.Next()).Select(p => p.Id);
+            var allValidQuestionIds = _questionRepository.GetAllQuestions().Where(q => units.Contains(q.Unit) && q.Id != record).OrderBy(x => random.Next()).Select(q => q.Id);
 
             // Make a random selection from the randomly ordered list. 
             if (allValidQuestionIds.Count() > 0)
