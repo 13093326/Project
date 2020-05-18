@@ -20,7 +20,7 @@ namespace RevisionApplication.Repository
 
         public TestSet GetTestSetById(int testSetId)
         {
-            return _appDbContext.TestSet.FirstOrDefault(q => q.Id == testSetId);
+            return _appDbContext.TestSet.FirstOrDefault(t => t.Id == testSetId);
         }
 
         public TestSet AddTestSet(TestSet testSet)

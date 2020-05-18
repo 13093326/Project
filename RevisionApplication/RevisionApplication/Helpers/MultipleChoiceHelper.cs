@@ -83,7 +83,7 @@ namespace RevisionApplication.Helpers
         private bool UpdateRating(string userName, int questionId, bool isCorrect)
         {
             // Get the rating. 
-            var rating = _questionRatingRepository.GetAllRatings().Where(x => x.QuestionId == questionId && x.UserName.Equals(userName)).FirstOrDefault();
+            var rating = _questionRatingRepository.GetAllRatings().Where(q => q.QuestionId == questionId && q.UserName.Equals(userName)).FirstOrDefault();
 
             // Check if rating found. 
             if (rating != null)

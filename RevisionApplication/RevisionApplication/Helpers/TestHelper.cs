@@ -37,7 +37,7 @@ namespace RevisionApplication.Helpers
         // Get current test set for a user. 
         public TestSet GetCurrentTestSet(string userName)
         {
-            return _testSetRepository.GetAllTestSets().Where(p => p.UserName.Equals(userName)).Where(p => p.Complete == false).OrderBy(p => p.Id).FirstOrDefault();
+            return _testSetRepository.GetAllTestSets().Where(t => t.UserName.Equals(userName)).Where(t => t.Complete == false).OrderBy(t => t.Id).FirstOrDefault();
         }
 
         // Get the next question in the test for a user. 
@@ -51,7 +51,7 @@ namespace RevisionApplication.Helpers
                 currentTestSet = CreateTestSet(userName);
             }
 
-            return _testQuestionRepository.GetAllTestQuestions().Where(p => p.Result.Equals("None") && p.TestSetId == currentTestSet.Id).OrderBy(p => p.Id).FirstOrDefault();
+            return _testQuestionRepository.GetAllTestQuestions().Where(t => t.Result.Equals("None") && t.TestSetId == currentTestSet.Id).OrderBy(t => t.Id).FirstOrDefault();
         }
 
         // Get a question by question id. 
@@ -105,7 +105,7 @@ namespace RevisionApplication.Helpers
         private IEnumerable<int> GetAllValidQuestionId(string userName)
         {
             var units = _commonHelper.GetUserSelectedUnits(userName);
-            return _questionRepository.GetAllQuestions().Where(p => units.Contains(p.Unit)).Select(p => p.Id);
+            return _questionRepository.GetAllQuestions().Where(q => units.Contains(q.Unit)).Select(q => q.Id);
         }
 
         // Get questions for the selected units for a user. 
@@ -142,13 +142,13 @@ namespace RevisionApplication.Helpers
             }
 
             // Get the selected questions 
-            return _questionRepository.GetAllQuestions().Where(p => testQuestionIds.Contains(p.Id));
+            return _questionRepository.GetAllQuestions().Where(q => testQuestionIds.Contains(q.Id));
         }
 
         // Set a test score for the a test set. 
         private TestSet SetTestScore(TestSet testSet)
         {
-            var results = _testQuestionRepository.GetAllTestQuestions().Where(p => p.TestSetId == testSet.Id);
+            var results = _testQuestionRepository.GetAllTestQuestions().Where(t => t.TestSetId == testSet.Id);
 
             int totalCount = 0;
             int correctCount = 0;

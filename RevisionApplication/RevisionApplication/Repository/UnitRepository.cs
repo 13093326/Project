@@ -47,7 +47,7 @@ namespace RevisionApplication.Repository
 
         public int[] GetAllUnitIds()
         {
-            return GetAllUnits().Select(item => item.Id).ToArray();
+            return GetAllUnits().Select(u => u.Id).ToArray();
         }
     }
 }
