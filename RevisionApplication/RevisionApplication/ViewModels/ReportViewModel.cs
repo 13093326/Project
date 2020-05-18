@@ -6,7 +6,6 @@ namespace RevisionApplication.ViewModels
 {
     public class ReportViewModel
     {
-        [DisplayName("Ttile")]
         public string Title { get; set; }
         public List<ReportQuestionCoverage> QuestionCoverage { get; set; }
         public List<ReportUnitRating> UnitRating { get; set; }

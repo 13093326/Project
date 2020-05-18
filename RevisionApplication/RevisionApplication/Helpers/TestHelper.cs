@@ -87,10 +87,9 @@ namespace RevisionApplication.Helpers
             // Get questions 
             IEnumerable<Question> testQuestions = GetQuestions(userName);
 
-            // Add questions to test set 
             List<TestQuestion> testQuestionSet = new List<TestQuestion>();
 
-            // Insert questions in to test questions 
+            // Add questions to test set 
             foreach (var question in testQuestions)
             {
                 testQuestionSet.Add(new TestQuestion { TestSet = testSet, QuestionId = question.Id, Result = "None" });
@@ -101,7 +100,7 @@ namespace RevisionApplication.Helpers
             return testSet;
         }
 
-        // Get all questions for the selected units a user. 
+        // Get all question id for the selected units for a user. 
         private IEnumerable<int> GetAllValidQuestionId(string userName)
         {
             var units = _commonHelper.GetUserSelectedUnits(userName);
@@ -145,7 +144,7 @@ namespace RevisionApplication.Helpers
             return _questionRepository.GetAllQuestions().Where(q => testQuestionIds.Contains(q.Id));
         }
 
-        // Set a test score for the a test set. 
+        // Set a test score for a set. 
         private TestSet SetTestScore(TestSet testSet)
         {
             var results = _testQuestionRepository.GetAllTestQuestions().Where(t => t.TestSetId == testSet.Id);
