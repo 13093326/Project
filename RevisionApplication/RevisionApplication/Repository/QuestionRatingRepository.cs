@@ -23,17 +23,17 @@ namespace RevisionApplication.Repository
 
         public IEnumerable<QuestionRating> GetAllRatings()
         {
-            return _appDbContext.QuestionRatings;
+            return _appDbContext.QuestionRating;
         }
 
         public QuestionRating GetRatingByQuestionId(int questionId)
         {
-            return _appDbContext.QuestionRatings.FirstOrDefault(q => q.QuestionId == questionId);
+            return _appDbContext.QuestionRating.FirstOrDefault(q => q.QuestionId == questionId);
         }
 
         public QuestionRating UpdateRating(QuestionRating questionRating)
         {
-            _appDbContext.QuestionRatings.Update(questionRating);
+            _appDbContext.QuestionRating.Update(questionRating);
             _appDbContext.SaveChanges();
 
             return questionRating;

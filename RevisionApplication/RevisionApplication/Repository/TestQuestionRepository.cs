@@ -15,7 +15,7 @@ namespace RevisionApplication.Repository
 
         public IEnumerable<TestQuestion> GetAllTestQuestions()
         {
-            return _appDbContext.TestQuestions;
+            return _appDbContext.TestQuestion;
         }
 
         public bool AddTestQuestion(TestQuestion testQuestion)
@@ -36,12 +36,12 @@ namespace RevisionApplication.Repository
 
         public TestQuestion GetTestQuestionById(int testQuestionId)
         {
-            return _appDbContext.TestQuestions.FirstOrDefault(q => q.Id == testQuestionId);
+            return _appDbContext.TestQuestion.FirstOrDefault(q => q.Id == testQuestionId);
         }
 
         public bool UpdateTestQuestion(TestQuestion testQuestion)
         {
-            _appDbContext.TestQuestions.Update(testQuestion);
+            _appDbContext.TestQuestion.Update(testQuestion);
             _appDbContext.SaveChanges();
 
             return true;

@@ -16,12 +16,12 @@ namespace RevisionApplication.Repository
 
         public IEnumerable<Unit> GetAllUnits()
         {
-            return _appDbContext.Units;
+            return _appDbContext.Unit;
         }
 
         public Unit UpdateUnit(Unit unit)
         {
-            _appDbContext.Units.Update(unit);
+            _appDbContext.Unit.Update(unit);
             _appDbContext.SaveChanges();
 
             return unit;
@@ -29,12 +29,12 @@ namespace RevisionApplication.Repository
 
         public Unit GetUnitByName(string name)
         {
-            return _appDbContext.Units.FirstOrDefault(u => u.Name.Equals(name));
+            return _appDbContext.Unit.FirstOrDefault(u => u.Name.Equals(name));
         }
 
         public Unit GetUnitById(int Id)
         {
-            return _appDbContext.Units.FirstOrDefault(u => u.Id == Id);
+            return _appDbContext.Unit.FirstOrDefault(u => u.Id == Id);
         }
 
         public bool AddUnit(Unit unit)

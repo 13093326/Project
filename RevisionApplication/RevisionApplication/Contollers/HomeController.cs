@@ -45,7 +45,7 @@ namespace RevisionApplication.Contollers
             {
                 Title = "Main Menu",
                 SelectedUnits = units,
-                isAdmin = isUserAdminRole
+                IsAdmin = isUserAdminRole
             };
 
             return View(homeViewModel);

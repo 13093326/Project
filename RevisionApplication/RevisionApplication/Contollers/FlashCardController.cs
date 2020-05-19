@@ -33,7 +33,7 @@ namespace RevisionApplication.Contollers
             {
                 Title = "Flash Card Question",
                 Question = question,
-                currentRecord = record
+                CurrentRecord = record
             };
 
             return View(revisionViewModel);            

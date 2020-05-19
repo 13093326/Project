@@ -13,12 +13,12 @@ namespace RevisionApplication.Repository
         }
 
         // Set the objects for the code first database. 
-        public DbSet<QuestionRating> QuestionRatings { get; set; }
-        public DbSet<Question> Questions { get; set; }
-        public DbSet<TestQuestion> TestQuestions { get; set; }
+        public DbSet<QuestionRating> QuestionRating { get; set; }
+        public DbSet<Question> Question { get; set; }
+        public DbSet<TestQuestion> TestQuestion { get; set; }
         public DbSet<TestSet> TestSet { get; set; }
-        public DbSet<Unit> Units { get; set; }
-        public DbSet<UserSetting> UserSettings { get; set; }
+        public DbSet<Unit> Unit { get; set; }
+        public DbSet<UserSetting> UserSetting { get; set; }
         public DbSet<UnitSelection> UnitSelection { get; set; }
     }
 }

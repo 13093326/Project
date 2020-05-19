@@ -33,7 +33,7 @@ namespace RevisionApplication.Contollers
                 {
                     Title = "Test",
                     Question = nextQuestion,
-                    currentRecord = nextTestQuestion.Id
+                    CurrentRecord = nextTestQuestion.Id
                 };
 
                 return View(testViewModel);
@@ -57,7 +57,7 @@ namespace RevisionApplication.Contollers
             {
                 // Record answer result. 
                 var result = (model.ChosenAnswer.Equals(model.Question.CorrectAnswer)) ? "True" : "False";
-                var testQuestion = _testHelper.GetTestQuestionById(model.currentRecord);
+                var testQuestion = _testHelper.GetTestQuestionById(model.CurrentRecord);
                 testQuestion.Result = result;
                 _testHelper.UpdateTestQuestion(testQuestion);
 

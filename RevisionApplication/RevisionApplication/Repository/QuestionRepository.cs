@@ -16,13 +16,13 @@ namespace RevisionApplication.Repository
 
         public IEnumerable<Question> GetAllQuestions()
         {
-            return _appDbContext.Questions;
+            return _appDbContext.Question;
         }
 
         public Question GetQuestionById(int questionId)
         {
 
-            return _appDbContext.Questions.FirstOrDefault(q => q.Id == questionId);
+            return _appDbContext.Question.FirstOrDefault(q => q.Id == questionId);
         }
 
         public bool AddQuestion(Question question)
@@ -36,7 +36,7 @@ namespace RevisionApplication.Repository
 
         public Question UpdateQuestion(Question question)
         {
-            _appDbContext.Questions.Update(question);
+            _appDbContext.Question.Update(question);
             _appDbContext.SaveChanges();
 
             return question;
@@ -45,7 +45,7 @@ namespace RevisionApplication.Repository
         public bool DeleteQuestion(int questionId)
         {
             Question question = GetQuestionById(questionId);
-            _appDbContext.Questions.Remove(question);
+            _appDbContext.Question.Remove(question);
             _appDbContext.SaveChanges();
 
             return true; 

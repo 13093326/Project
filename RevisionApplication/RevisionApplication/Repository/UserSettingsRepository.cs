@@ -22,12 +22,12 @@ namespace RevisionApplication.Repository
 
         public UserSetting GetSettingsByUserName(string userName)
         {
-            return _appDbContext.UserSettings.FirstOrDefault(u => u.UserName.Equals(userName));
+            return _appDbContext.UserSetting.FirstOrDefault(u => u.UserName.Equals(userName));
         }
 
         public UserSetting UpdateSettings(UserSetting userSetting)
         {
-            _appDbContext.UserSettings.Update(userSetting);
+            _appDbContext.UserSetting.Update(userSetting);
             _appDbContext.SaveChanges();
 
             return userSetting;

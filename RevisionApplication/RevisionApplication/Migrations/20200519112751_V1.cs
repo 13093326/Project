@@ -66,7 +66,7 @@ namespace RevisionApplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Units",
+                name: "Unit",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -75,11 +75,11 @@ namespace RevisionApplication.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Units", x => x.Id);
+                    table.PrimaryKey("PK_Unit", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserSettings",
+                name: "UserSetting",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -88,7 +88,7 @@ namespace RevisionApplication.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserSettings", x => x.Id);
+                    table.PrimaryKey("PK_UserSetting", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -198,7 +198,7 @@ namespace RevisionApplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Questions",
+                name: "Question",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -214,11 +214,11 @@ namespace RevisionApplication.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Questions", x => x.Id);
+                    table.PrimaryKey("PK_Question", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Questions_Units_UnitId",
+                        name: "FK_Question_Unit_UnitId",
                         column: x => x.UnitId,
-                        principalTable: "Units",
+                        principalTable: "Unit",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -236,15 +236,15 @@ namespace RevisionApplication.Migrations
                 {
                     table.PrimaryKey("PK_UnitSelection", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UnitSelection_UserSettings_UserSettingId",
+                        name: "FK_UnitSelection_UserSetting_UserSettingId",
                         column: x => x.UserSettingId,
-                        principalTable: "UserSettings",
+                        principalTable: "UserSetting",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "QuestionRatings",
+                name: "QuestionRating",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -256,17 +256,17 @@ namespace RevisionApplication.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuestionRatings", x => x.Id);
+                    table.PrimaryKey("PK_QuestionRating", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_QuestionRatings_Questions_QuestionId",
+                        name: "FK_QuestionRating_Question_QuestionId",
                         column: x => x.QuestionId,
-                        principalTable: "Questions",
+                        principalTable: "Question",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TestQuestions",
+                name: "TestQuestion",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -277,15 +277,15 @@ namespace RevisionApplication.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TestQuestions", x => x.Id);
+                    table.PrimaryKey("PK_TestQuestion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TestQuestions_Questions_QuestionId",
+                        name: "FK_TestQuestion_Question_QuestionId",
                         column: x => x.QuestionId,
-                        principalTable: "Questions",
+                        principalTable: "Question",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TestQuestions_TestSet_TestSetId",
+                        name: "FK_TestQuestion_TestSet_TestSetId",
                         column: x => x.TestSetId,
                         principalTable: "TestSet",
                         principalColumn: "Id",
@@ -332,23 +332,23 @@ namespace RevisionApplication.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QuestionRatings_QuestionId",
-                table: "QuestionRatings",
-                column: "QuestionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Questions_UnitId",
-                table: "Questions",
+                name: "IX_Question_UnitId",
+                table: "Question",
                 column: "UnitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TestQuestions_QuestionId",
-                table: "TestQuestions",
+                name: "IX_QuestionRating_QuestionId",
+                table: "QuestionRating",
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TestQuestions_TestSetId",
-                table: "TestQuestions",
+                name: "IX_TestQuestion_QuestionId",
+                table: "TestQuestion",
+                column: "QuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestQuestion_TestSetId",
+                table: "TestQuestion",
                 column: "TestSetId");
 
             migrationBuilder.CreateIndex(
@@ -375,10 +375,10 @@ namespace RevisionApplication.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "QuestionRatings");
+                name: "QuestionRating");
 
             migrationBuilder.DropTable(
-                name: "TestQuestions");
+                name: "TestQuestion");
 
             migrationBuilder.DropTable(
                 name: "UnitSelection");
@@ -390,16 +390,16 @@ namespace RevisionApplication.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Questions");
+                name: "Question");
 
             migrationBuilder.DropTable(
                 name: "TestSet");
 
             migrationBuilder.DropTable(
-                name: "UserSettings");
+                name: "UserSetting");
 
             migrationBuilder.DropTable(
-                name: "Units");
+                name: "Unit");
         }
     }
 }

@@ -53,7 +53,7 @@ namespace RevisionApplication.Repository
             }
 
             // Check for units. 
-            if (!context.Units.Any())
+            if (!context.Unit.Any())
             {
                 var Unit1 = new Unit { Name = "Unit 1" };
                 var Unit2 = new Unit { Name = "Unit 2" };

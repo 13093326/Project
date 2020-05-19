@@ -216,7 +216,7 @@ namespace RevisionApplication.Migrations
 
                     b.HasIndex("UnitId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Question");
                 });
 
             modelBuilder.Entity("RevisionApplication.Models.QuestionRating", b =>
@@ -237,7 +237,7 @@ namespace RevisionApplication.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("QuestionRatings");
+                    b.ToTable("QuestionRating");
                 });
 
             modelBuilder.Entity("RevisionApplication.Models.TestQuestion", b =>
@@ -258,7 +258,7 @@ namespace RevisionApplication.Migrations
 
                     b.HasIndex("TestSetId");
 
-                    b.ToTable("TestQuestions");
+                    b.ToTable("TestQuestion");
                 });
 
             modelBuilder.Entity("RevisionApplication.Models.TestSet", b =>
@@ -296,7 +296,7 @@ namespace RevisionApplication.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Units");
+                    b.ToTable("Unit");
                 });
 
             modelBuilder.Entity("RevisionApplication.Models.UnitSelection", b =>
@@ -326,7 +326,7 @@ namespace RevisionApplication.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserSettings");
+                    b.ToTable("UserSetting");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
