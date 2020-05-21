@@ -64,12 +64,6 @@ h2, .item-label {
     margin: 0 auto;
 }
 
-.wrapper:after {
-    display: table;
-    content: " ";
-    clear: both;
-}
-
 .units {
     font-weight: bold;
     color: #473729;
