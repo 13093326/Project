@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Unit>
+﻿@model UnitListViewModel
+
+<h1>@Model.Title</h1>
 
 @Html.ActionLink("Add Unit", "Add")
 
@@ -6,12 +8,12 @@
     <thead>
         <tr>
             <th colspan="2">
-                @Html.DisplayNameFor(model => model.First().Name)
+                @Html.DisplayNameFor(model => model.Units.First().Name)
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Units)
         {
             <tr>
                 <td>

@@ -1,8 +1,6 @@
-﻿@model Unit
+﻿@model UnitViewModel
 
-<p class="item-label">
-    Edit Unit:
-</p>
+<h1>@Model.Title</h1>
 
 @using (Html.BeginForm("Edit", "Unit", FormMethod.Post))
 {
@@ -10,11 +8,11 @@
     <tbody>
         <tr>
             <td class="single-column left-2-col">
-                @Html.DisplayNameFor(m => m.Name)
+                @Html.DisplayNameFor(m => m.Unit.Name)
             </td>
             <td class="single-column right-2-col">
-                @Html.TextAreaFor(m => m.Name, new { @class = "area" })
-                @Html.ValidationMessageFor(m => m.Name)
+                @Html.TextAreaFor(m => m.Unit.Name, new { @class = "area" })
+                @Html.ValidationMessageFor(m => m.Unit.Name)
             </td>
         </tr>
         <tr>
@@ -25,7 +23,7 @@
     </tbody>
 </table>
 
-@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.Unit.Id)
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

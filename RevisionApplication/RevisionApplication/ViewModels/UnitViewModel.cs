@@ -1,11 +1,10 @@
 ﻿using RevisionApplication.Models;
-using System.Collections.Generic;
 
 namespace RevisionApplication.ViewModels
 {
-    public class SettingsViewModel
+    public class UnitViewModel
     {
         public string Title { get; set; }
-        public List<UnitProperties> Units { get; set; }
+        public Unit Unit { get; set; }
     }
 }

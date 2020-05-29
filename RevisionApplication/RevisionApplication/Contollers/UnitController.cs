@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
 using RevisionApplication.Models;
-using System.Collections.Generic;
+using RevisionApplication.ViewModels;
 
 namespace RevisionApplication.Contollers
 {
@@ -22,7 +22,11 @@ namespace RevisionApplication.Contollers
         public IActionResult Index()
         {
             // Display all units. 
-            List<Unit> model = _unitHelper.GetAllUnits();
+            UnitListViewModel model = new UnitListViewModel
+            {
+                Title = "Units",
+                Units = _unitHelper.GetAllUnits()
+            };
 
             return View(model);
         }
@@ -31,7 +35,11 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Add()
         {
-            Unit model = new Unit();
+            UnitViewModel model = new UnitViewModel
+            {
+                Title = "Add Unit",
+                Unit = new Unit()
+            };
 
             return View(model);
         }
@@ -40,45 +48,49 @@ namespace RevisionApplication.Contollers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
-            Unit model = _commonHelper.GetUnitById(Id);
+            UnitViewModel model = new UnitViewModel
+            {
+                Title = "Edit Unit",
+                Unit = _commonHelper.GetUnitById(Id)
+            };
 
             return View(model);
         }
 
         // Post edit unit. 
         [HttpPost]
-        public IActionResult Edit(Unit unit)
+        public IActionResult Edit(UnitViewModel model)
         {
             // Check fields valid. 
             if (ModelState.IsValid)
             {
                 // Update selected unit. 
-                _unitHelper.UpdateUnit(unit);
+                _unitHelper.UpdateUnit(model.Unit);
 
                 // Load unit list. 
                 return RedirectToAction("Index", "Unit");
             }
 
             // Load original page due to invalid fields. 
-            return View(unit);
+            return View(model);
         }
 
         // Post add unit. 
         [HttpPost]
-        public IActionResult Add(Unit unit)
+        public IActionResult Add(UnitViewModel model)
         {
             // Check fields valid. 
             if (ModelState.IsValid)
             {
                 // Add new unit. 
-                _unitHelper.AddUnit(unit);
+                _unitHelper.AddUnit(model.Unit);
 
                 // Load unit list. 
                 return RedirectToAction("Index", "Unit");
             }
 
             // Load original page due to invalid fields. 
-            return View(unit);
+            return View(model);
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿@model Unit
+﻿@model UnitViewModel
 
-<p class="item-label">
-    Add Unit:
-</p>
+<h1>@Model.Title</h1>
 
 @using (Html.BeginForm("Add", "Unit", FormMethod.Post))
 {
@@ -13,8 +11,8 @@
                     Unit:
                 </td>
                 <td class="single-column right-2-col">
-                    @Html.TextAreaFor(m => m.Name, new { @class = "area" })
-                    @Html.ValidationMessageFor(m => m.Name)
+                    @Html.TextAreaFor(m => m.Unit.Name, new { @class = "area" })
+                    @Html.ValidationMessageFor(m => m.Unit.Name)
                 </td>
             </tr>
             <tr>

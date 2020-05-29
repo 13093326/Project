@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace RevisionApplication.ViewModels
 {
-    public class SettingsViewModel
+    public class UnitListViewModel
     {
         public string Title { get; set; }
-        public List<UnitProperties> Units { get; set; }
+        public List<Unit> Units { get; set; }
     }
 }
