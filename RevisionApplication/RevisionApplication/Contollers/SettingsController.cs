@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RevisionApplication.Helpers;
-using RevisionApplication.Models;
 using RevisionApplication.ViewModels;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace RevisionApplication.Contollers
@@ -39,7 +37,7 @@ namespace RevisionApplication.Contollers
         public IActionResult Index(SettingsViewModel model)
         {
             // Check fields valid. 
-            if (model.Units.Count() > 0 && model.Units.Where(x => x.isSelected).Count() > 0)
+            if (model.Units.Count() > 0 && model.Units.Where(x => x.IsSelected).Count() > 0)
             {
                 // Update unit selection. 
                 _settingsHelper.UpdateSelectedUnits(User.Identity.Name, model.Units);

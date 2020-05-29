@@ -1,6 +1,5 @@
 ﻿using RevisionApplication.Models;
 using RevisionApplication.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -52,7 +51,7 @@ namespace RevisionApplication.Helpers
             foreach (var unit in allUnits)
             {
                 // Set the selected units in the list of units. 
-                properties.Add(new UnitProperties { Id = unit.Id, Name = unit.Name, isSelected = (currentUnitSelection.Contains(unit.Id)? true : false) });
+                properties.Add(new UnitProperties { Id = unit.Id, Name = unit.Name, IsSelected = (currentUnitSelection.Contains(unit.Id)? true : false) });
             }
 
             // Return list of units with current user selection. 

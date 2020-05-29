@@ -31,7 +31,7 @@ namespace RevisionApplication.Helpers
             var currentUserSettings = _userSettingsRepository.GetSettingsByUserName(userName);
 
             // Get selected units. 
-            var selectedUnits = units.Where(x => x.isSelected).Select(x => x.Id).ToArray();
+            var selectedUnits = units.Where(x => x.IsSelected).Select(x => x.Id).ToArray();
 
             // Update selected units. 
             _unitSelectionRepository.UpdateSelection(currentUserSettings.Id, selectedUnits); 
