@@ -71,6 +71,9 @@ namespace RevisionApplication.Contollers
                 return RedirectToAction("Index", "Unit");
             }
 
+            // Set title. 
+            model.Title = "Edit Unit";
+
             // Load original page due to invalid fields. 
             return View(model);
         }
@@ -88,6 +91,9 @@ namespace RevisionApplication.Contollers
                 // Load unit list. 
                 return RedirectToAction("Index", "Unit");
             }
+
+            // Set title. 
+            model.Title = "Add Unit";
 
             // Load original page due to invalid fields. 
             return View(model);

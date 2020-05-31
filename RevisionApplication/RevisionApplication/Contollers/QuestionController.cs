@@ -180,7 +180,8 @@ namespace RevisionApplication.Contollers
                 }
             }
 
-            // Set unit list names for page. 
+            // Set title and unit list names for page. 
+            model.Title = "Add Question";
             model.Units = _commonHelper.GetUnitNames();
 
             // Load original page due to invalid fields. 
